@@ -27,6 +27,8 @@ const copy = {
     stage: "Escenario",
     studio: "Estudio",
     rate: "Velocidad",
+    vol: "Volumen",
+    pitch: "Tono",
     voiceL: "Voz",
     twWait: "conectando",
     twLive: "al aire",
@@ -80,6 +82,8 @@ const copy = {
     stage: "Stage",
     studio: "Studio",
     rate: "Rate",
+    vol: "Volume",
+    pitch: "Pitch",
     voiceL: "Voice",
     twWait: "connecting",
     twLive: "on air",
@@ -114,6 +118,8 @@ let ttsOn = true;
 let readName = true;
 let paused = false;
 let rate = 1;
+let volume = 1;
+let pitch = 1;
 let twitchOn = false;
 let tiktokOn = false;
 let demoOn = true;
@@ -166,6 +172,26 @@ function setDot(id, state) {
   $(id).className = "dot" + (state === "live" ? " live" : state === "error" ? " err" : state === "connecting" ? " wait" : "");
 }
 
+function shouldSkipSpeak(text) {
+  const raw = String(text || "").trim();
+  if (!raw) return true;
+  if (raw.charAt(0) === "!") return true;
+  if (/^https?:\/\//i.test(raw)) return true;
+  if (/^[\w.-]+\.[a-z]{2,}\/\S+/i.test(raw)) return true;
+  return false;
+}
+
+function applyVoice(u) {
+  u.rate = rate;
+  u.volume = volume;
+  u.pitch = pitch;
+  const pref = pickVoice();
+  if (pref) {
+    u.voice = pref;
+    u.lang = pref.lang || u.lang;
+  }
+}
+
 function applyLang() {
   const c = t();
   $("h-src").textContent = c.src;
@@ -187,6 +213,8 @@ function applyLang() {
   $("now-k").textContent = speaking ? c.reading : c.waiting;
   $("stage").textContent = document.body.classList.contains("stage") ? c.studio : c.stage;
   $("rate-l").textContent = c.rate;
+  if ($("vol-l")) $("vol-l").textContent = c.vol;
+  if ($("pitch-l")) $("pitch-l").textContent = c.pitch;
   $("voice-l").textContent = c.voiceL;
   $("ttkey-l").textContent = c.ttKeyL;
   $("ttkey-toggle").textContent = keyVisible ? c.hideKey : c.showKey;
@@ -225,13 +253,8 @@ function speakReady() {
   speakStarted = Date.now();
   const u = new SpeechSynthesisUtterance(t().speak);
   u.lang = lang === "es" ? "es-ES" : "en-US";
-  u.rate = rate;
-  const pref = pickVoice();
-  if (pref) {
-    u.voice = pref;
-    u.lang = pref.lang || u.lang;
-  }
-  u.onend = function () { kick(); };
+  applyVoice(u);
+  u.onend = function () { speaking = null; kick(); };
   u.onerror = function () { speaking = null; setTimeout(kick, 120); };
   try {
     speechSynthesis.resume();
@@ -268,8 +291,7 @@ function addMsg(m) {
     else break;
   }
   $("msgcount").textContent = msgN + (lang === "es" ? " mensajes" : " messages");
-  const raw = String(m.text || "").trim();
-  if (raw.charAt(0) === "!") return;
+  if (shouldSkipSpeak(m.text)) return;
   if (ttsOn && unlocked) {
     if (queue.length >= 10) queue.shift();
     queue.push(m);
@@ -336,12 +358,7 @@ function kick() {
   $("now-user").textContent = (next.displayName || next.user || "") + (next.platform ? " - " + next.platform : "");
   const u = new SpeechSynthesisUtterance(speechText(next));
   u.lang = lang === "es" ? "es-ES" : "en-US";
-  u.rate = rate;
-  const pref = pickVoice();
-  if (pref) {
-    u.voice = pref;
-    u.lang = pref.lang || u.lang;
-  }
+  applyVoice(u);
   u.onend = function () { speaking = null; kick(); };
   u.onerror = function () { speaking = null; setTimeout(kick, 120); };
   try {
@@ -643,6 +660,8 @@ function save() {
       ttsOn: ttsOn,
       readName: readName,
       rate: rate,
+      volume: volume,
+      pitch: pitch,
       selectedVoice: selectedVoice,
       demoOn: demoOn
     }));
@@ -671,6 +690,20 @@ function load() {
       rate = Number(s.rate);
       $("rate").value = rate;
       $("rate-v").textContent = rate.toFixed(1) + "x";
+    }
+    if (s.volume) {
+      volume = Number(s.volume);
+      if ($("vol")) {
+        $("vol").value = volume;
+        $("vol-v").textContent = volume.toFixed(1);
+      }
+    }
+    if (s.pitch) {
+      pitch = Number(s.pitch);
+      if ($("pitch")) {
+        $("pitch").value = pitch;
+        $("pitch-v").textContent = pitch.toFixed(1);
+      }
     }
     if (s.selectedVoice) selectedVoice = s.selectedVoice;
     if (typeof s.demoOn === "boolean") demoOn = s.demoOn;
@@ -721,6 +754,20 @@ $("rate").oninput = function (e) {
   $("rate-v").textContent = rate.toFixed(1) + "x";
   save();
 };
+if ($("vol")) {
+  $("vol").oninput = function (e) {
+    volume = Number(e.target.value);
+    $("vol-v").textContent = volume.toFixed(1);
+    save();
+  };
+}
+if ($("pitch")) {
+  $("pitch").oninput = function (e) {
+    pitch = Number(e.target.value);
+    $("pitch-v").textContent = pitch.toFixed(1);
+    save();
+  };
+}
 $("demo").onchange = function (e) {
   if (e.target.checked) startDemo();
   else stopDemo();
