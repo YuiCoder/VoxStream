@@ -8,33 +8,6 @@ Free never needs an account. Twitch, Ensayo, user Euler, TTS, filters, queue, bi
 
 Local default: `http://localhost:8787`
 
-
-## SQLite
-
-Users and sessions live in SQLite (`server/db.mjs`). No OAuth.
-
-- File: `server/data/voxstream.db`
-- Directory `server/data/` is gitignored (already in `.gitignore`). Do not commit the database.
-
-Table `users`:
-
-- `email` PRIMARY KEY
-- `plan` default `free`
-- `stripe_customer`
-- `stripe_sub`
-- `plan_expires`
-- `created_at`
-
-Table `sessions`:
-
-- `sid` PRIMARY KEY
-- `email`
-- `plan` default `free`
-- `created_at`
-
-Anonymous `GET /v1/me` (no cookie / unknown sid) is still plan `free`.
-
-
 ## Routes (as of this commit)
 
 ### `GET /health`
@@ -48,30 +21,6 @@ Public flag table from `server/plans.mjs`. `{ product, selling: false, note, pla
 ### `GET /v1/me`
 
 Cookie session via `voxstream_sid`. Anonymous (no cookie / unknown sid) is always `plan: "free"`. Body is `{ ok, email, plan, live, flags }`.
-
-Example body:
-
-```json
-{
-  "ok": true,
-  "email": null,
-  "plan": "free",
-  "live": true,
-  "flags": {
-    "id": "free",
-    "live": true,
-    "seats": 1,
-    "maxQueue": 12,
-    "twitch": true,
-    "tiktokUserKey": true,
-    "tiktokHosted": false,
-    "youtube": false,
-    "elevenlabsByok": false,
-    "extraFilters": false
-  }
-}
-```
-
 
 ### `GET /v1/entitlement?plan=`
 
