@@ -33,7 +33,7 @@ export function createSession(email, plan) {
 }
 
 export function sidCookie(sid) {
-  return "voxstream_sid=" + sid + "; Path=/; SameSite=Lax; Max-Age=2592000";
+  return "voxstream_sid=" + sid + "; Path=/; SameSite=None; Secure; Max-Age=2592000";
 }
 
 export function mePayload(session) {

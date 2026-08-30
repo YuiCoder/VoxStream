@@ -1,5 +1,6 @@
 (function () {
   const $ = function (id) { return document.getElementById(id); };
+  const DEFAULT_API = "https://voxstream-production.up.railway.app";
 
   function apiBase() {
     try {
@@ -7,9 +8,9 @@
       if (q) {
         localStorage.setItem("voxstreamApi", q.replace(/\/$/, ""));
       }
-      return (localStorage.getItem("voxstreamApi") || "").replace(/\/$/, "");
+      return (localStorage.getItem("voxstreamApi") || DEFAULT_API).replace(/\/$/, "");
     } catch (e) {
-      return "";
+      return DEFAULT_API;
     }
   }
 
@@ -20,16 +21,12 @@
     const plus = $("lock-plus");
     const pro = $("lock-pro");
     if (plus) plus.textContent = plan === "free" ? "Plus: filtros extra" : "Plus " + (me.flags && me.flags.extraFilters ? "activo" : "cerrado");
-    if (pro) pro.textContent = me.flags && me.flags.tiktokHosted ? "Pro activo" : "Pro: TikTok hosted + YouTube";
+    if (pro) pro.textContent = me.flags && me.flags.tiktokHosted ? "Pro activo" : "Pro: TikTok hosted + ElevenLabs BYOK";
     window.voxMe = me;
   }
 
   async function loadMe() {
     const base = apiBase();
-    if (!base) {
-      paint({ plan: "free", email: null, flags: { extraFilters: false, tiktokHosted: false, youtube: false } });
-      return;
-    }
     try {
       const res = await fetch(base + "/v1/me", { credentials: "include" });
       const me = await res.json();
