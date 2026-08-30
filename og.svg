@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <title>VOX·STREAM</title>
   <rect width="1200" height="630" fill="#09090b"/>
   <polygon points="1088,46 1124,82 1088,118 1052,82" fill="#c9a2ff"/>
   <text x="88" y="318" font-family="Arial, Helvetica, sans-serif" font-size="84" font-weight="700" fill="#f4f0ff">VOX<tspan fill="#c9a2ff">·</tspan>STREAM</text>
