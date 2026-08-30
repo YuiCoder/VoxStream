@@ -8,9 +8,9 @@
 - Modo escenario
 - Precio: $0
 
-### Pro (proximamente, no activo)
+### Pro (próximamente, no activo)
 - Todo lo Free
 - TikTok live sin clave del usuario (servidor Voxlive)
 - Cuenta
 - Cola y filtros extra
-- Precio: Proximamente
+- Precio: Próximamente
