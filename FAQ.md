@@ -32,6 +32,18 @@ No. Free does not need an account. Open the studio and use it.
 
 No. Stripe is test mode. It is not live charges. There are no live cents on the site.
 
+## Do I need a local terminal?
+
+No. Open the Pages studio. The API runs on Railway. You do not need npm on your machine.
+
+## Is live Stripe on?
+
+No. Live Stripe is off. Stripe is test only, not live charges.
+
+## Whose Euler key?
+
+Free keeps your own Euler key in the studio. Hosted TikTok is Pro.
+
 ## Español
 
 **No oigo nada.** Pulsa **Probar voz**. La pestaña de Chrome no puede estar muteada.
@@ -45,3 +57,9 @@ No. Stripe is test mode. It is not live charges. There are no live cents on the 
 **No hace falta cuenta.** Free no necesita cuenta.
 
 **Stripe no cobra.** Es test mode. No son cargos reales.
+
+**No hace falta terminal.** Abre el estudio en Pages. La API está en Railway. No necesitas npm.
+
+**Stripe live está apagado.** Solo test. No son cargos reales.
+
+**Euler en Free.** Free usa tu clave Euler. TikTok hospedado es Pro.
