@@ -1,71 +1,59 @@
 # Voxlive
 
-Lector de chat en vivo para Twitch y TikTok. Lo abre en el navegador y lee el chat en voz alta.
+![Voxlive](README-header.svg)
 
-**Voxlive Free — uso gratuito. Planes de pago después.** No hay `.exe`. No hay instalador.
+Lee el chat de Twitch y TikTok en voz alta. Es una web. No hay exe.
 
-Sitio: **https://yuicoder.github.io/Voxlive/**
+Voxlive reads Twitch and TikTok chat out loud. It is a website. There is no exe.
+
+Voxlive Free. Uso gratuito. Paid plans come later.
+
+Sitio: https://yuicoder.github.io/Voxlive/
 
 ## Español
 
-### Abrir estudio
-1. Entra a https://yuicoder.github.io/Voxlive/
-2. Pulsa **Abrir estudio** (o ve a [studio.html](https://yuicoder.github.io/Voxlive/studio.html)).
-3. Usa Chrome. No instales nada.
+Abre el estudio en https://yuicoder.github.io/Voxlive/ y pulsa **Abrir estudio**.
+Usa Chrome. No instales nada.
 
 ### Twitch
-- Escribe el canal **en directo**, sin `#`.
-- Pulsa **Conectar**. Twitch no pide contraseña.
-- Chat real por IRC anónimo (justinfan).
+Escribe un canal en directo, sin `#`.
+Pulsa **Conectar**. No pide contraseña.
 
 ### Voz
-- Un clic en **Probar voz** desbloquea el audio (Chrome bloquea `speak()` hasta un gesto).
-- La pestaña de Chrome **no puede estar muteada**. Si no se oye, revisa el icono de altavoz de la pestaña.
-- Saltar y Pausa/Seguir controlan la cola.
+Chrome bloquea el audio hasta un clic.
+Pulsa **Probar voz** una vez.
+La pestaña no puede estar muteada.
 
 ### TikTok
-- Chat real necesita LIVE abierto y una clave gratis:
-  https://www.eulerstream.com/register
-- Pega la clave, el usuario sin `@`, **Conectar**.
-- Sin clave no hay chat real de TikTok. **Ensayo** cubre la demo.
+El LIVE tiene que estar abierto.
+Crea una clave gratis en https://www.eulerstream.com/register
+Pégala, pon el usuario sin `@`, pulsa **Conectar**.
+Sin clave no hay chat real. **Ensayo** es la demo.
 
-### Es Free
-Estudio web, Twitch live, Ensayo, TikTok con tu clave Euler/tik.tools, modo escenario para OBS. Precio: $0.
+Es Free. No hay exe.
 
 Issues: https://github.com/YuiCoder/Voxlive/issues
 
----
-
 ## English
 
-Live chat reader for Twitch and TikTok. Open it in the browser; it reads chat aloud.
-
-**Voxlive Free — free to use. Paid plans later.** No `.exe`. Nothing to install.
-
-Site: **https://yuicoder.github.io/Voxlive/**
-
-### Open the studio
-1. Go to https://yuicoder.github.io/Voxlive/
-2. Click **Abrir estudio** (or open [studio.html](https://yuicoder.github.io/Voxlive/studio.html)).
-3. Use Chrome.
+Open the studio at https://yuicoder.github.io/Voxlive/ and click **Abrir estudio**.
+Use Chrome. Nothing to install.
 
 ### Twitch
-- Type a **live** channel, no `#`.
-- Click **Conectar**. No password.
-- Real chat over anonymous IRC (justinfan).
+Type a live channel, no `#`.
+Click **Conectar**. No password.
 
 ### Voice
-- One click on **Probar voz** unlocks audio (Chrome blocks `speak()` until a gesture).
-- The Chrome tab **cannot be muted**. If you hear nothing, unmute the tab.
-- Skip, Pause and Continue control the queue.
+Chrome blocks audio until a click.
+Press **Probar voz** once.
+The tab cannot be muted.
 
 ### TikTok
-- Real chat needs an open LIVE and a free key:
-  https://www.eulerstream.com/register
-- Paste the key, username without `@`, **Conectar**.
-- No key = no real TikTok chat. **Ensayo** is the demo.
+The LIVE must be open.
+Get a free key at https://www.eulerstream.com/register
+Paste it, type the username without `@`, click **Conectar**.
+No key means no real TikTok chat. **Ensayo** is the demo.
 
-### It is Free
-Web studio, live Twitch, rehearsal, TikTok with your Euler/tik.tools key, stage mode for OBS. Price: $0.
+It is Free. There is no exe.
 
 Issues: https://github.com/YuiCoder/Voxlive/issues

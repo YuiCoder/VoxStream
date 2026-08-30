@@ -1,16 +1,27 @@
-# Precios — Voxlive
+# Precios. Papel solamente.
 
-### Free (ahora, activo)
-- Estudio web
-- Twitch live
-- Ensayo
-- TikTok si el usuario pone clave Euler/tik.tools
-- Modo escenario
-- Precio: $0
+No hay cobros ahora. No hay montos.
 
-### Pro (próximamente, no activo)
-- Todo lo Free
-- TikTok live sin clave del usuario (servidor Voxlive)
-- Cuenta
-- Cola y filtros extra
-- Precio: Próximamente
+## Free (ahora, activo)
+El estudio actual.
+Twitch en vivo.
+Ensayo.
+TikTok con tu clave Euler o tik.tools.
+Modo escenario.
+
+## Plus (después)
+Ajustes extra: filtros, tono, volumen.
+Todavía no.
+
+## Pro (después)
+YouTube.
+TikTok sin que el usuario pegue clave Euler.
+ElevenLabs con tu propia clave (BYOK).
+Todavía no.
+
+## Ultra (después)
+Todo lo anterior.
+Todavía no.
+
+## Business
+Más adelante. No es esta fase.
