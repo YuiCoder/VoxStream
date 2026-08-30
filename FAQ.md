@@ -23,6 +23,15 @@ No key means no real TikTok chat. **Ensayo** is the demo.
 
 No. There is no exe. It is a website. Open the studio in Chrome.
 
+
+## Do I need an account?
+
+No. Free does not need an account. Open the studio and use it.
+
+## Does Stripe charge me?
+
+No. Stripe is test mode. It is not live charges. There are no live cents on the site.
+
 ## Español
 
 **No oigo nada.** Pulsa **Probar voz**. La pestaña de Chrome no puede estar muteada.
@@ -32,3 +41,7 @@ No. There is no exe. It is a website. Open the studio in Chrome.
 **El link viejo no funciona.** https://yuicoder.github.io/Voxlive/ está muerto. El sitio es https://yuicoder.github.io/VoxStream/
 
 **No hay exe.** Es una web. Ábrela en Chrome.
+
+**No hace falta cuenta.** Free no necesita cuenta.
+
+**Stripe no cobra.** Es test mode. No son cargos reales.
