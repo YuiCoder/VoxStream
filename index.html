@@ -8,13 +8,13 @@
   <meta name="description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
   <meta property="og:title" content="Voxlive — Lee el chat en voz alta" />
   <meta property="og:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
-  <meta property="og:url" content="https://yuicoder.github.io/Voxlive/" />
-  <meta property="og:image" content="https://yuicoder.github.io/Voxlive/og.svg" />
+  <meta property="og:url" content="https://yuicoder.github.io/VoxStream/" />
+  <meta property="og:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Voxlive — Lee el chat en voz alta" />
   <meta name="twitter:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
-  <meta name="twitter:image" content="https://yuicoder.github.io/Voxlive/og.svg" />
+  <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css?v=9" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
@@ -120,8 +120,8 @@
       <h2>Qué viene (Pro)</h2>
       <p class="soon-kicker">PRÓXIMAMENTE</p>
       <ul class="list">
-        <li>TikTok sin que el usuario pegue clave</li>
-        <li>Cuentas y suscripción</li>
+        <li>YouTube</li>
+        <li>TikTok sin pegar una clave</li>
         <li>Más voces</li>
       </ul>
       <form class="notify" id="avisame">
@@ -136,27 +136,47 @@
       <div class="tiers">
         <article class="tier">
           <h3>Free</h3>
-          <p class="price">Ahora, activo</p>
+          <p class="price">Activo</p>
           <ul>
             <li>Estudio web</li>
-            <li>Twitch live</li>
+            <li>Twitch en vivo</li>
             <li>Ensayo</li>
-            <li>TikTok si pones clave Euler / tik.tools</li>
+            <li>TikTok con tu clave Euler</li>
             <li>Modo escenario</li>
+            <li>Voz del navegador: velocidad, volumen y tono</li>
+          </ul>
+        </article>
+        <article class="tier soon">
+          <h3>Plus</h3>
+          <p class="price">Próximamente</p>
+          <ul>
+            <li>Filtros extra</li>
+            <li>Cola más larga</li>
+            <li>Más adelante</li>
           </ul>
         </article>
         <article class="tier soon">
           <h3>Pro</h3>
-          <p class="price">PRÓXIMAMENTE · no activo</p>
+          <p class="price">Próximamente</p>
           <ul>
-            <li>Todo lo Free</li>
-            <li>TikTok live sin clave del usuario (servidor Voxlive)</li>
+            <li>YouTube</li>
+            <li>TikTok sin clave Euler del usuario</li>
+            <li>ElevenLabs con tu clave (BYOK)</li>
             <li>Cuenta</li>
-            <li>Cola y filtros extra</li>
           </ul>
           <button class="btn outline" id="pro-btn" type="button" style="margin-top:14px">Pro</button>
         </article>
+        <article class="tier soon">
+          <h3>Ultra</h3>
+          <p class="price">Próximamente</p>
+          <ul>
+            <li>Todo lo Pro</li>
+            <li>Asientos extra</li>
+            <li>Más adelante</li>
+          </ul>
+        </article>
       </div>
+      <p class="hint">Business más adelante, bajo petición.</p>
     </section>
 
     <footer class="foot">
@@ -170,7 +190,7 @@
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
       <h3>Próximamente Pro</h3>
-      <p>Pro no está activo. Hoy Voxlive es Free. Te avisamos cuando haya cuenta, TikTok sin pegar clave y más voces.</p>
+      <p>Pro no está activo. Hoy Voxlive es Free. Te avisamos cuando haya YouTube, TikTok sin pegar clave y más voces.</p>
       <button class="btn" id="pro-close" type="button">Cerrar</button>
     </div>
   </div>

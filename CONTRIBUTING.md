@@ -24,7 +24,7 @@ No pegues claves de Euler, TikTok o ElevenLabs.
 No añadas Stripe, login ni un `.exe`.
 
 ### Cómo probar
-1. Abre https://yuicoder.github.io/Voxlive/ o tu fork en Pages.
+1. Abre https://yuicoder.github.io/VoxStream/ o tu fork en Pages.
 2. Pulsa **Probar voz**.
 3. Conecta un canal de Twitch en directo, o deja **Ensayo** encendido.
 

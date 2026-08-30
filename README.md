@@ -8,11 +8,11 @@ Voxlive reads Twitch and TikTok chat out loud. It is a website. There is no exe.
 
 Voxlive Free. Uso gratuito. Paid plans come later.
 
-Sitio: https://yuicoder.github.io/Voxlive/
+Sitio: https://yuicoder.github.io/VoxStream/
 
 ## Español
 
-Abre el estudio en https://yuicoder.github.io/Voxlive/ y pulsa **Abrir estudio**.
+Abre el estudio en https://yuicoder.github.io/VoxStream/ y pulsa **Abrir estudio**.
 Usa Chrome. No instales nada.
 
 ### Twitch
@@ -36,7 +36,7 @@ Issues: https://github.com/YuiCoder/Voxlive/issues
 
 ## English
 
-Open the studio at https://yuicoder.github.io/Voxlive/ and click **Abrir estudio**.
+Open the studio at https://yuicoder.github.io/VoxStream/ and click **Abrir estudio**.
 Use Chrome. Nothing to install.
 
 ### Twitch
