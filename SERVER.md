@@ -22,6 +22,30 @@ Public flag table from `server/plans.mjs`. `{ product, selling: false, note, pla
 
 Cookie session via `voxstream_sid`. Anonymous (no cookie / unknown sid) is always `plan: "free"`. Body is `{ ok, email, plan, live, flags }`.
 
+Example body:
+
+```json
+{
+  "ok": true,
+  "email": null,
+  "plan": "free",
+  "live": true,
+  "flags": {
+    "id": "free",
+    "live": true,
+    "seats": 1,
+    "maxQueue": 12,
+    "twitch": true,
+    "tiktokUserKey": true,
+    "tiktokHosted": false,
+    "youtube": false,
+    "elevenlabsByok": false,
+    "extraFilters": false
+  }
+}
+```
+
+
 ### `GET /v1/entitlement?plan=`
 
 Lookup a row in `PLANS` by query string. Not a session. Unknown plan falls back to free.

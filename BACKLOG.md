@@ -15,7 +15,7 @@ Rules that never expire:
 
 - [x] B1. Keep SERVER.md in sync with real routes in server/index.mjs. No extra routes.
 - [x] B2. server/README.md: Windows + Mac run steps, what 501 means, what Pages cannot host.
-- [ ] B3. Add GET /v1/me example JSON to SERVER.md. Anonymous is always plan free.
+- [x] B3. Add GET /v1/me example JSON to SERVER.md. Anonymous is always plan free.
 - [ ] B4. Landing footer and README: link SERVER.md and BACKLOG.md. Still no prices.
 - [ ] B5. Favicon / og / header: confirm VOX·STREAM + rhombus + lilac. Fix if a file still says LIVE.
 - [ ] B6. CONTRIBUTING.md: friend may edit copy. Bot and owner own app.js / server.
