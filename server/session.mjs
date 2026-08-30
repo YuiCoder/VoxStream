@@ -1,6 +1,5 @@
 import { PLANS } from "./plans.mjs";
-
-const sessions = new Map();
+import { getSession, putSession, getUser } from "./db.mjs";
 
 function cookieMap(header) {
   const out = {};
@@ -15,15 +14,22 @@ function cookieMap(header) {
 export function readSession(req) {
   const cookies = cookieMap(req.headers.cookie);
   const sid = cookies.voxstream_sid || "";
-  if (sid && sessions.has(sid)) return sessions.get(sid);
-  return { sid: "", email: null, plan: "free" };
+  const row = getSession(sid);
+  if (!row) return { sid: "", email: null, plan: "free" };
+  const user = row.email ? getUser(row.email) : null;
+  return {
+    sid: row.sid,
+    email: row.email,
+    plan: (user && user.plan) || row.plan || "free"
+  };
 }
 
 export function createSession(email, plan) {
   const sid = "vs_" + Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2);
-  const row = { sid, email: String(email || "").toLowerCase(), plan: PLANS[plan] ? plan : "free", createdAt: Date.now() };
-  sessions.set(sid, row);
-  return row;
+  const cleanPlan = PLANS[plan] ? plan : "free";
+  const cleanEmail = String(email || "").toLowerCase() || null;
+  putSession(sid, cleanEmail, cleanPlan);
+  return { sid, email: cleanEmail, plan: cleanPlan, createdAt: Date.now() };
 }
 
 export function sidCookie(sid) {
