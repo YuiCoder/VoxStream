@@ -7,8 +7,8 @@ const copy = {
     connect: "Conectar",
     cut: "Cortar",
     src: "Fuentes",
-    twH: "Canal sin #. Twitch no pide contrasena.",
-    ttH: "Crea clave gratis en eulerstream.com. El LIVE debe estar abierto. Sin clave no hay chat real de TikTok.",
+    twH: "Canal sin #. Twitch no pide contraseña.",
+    ttH: 'TikTok necesita LIVE abierto y una <a href="https://www.eulerstream.com/register" target="_blank" rel="noopener">clave gratis en eulerstream.com</a>. Sin clave no hay chat real de TikTok.',
     twPh: "canal, sin #",
     ttPh: "usuario, sin @",
     demo: "Ensayo",
@@ -35,22 +35,24 @@ const copy = {
     ttWait: "conectando",
     ttLive: "al aire",
     ttNeed: "falta clave",
-    ttOff: "no esta en vivo",
-    ttKey: "clave invalida",
+    ttOff: "no está en vivo",
+    ttKey: "clave inválida",
     ttErr: "error",
     ttCut: "cortado",
     ttKeyL: "Clave TikTok (gratis)",
     showKey: "Mostrar",
     hideKey: "Ocultar",
-    free: "Uso gratuito. Planes despues.",
+    free: "Uso gratuito. Planes después.",
     freeBadge: "VOXLIVE FREE",
     ck1: "Pulsa Probar voz",
     ck2: "Conecta Twitch (canal en directo)",
     ck3: "TikTok: clave + usuario en LIVE",
     empty: "Conecta Twitch o activa Ensayo para ver el chat. TikTok necesita LIVE abierto y una clave de eulerstream.com.",
-    proTitle: "Proximamente Pro",
-    proBody: "Pro no esta activo. Hoy Voxlive es Free.",
-    proClose: "Cerrar"
+    proTitle: "Próximamente Pro",
+    proBody: "Pro no está activo. Hoy Voxlive es Free.",
+    proClose: "Cerrar",
+    closeCk: "Cerrar",
+    ttPhKey: "Pega aquí tu API key"
   },
   en: {
     live: "ON AIR",
@@ -59,7 +61,7 @@ const copy = {
     cut: "Cut",
     src: "Sources",
     twH: "Channel, no #. Twitch does not ask for a password.",
-    ttH: "Free key at eulerstream.com. LIVE must be open. No key means no real TikTok chat.",
+    ttH: 'TikTok needs an open LIVE and a <a href="https://www.eulerstream.com/register" target="_blank" rel="noopener">free key at eulerstream.com</a>. No key means no real TikTok chat.',
     twPh: "channel, no #",
     ttPh: "username, no @",
     demo: "Rehearsal",
@@ -101,7 +103,9 @@ const copy = {
     empty: "Connect Twitch or turn on Rehearsal to see chat. TikTok needs an open LIVE and a key from eulerstream.com.",
     proTitle: "Pro coming soon",
     proBody: "Pro is not active. Voxlive is Free today.",
-    proClose: "Close"
+    proClose: "Close",
+    closeCk: "Close",
+    ttPhKey: "Paste your API key"
   }
 };
 
@@ -123,6 +127,7 @@ let unlocked = false;
 let speakStarted = 0;
 let keyVisible = false;
 let triedVoice = false;
+let checklistClosed = false;
 
 const queue = [];
 const feed = $("feed");
@@ -130,11 +135,11 @@ const feed = $("feed");
 const demoScript = [
   { platform: "tiktok", kind: "chat", user: "valeria.r", display: "valeria.r", text: "hola, acabo de entrar" },
   { platform: "twitch", kind: "chat", user: "nexo_", display: "nexo_", text: "vamos con todo hoy" },
-  { platform: "tiktok", kind: "gift", user: "mar.ok", display: "mar.ok", text: "envio Rosa", giftName: "Rosa", giftCount: 5 },
+  { platform: "tiktok", kind: "gift", user: "mar.ok", display: "mar.ok", text: "envió Rosa", giftName: "Rosa", giftCount: 5 },
   { platform: "twitch", kind: "chat", user: "SofiaPlays", display: "SofiaPlays", text: "ese clip estuvo brutal" },
-  { platform: "tiktok", kind: "follow", user: "luna.tt", display: "luna.tt", text: "empezo a seguir" },
+  { platform: "tiktok", kind: "follow", user: "luna.tt", display: "luna.tt", text: "empezó a seguir" },
   { platform: "twitch", kind: "chat", user: "kai_live", display: "kai_live", text: "se escucha bien el audio" },
-  { platform: "tiktok", kind: "sub", user: "mira", display: "mira", text: "se suscribio" },
+  { platform: "tiktok", kind: "sub", user: "mira", display: "mira", text: "se suscribió" },
   { platform: "twitch", kind: "chat", user: "rojo", display: "rojo", text: "buena partida" }
 ];
 
@@ -166,17 +171,17 @@ function applyLang() {
   $("h-src").textContent = c.src;
   $("h-voice").textContent = c.voice;
   $("twitch-h").textContent = c.twH;
-  $("tiktok-h").textContent = c.ttH;
+  $("tiktok-h").innerHTML = c.ttH;
   $("demo-l").textContent = c.demo;
   $("demo-h").textContent = c.demoH;
   $("tts-l").textContent = c.ttsOn;
   $("name-l").textContent = c.name;
   $("test").textContent = c.test;
   $("skip").textContent = c.skip;
-  $("pause").textContent = c.pause;
-  $("resume").textContent = c.resume;
+  $("pause").textContent = paused ? c.resume : c.pause;
   $("twitch").placeholder = c.twPh;
   $("tiktok").placeholder = c.ttPh;
+  if (c.ttPhKey) $("ttkey").placeholder = c.ttPhKey;
   $("twitch-btn").textContent = twitchOn ? c.cut : c.connect;
   $("tiktok-btn").textContent = tiktokOn ? c.cut : c.connect;
   $("now-k").textContent = speaking ? c.reading : c.waiting;
@@ -204,10 +209,14 @@ function hideChecklist() {
   $("checklist").classList.add("hidden");
 }
 
+function maybeHideChecklist() {
+  if (checklistClosed || (triedVoice && twitchOn)) hideChecklist();
+}
+
 function markTried() {
   triedVoice = true;
   try { localStorage.setItem("voxlive-tried", "1"); } catch (e) {}
-  hideChecklist();
+  maybeHideChecklist();
 }
 
 function speakReady() {
@@ -271,10 +280,10 @@ function addMsg(m) {
 
 function speechText(m) {
   const name = readName ? (m.displayName || m.user) : "";
-  if (m.kind === "gift") return (name ? name + " " : "") + "envio " + (m.giftName || "un regalo");
-  if (m.kind === "follow") return (name || "alguien") + " empezo a seguir";
-  if (m.kind === "sub") return (name || "alguien") + " se suscribio";
-  if (m.kind === "bits") return (name || "alguien") + " mando bits";
+  if (m.kind === "gift") return (name ? name + " " : "") + "envió " + (m.giftName || "un regalo");
+  if (m.kind === "follow") return (name || "alguien") + " empezó a seguir";
+  if (m.kind === "sub") return (name || "alguien") + " se suscribió";
+  if (m.kind === "bits") return (name || "alguien") + " mandó bits";
   return name ? name + " dice " + (m.text || "") : (m.text || "");
 }
 
@@ -430,6 +439,7 @@ function startTwitch(channel) {
         setDot("twitch-dot", "live");
         $("twitch-st").textContent = t().twLive;
         applyLang();
+        maybeHideChecklist();
       }
       if (m.cmd === "PRIVMSG") {
         addMsg({
@@ -496,7 +506,7 @@ function ingestTikTok(obj) {
       kind: "gift",
       user: uname,
       displayName: name,
-      text: "envio " + g,
+      text: "envió " + g,
       giftName: g,
       giftCount: data.repeatCount || 1,
       ts: Date.now(),
@@ -510,7 +520,7 @@ function ingestTikTok(obj) {
       kind: "follow",
       user: uname,
       displayName: name,
-      text: "empezo a seguir",
+      text: "empezó a seguir",
       ts: Date.now(),
       source: "live"
     });
@@ -522,7 +532,7 @@ function ingestTikTok(obj) {
       kind: "sub",
       user: uname,
       displayName: name,
-      text: "se suscribio",
+      text: "se suscribió",
       ts: Date.now(),
       source: "live"
     });
@@ -642,7 +652,8 @@ function save() {
 function load() {
   try {
     triedVoice = localStorage.getItem("voxlive-tried") === "1";
-    if (triedVoice) hideChecklist();
+    checklistClosed = localStorage.getItem("voxlive-ck-closed") === "1";
+    if (checklistClosed) hideChecklist();
     const s = JSON.parse(localStorage.getItem("voxlive") || "{}");
     if (s.lang) lang = s.lang;
     if (s.twitch) $("twitch").value = s.twitch;
@@ -729,13 +740,14 @@ $("skip").onclick = function () {
   kick();
 };
 $("pause").onclick = function () {
-  paused = true;
-  try { speechSynthesis.pause(); } catch (e) {}
-};
-$("resume").onclick = function () {
-  paused = false;
-  try { speechSynthesis.resume(); } catch (e) {}
-  if (!speaking) kick();
+  paused = !paused;
+  $("pause").textContent = paused ? t().resume : t().pause;
+  if (paused) {
+    try { speechSynthesis.pause(); } catch (e) {}
+  } else {
+    try { speechSynthesis.resume(); } catch (e) {}
+    if (!speaking) kick();
+  }
 };
 $("stage").onclick = function () {
   if (location.hash === "#stage") {
@@ -773,6 +785,11 @@ $("ttkey-toggle").onclick = function () {
   $("ttkey-toggle").textContent = keyVisible ? t().hideKey : t().showKey;
 };
 
+$("checklist-x").onclick = function () {
+  checklistClosed = true;
+  try { localStorage.setItem("voxlive-ck-closed", "1"); } catch (e) {}
+  hideChecklist();
+};
 $("freebadge").onclick = function () {
   $("pro-modal").classList.remove("hidden");
 };
