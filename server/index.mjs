@@ -25,6 +25,26 @@ app.use(cors({
   credentials: true,
   methods: ["GET", "POST", "OPTIONS"]
 }));
+app.use((req, res, next) => {
+  const t0 = Date.now();
+  res.on("finish", () => {
+    console.log(req.method, req.path, res.statusCode, Date.now() - t0 + "ms");
+  });
+  next();
+});
+
+app.get("/", (_req, res) => {
+  res.type("html").send(
+    "<!doctype html><meta charset=utf-8><title>VoxStream server</title>" +
+    "<body style=\"font-family:sans-serif;background:#09090b;color:#f4f0ff;padding:32px\">" +
+    "<h1>VoxStream</h1><p>Local API. Not the public estudio.</p><ul>" +
+    "<li><a href=/health style=color:#c9a2ff>GET /health</a></li>" +
+    "<li><a href=/v1/me style=color:#c9a2ff>GET /v1/me</a></li>" +
+    "<li><a href=/v1/plans style=color:#c9a2ff>GET /v1/plans</a></li></ul>" +
+    "<p>stripe " + (STRIPE ? "on" : "off") + " · euler " + (EULER ? "on" : "off") +
+    " · mailer " + (MAILER ? "on" : "off") + "</p></body>"
+  );
+});
 
 app.get("/health", (_req, res) => {
   res.json({
@@ -106,6 +126,10 @@ app.post("/v1/tiktok/hosted", (req, res) => {
     ok: true,
     relay: "/v1/tiktok/relay?uniqueId=" + encodeURIComponent(uniqueId)
   });
+});
+
+app.use((req, res) => {
+  res.status(404).json({ ok: false, code: "not_found", path: req.path });
 });
 
 const server = http.createServer(app);
