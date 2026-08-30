@@ -18,7 +18,7 @@ Rules that never expire:
 - [x] B3. Add GET /v1/me example JSON to SERVER.md. Anonymous is always plan free.
 - [x] B4. Landing footer and README: link SERVER.md and BACKLOG.md. Still no prices.
 - [x] B5. Favicon / og / header: confirm VOX·STREAM + rhombus + lilac. Fix if a file still says LIVE.
-- [ ] B6. CONTRIBUTING.md: friend may edit copy. Bot and owner own app.js / server.
+- [x] B6. CONTRIBUTING.md: friend may edit copy. Bot and owner own app.js / server.
 - [ ] B7. Add a short FAQ.md: muted tab, Probar voz, Euler key, no exe, old /Voxlive/ URL is dead.
 - [ ] B8. Stage-mode CSS pass only (styles.css). Bigger now-text, hide more chrome, no JS rewrite.
 - [ ] B9. Accessible labels on sliders (aria-valuetext) in studio.html. Do not change app.js logic.

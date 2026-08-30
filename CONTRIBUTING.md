@@ -4,10 +4,14 @@ Gracias por echar una mano. Este repo es una web en GitHub Pages. No hay exe. No
 
 Thanks for helping. This repo is a GitHub Pages site. No exe. No payment server.
 
+Un amigo puede editar copy (textos). El bot y el owner son dueños de `app.js` y de `server/`.
+
+A friend may edit copy. The bot and the owner own `app.js` and `server/`.
+
 ## Español
 
 ### Qué sí puedes tocar
-- `README.md` y `CONTRIBUTING.md`
+- `README.md`, `CONTRIBUTING.md`, `FAQ.md`
 - Copy de `index.html` (textos de la landing)
 - Copy de `studio.html` (etiquetas, hints, checklist)
 - Issues
@@ -15,7 +19,8 @@ Thanks for helping. This repo is a GitHub Pages site. No exe. No payment server.
 Haz un fork y abre un pull request. No subas directo a `main`.
 
 ### Qué no toques
-- `app.js` (la lógica del estudio)
+- `app.js` (la lógica del estudio) — solo bot y owner
+- `server/` (el host Node: rutas, planes, sesiones) — solo bot y owner
 - Secretos, tokens, claves API
 - Settings del repo (Pages, secrets, actions)
 - `main` sin un PR
@@ -31,7 +36,7 @@ No añadas Stripe, login ni un `.exe`.
 ## English
 
 ### Safe to edit
-- `README.md` and `CONTRIBUTING.md`
+- `README.md`, `CONTRIBUTING.md`, `FAQ.md`
 - Copy in `index.html`
 - Copy in `studio.html`
 - Issues
@@ -39,7 +44,8 @@ No añadas Stripe, login ni un `.exe`.
 Fork and open a pull request. Do not push to `main`.
 
 ### Do not touch
-- `app.js`
+- `app.js` — bot and owner only
+- `server/` — bot and owner only
 - Secrets, tokens, API keys
 - Repo Settings (Pages, secrets, actions)
 - `main` without a PR
