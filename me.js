@@ -23,7 +23,7 @@
     if (pro) pro.textContent = flags.tiktokHosted ? "Pro activo" : "Pro: TikTok hosted (cerrado)";
     const box = $("eleven-byok");
     if (box) {
-      if (flags.elevenLabsByok) box.removeAttribute("hidden");
+      if (flags.elevenlabsByok) box.removeAttribute("hidden");
       else box.setAttribute("hidden", "");
     }
     const note = $("free-note");
