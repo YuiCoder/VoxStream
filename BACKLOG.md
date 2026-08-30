@@ -22,7 +22,7 @@ Rules that never expire:
 - [x] B7. Add a short FAQ.md: muted tab, Probar voz, Euler key, no exe, old /Voxlive/ URL is dead.
 - [x] B8. Stage-mode CSS pass only (styles.css). Bigger now-text, hide more chrome, no JS rewrite.
 - [x] B9. Accessible labels on sliders (aria-valuetext) in studio.html. Do not change app.js logic.
-- [ ] B10. 404.html on Pages that points people to /VoxStream/studio.html.
+- [x] B10. 404.html on Pages that points people to /VoxStream/studio.html.
 
 STOP after B10. Owner reviews.
 
