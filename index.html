@@ -3,12 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voxlive — Lector de chat en vivo</title>
-  <meta name="description" content="Lee en voz alta el chat de Twitch y TikTok. Abre el enlace y listo." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <title>Voxlive</title>
+  <link rel="stylesheet" href="styles.css?v=4" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
   <div class="wrap">
@@ -35,7 +32,7 @@
             <input id="twitch" placeholder="Canal, sin #" autocomplete="off" spellcheck="false" />
             <button class="btn" id="twitch-btn" type="button">Conectar</button>
           </div>
-          <div class="status"><span class="dot" id="twitch-dot"></span><span id="twitch-st">—</span></div>
+          <div class="status"><span class="dot" id="twitch-dot"></span><span id="twitch-st">-</span></div>
           <p class="hint" id="twitch-h"></p>
           <hr />
           <label for="tiktok">TikTok</label>
@@ -43,7 +40,7 @@
             <input id="tiktok" placeholder="Usuario, sin @" autocomplete="off" spellcheck="false" />
             <button class="btn" id="tiktok-btn" type="button">Conectar</button>
           </div>
-          <div class="status"><span class="dot" id="tiktok-dot"></span><span id="tiktok-st">—</span></div>
+          <div class="status"><span class="dot" id="tiktok-dot"></span><span id="tiktok-st">-</span></div>
           <p class="hint" id="tiktok-h"></p>
           <hr />
           <div class="line">
@@ -68,7 +65,7 @@
           <select id="voice"></select>
           <div class="line" style="margin-top:14px">
             <span id="rate-l">Velocidad</span>
-            <span id="rate-v">1.0×</span>
+            <span id="rate-v">1.0x</span>
           </div>
           <input id="rate" type="range" min="0.7" max="1.4" step="0.05" value="1" />
           <button class="btn outline wide" id="test" type="button" style="margin-top:12px">Probar voz</button>
@@ -77,7 +74,7 @@
       <main>
         <section class="card now">
           <div class="kicker"><span id="now-k">En silencio</span><span id="q">0 en cola</span></div>
-          <p class="big" id="now-text">—</p>
+          <p class="big" id="now-text">-</p>
           <div class="meta">
             <span id="now-user"></span>
             <div class="row">
@@ -90,6 +87,6 @@
       </main>
     </div>
   </div>
-  <script src="app.js?v=3"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
