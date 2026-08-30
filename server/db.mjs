@@ -25,13 +25,17 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 `);
 
-export function upsertUser(email, plan) {
+export function upsertUser(email, plan, extra) {
   const now = Date.now();
   const row = db.prepare("SELECT email FROM users WHERE email = ?").get(email);
   if (row) {
-    db.prepare("UPDATE users SET plan = ? WHERE email = ?").run(plan, email);
+    db.prepare("UPDATE users SET plan = ?, stripe_customer = COALESCE(?, stripe_customer), stripe_sub = COALESCE(?, stripe_sub) WHERE email = ?").run(
+      plan, extra && extra.customer || null, extra && extra.sub || null, email
+    );
   } else {
-    db.prepare("INSERT INTO users (email, plan, created_at) VALUES (?, ?, ?)").run(email, plan, now);
+    db.prepare("INSERT INTO users (email, plan, stripe_customer, stripe_sub, created_at) VALUES (?, ?, ?, ?, ?)").run(
+      email, plan, extra && extra.customer || null, extra && extra.sub || null, now
+    );
   }
 }
 
