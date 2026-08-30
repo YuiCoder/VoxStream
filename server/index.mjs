@@ -6,9 +6,11 @@ import { WebSocketServer, WebSocket } from "ws";
 import { PLANS, publicPlans } from "./plans.mjs";
 import { readSession, createSession, sidCookie, mePayload } from "./session.mjs";
 import { startCheckout, syncCheckout } from "./checkout.mjs";
+import { handleStripeWebhook } from "./webhook.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
+const APP_URL = String(process.env.APP_URL || "").replace(/\/$/, "");
 const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
 const STRIPE_WH = (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
@@ -21,9 +23,12 @@ function okEmail(email) {
 }
 
 const app = express();
+app.post("/v1/stripe/webhook", express.raw({ type: "application/json" }), (req, res) => {
+  handleStripeWebhook(req, res, STRIPE, STRIPE_WH);
+});
 app.use(express.json({ limit: "32kb" }));
 app.use(cors({
-  origin: [ORIGIN, "http://localhost:4173", "http://127.0.0.1:4173", "http://localhost:5500", "http://localhost:8787"],
+  origin: [ORIGIN, APP_URL, "http://localhost:4173", "http://127.0.0.1:4173", "http://localhost:5500", "http://localhost:8787"].filter(Boolean),
   credentials: true,
   methods: ["GET", "POST", "OPTIONS"]
 }));
@@ -39,12 +44,10 @@ app.get("/", (_req, res) => {
   res.type("html").send(
     "<!doctype html><meta charset=utf-8><title>VoxStream server</title>" +
     "<body style=\"font-family:sans-serif;background:#09090b;color:#f4f0ff;padding:32px\">" +
-    "<h1>VoxStream</h1><p>Local API. Not the public estudio.</p><ul>" +
+    "<h1>VoxStream</h1><p>API. Not the public estudio.</p><ul>" +
     "<li><a href=/health style=color:#c9a2ff>GET /health</a></li>" +
     "<li><a href=/v1/me style=color:#c9a2ff>GET /v1/me</a></li>" +
-    "<li><a href=/v1/plans style=color:#c9a2ff>GET /v1/plans</a></li></ul>" +
-    "<p>stripe " + (STRIPE ? "on" : "off") + " · euler " + (EULER ? "on" : "off") +
-    " · mailer " + (MAILER ? "on" : "off") + "</p></body>"
+    "<li><a href=/v1/plans style=color:#c9a2ff>GET /v1/plans</a></li></ul></body>"
   );
 });
 
@@ -64,7 +67,7 @@ app.get("/v1/plans", (_req, res) => {
   res.json({
     product: "voxstream",
     selling: false,
-    note: "Checkout is test-only on localhost. Pages stays Free.",
+    note: "Checkout is test-only. Pages stays Free.",
     plans: publicPlans()
   });
 });
@@ -97,10 +100,6 @@ app.post("/v1/auth/magic", (req, res) => {
 app.post("/v1/checkout", (req, res) => startCheckout(req, res, STRIPE));
 app.get("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 app.post("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
-
-app.post("/v1/stripe/webhook", (_req, res) => {
-  res.status(501).json({ ok: false, code: "webhook_not_wired" });
-});
 
 app.post("/v1/tiktok/hosted", (req, res) => {
   const uniqueId = String((req.body && req.body.uniqueId) || "").replace(/^@/, "").trim();
@@ -153,7 +152,6 @@ wss.on("connection", (client, req) => {
 
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
-  console.log("pay     POST /v1/checkout");
-  console.log("sync    GET  /v1/checkout/sync?session_id=");
   console.log("stripe  " + (STRIPE ? "key set" : "no"));
+  console.log("webhook " + (STRIPE_WH ? "signed" : "501 until STRIPE_WEBHOOK_SECRET"));
 });
