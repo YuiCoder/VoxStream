@@ -1,0 +1,8 @@
+{
+  "name": "voxstream-host",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm install --prefix server",
+    "start": "npm start --prefix server"
+  }
+}
