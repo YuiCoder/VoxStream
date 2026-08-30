@@ -93,7 +93,9 @@ Applies a paid **test** session to SQLite (`users` + `sessions`). Query or body:
 
 ### `POST /v1/stripe/webhook`
 
-`501` without the webhook secret (`webhook_not_wired`). Stub. Not wired yet.
+Verifies the Stripe signature. Owner shipped the signed handler.
+
+Without `STRIPE_WEBHOOK_SECRET` it returns `501`. That secret is owner-only. Do not put it in the repo, in Pages, or in chat. Test mode only. No live keys.
 
 ### `POST /v1/tiktok/hosted`
 
