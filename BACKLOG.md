@@ -67,6 +67,17 @@ Owner created Stripe destination **VoxStream test** → `/v1/stripe/webhook`. Si
 - [x] H2. SERVER.md: destination VoxStream test → /v1/stripe/webhook; signing secret on Railway only.
 - [x] H3. FAQ: signing secret is Railway only. No Live.
 
+
+## I (product pass)
+
+Owner paused Stripe Live.
+
+- [x] I1. FAQ: how to test studio (voice, Twitch, Euler TikTok, Escenario). No prices.
+- [ ] I2. BACKLOG: money later. Next is studio bugs the owner files.
+- [ ] I3. Do not edit app.js unless owner pastes a concrete bug.
+
+STOP after I3.
+
 ## Later (do not start)
 
 - [ ] L1. YouTube OAuth

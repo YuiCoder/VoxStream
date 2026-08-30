@@ -49,6 +49,16 @@ Free keeps your own Euler key in the studio. Hosted TikTok is Pro.
 
 Railway only (`STRIPE_WEBHOOK_SECRET`). Never GitHub, never chat. Destination name: VoxStream test → `/v1/stripe/webhook`.
 
+
+## How do I test the studio?
+
+Open https://yuicoder.github.io/VoxStream/studio.html in Chrome. No account. No prices.
+
+1. **Voice.** Unmute the tab. Click **Probar voz** once. You should hear a short line.
+2. **Twitch.** Type a live channel, no `#`. Click **Conectar**. Chat should show and be read.
+3. **TikTok (Free).** The LIVE must be open. Paste **your** Euler key, username without `@`, **Conectar**. No key: use **Ensayo**.
+4. **Escenario.** Click **Escenario** (or open `studio.html#stage`) for the OBS view.
+
 ## Español
 
 **No oigo nada.** Pulsa **Probar voz**. La pestaña de Chrome no puede estar muteada.
@@ -70,3 +80,5 @@ Railway only (`STRIPE_WEBHOOK_SECRET`). Never GitHub, never chat. Destination na
 **Euler en Free.** Free usa tu clave Euler. TikTok hospedado es Pro.
 
 **El secreto de firma de Stripe va solo a Railway.** Nunca al repo ni al chat.
+
+**Cómo probar el estudio.** Chrome, sin cuenta y sin precios: 1) **Probar voz** (pestaña no muteada). 2) Twitch: canal en directo, **Conectar**. 3) TikTok Free: tu clave Euler + LIVE, o **Ensayo**. 4) **Escenario** para OBS.
