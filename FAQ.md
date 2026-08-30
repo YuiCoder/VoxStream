@@ -44,6 +44,15 @@ No. Live Stripe is off. Stripe is test only, not live charges.
 
 Free keeps your own Euler key in the studio. Hosted TikTok is Pro.
 
+
+## Can the bot turn on live Stripe?
+
+No. Going Live is not a bot task. Owner only.
+
+## YouTube?
+
+Closed. Do not start it.
+
 ## Español
 
 **No oigo nada.** Pulsa **Probar voz**. La pestaña de Chrome no puede estar muteada.
@@ -63,3 +72,7 @@ Free keeps your own Euler key in the studio. Hosted TikTok is Pro.
 **Stripe live está apagado.** Solo test. No son cargos reales.
 
 **Euler en Free.** Free usa tu clave Euler. TikTok hospedado es Pro.
+
+**Pasar a Live no es tarea del bot.** Solo el owner.
+
+**YouTube está cerrado.** No se empieza.

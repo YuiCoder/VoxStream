@@ -56,7 +56,7 @@ Volume is owner (Railway click). Webhook secret is owner (`STRIPE_WEBHOOK_SECRET
 
 - [x] G1. BACKLOG: F done; G is owner (volume + webhook secret); L closed.
 - [x] G2. SERVER.md: webhook verifies Stripe signature; 501 without STRIPE_WEBHOOK_SECRET.
-- [ ] G3. FAQ: going Live is not a bot task. YouTube is closed.
+- [x] G3. FAQ: going Live is not a bot task. YouTube is closed.
 
 ## Later (do not start)
 
