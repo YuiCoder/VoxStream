@@ -1,13 +1,14 @@
 # Roadmap — VoxStream
 
-Papel. No implementar 3–7 ahora.
-
-1. Demo publica estable en GitHub Pages (esta fase).
-2. Pulido Free: voz (velocidad, volumen, tono), copy, README. En curso.
-3. Dominio propio en papel: VoxStream.app (voxlive.app ya es otro producto).
-4. Backend (Node) + TikTok con clave NUESTRA. YouTube Live Chat (OAuth).
-5. Auth (email magic link o GitHub login).
-6. Stripe: Plus / Pro / Ultra. Business solo a medida.
-7. Panel del streamer y, solo si la web ya vende, app encapsulada. No exe ahora.
-
 Un producto. Un estudio. Twitch / TikTok / YouTube son fuentes, no SKUs.
+
+1. Demo publica estable en GitHub Pages. Hecho.
+2. Pulido Free (voz, filtros, marca VoxStream). Hecho.
+3. Backend local en `/server` (entitlements + stub TikTok hosted + Stripe 501). En curso.
+4. Host real (Railway / Fly / Render) + `EULER_API_KEY` nuestra.
+5. Auth (email magic link o GitHub login).
+6. Stripe Checkout de verdad: Plus / Pro / Ultra. Business a medida.
+7. YouTube Live Chat (OAuth).
+8. Panel del streamer. App encapsulada solo si la web ya vende. No exe ahora.
+
+Dominio en papel: VoxStream.app — hay otra empresa voxstream.net, revisar antes de pagar.
