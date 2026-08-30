@@ -30,11 +30,18 @@ STOP after B10. Owner reviews.
 
 - [x] C1. Magic-link email copy (subject + body) in server/mail.mjs. Do not send until RESEND_API_KEY exists.
 - [x] C2. Stripe test fixtures: document products Plus/Pro/Ultra in STRIPE.md. No live keys.
-- [ ] C3. Webhook handler stub POST /v1/stripe/webhook that returns 501 without the secret.
+- [x] C3. Webhook handler stub POST /v1/stripe/webhook that returns 501 without the secret.
 - [x] C4. Hosted TikTok status text in the studio lock card only. No new socket code.
 - [x] C5. ElevenLabs BYOK fields in studio.html (hidden behind Pro label). Do not call ElevenLabs yet.
 
 STOP after C5.
+
+
+## Done (D)
+
+- [x] D1. SERVER.md: SQLite users + sessions. File server/data/voxstream.db, gitignored. Anonymous /me is free.
+- [x] D2. FAQ.md: Free needs no account. Stripe test is not live charges.
+- [x] D3. BACKLOG: check C3; record D1 D2.
 
 ## Later (do not start)
 
