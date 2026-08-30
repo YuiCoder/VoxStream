@@ -64,7 +64,7 @@ Volume is owner (Railway click). Webhook secret is owner (`STRIPE_WEBHOOK_SECRET
 Owner created Stripe destination **VoxStream test** → `/v1/stripe/webhook`. Signing secret goes to Railway only. L still closed.
 
 - [x] H1. BACKLOG: VoxStream test destination; secret on Railway; L closed.
-- [ ] H2. SERVER.md: destination VoxStream test → /v1/stripe/webhook; signing secret on Railway only.
+- [x] H2. SERVER.md: destination VoxStream test → /v1/stripe/webhook; signing secret on Railway only.
 - [ ] H3. FAQ: signing secret is Railway only. No Live.
 
 ## Later (do not start)

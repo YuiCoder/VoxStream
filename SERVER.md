@@ -95,7 +95,9 @@ Applies a paid **test** session to SQLite (`users` + `sessions`). Query or body:
 
 Verifies the Stripe signature. Owner shipped the signed handler.
 
-Without `STRIPE_WEBHOOK_SECRET` it returns `501`. That secret is owner-only. Do not put it in the repo, in Pages, or in chat. Test mode only. No live keys.
+Stripe Dashboard destination: **VoxStream test** → `APP_URL/v1/stripe/webhook` (Railway).
+
+The signing secret is `STRIPE_WEBHOOK_SECRET` on Railway only. Never in the repo, Pages, or chat. Without it the route returns `501`. Test mode only. No live keys.
 
 ### `POST /v1/tiktok/hosted`
 
