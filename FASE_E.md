@@ -42,7 +42,7 @@ Archivo: index.html + styles.css
 5. Añade una seccón **Vista del estudio** entre hero y cómo funciona:
    - Un recuadro con estilo del estudio (mock de feed + "AL AIRE" + un mensaje de ensayo)
    - No hace falta screenshot PNG si haces un mock HTML/CSS fiel al estudio
-   - Si puedes generar un `og.png` 1200x630 negro + VOX·LIVE mint, mejor
+   - Si puedes generar un `og.png` 1200x630 negro + VOX·STREAM mint, mejor
 6. Footer con tildes y link al estudio + repo
 
 ---
@@ -73,11 +73,11 @@ Al pegar el link en Discord/WhatsApp no debe salir genérico.
 
 ## E5. Microcopy
 
-- Badge VOXLIVE FREE se queda
+- Badge VOXSTREAM FREE se queda
 - Hint TikTok con link real a https://www.eulerstream.com/register
 - Empty feed: frase útil, no recuadro muerto
-- Titulo de pestaña landing: `Voxlive — Lee el chat en voz alta`
-- Titulo estudio: `Voxlive Estudio`
+- Titulo de pestaña landing: `VoxStream — Lee el chat en voz alta`
+- Titulo estudio: `VoxStream Estudio`
 
 ---
 

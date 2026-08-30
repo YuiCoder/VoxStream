@@ -1,4 +1,4 @@
-# Contribuir a Voxlive
+# Contribuir a VoxStream
 
 Gracias por echar una mano. Este repo es una web en GitHub Pages. No hay exe. No hay servidor de pagos.
 

@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voxlive — Lee el chat en voz alta</title>
+  <title>VoxStream — Lee el chat en voz alta</title>
   <meta name="theme-color" content="#09090b" />
   <meta name="description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
-  <meta property="og:title" content="Voxlive — Lee el chat en voz alta" />
+  <meta property="og:title" content="VoxStream — Lee el chat en voz alta" />
   <meta property="og:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
   <meta property="og:url" content="https://yuicoder.github.io/VoxStream/" />
   <meta property="og:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Voxlive — Lee el chat en voz alta" />
+  <meta name="twitter:title" content="VoxStream — Lee el chat en voz alta" />
   <meta name="twitter:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
   <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="land">
     <section class="hero">
-      <div class="word">VOX<span>·</span>LIVE</div>
-      <h1>Lee el chat de Twitch y TikTok en voz alta.</h1>
+      <div class="word">VOX<span>·</span>STREAM</div>
+      <h1>VoxStream lee el chat de Twitch y TikTok en voz alta.</h1>
       <a class="btn" href="studio.html">Abrir estudio</a>
       <p class="fine">Uso gratuito. Se abre en Chrome.</p>
     </section>
@@ -32,9 +32,16 @@
       <h2>Vista del estudio</h2>
       <div class="studio-mock">
         <div class="mock-bar">
-          <div class="word">VOX<span>·</span>LIVE</div>
+          <div class="word">VOX<span>·</span>STREAM</div>
           <span class="pill">AL AIRE</span>
-          <span class="freebadge">VOXLIVE FREE</span>
+          <span class="freebadge">VOXSTREAM FREE</span>
+        </div>
+        <div class="mock-bar">
+          <div class="lang">
+            <button class="on" type="button">ES</button>
+            <button type="button">EN</button>
+          </div>
+          <button class="btn outline" type="button">Escenario</button>
         </div>
         <article class="msg">
           <div class="av">VA</div>
@@ -113,6 +120,34 @@
             <p>Vista limpia para OBS, en #stage.</p>
           </div>
         </li>
+        <li>
+          <span class="n">05</span>
+          <div>
+            <h3>Filtros</h3>
+            <p>Regalos, follows, subs, bots y emotes.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">06</span>
+          <div>
+            <h3>Cola</h3>
+            <p>Cola de lectura con tope, vaciar y saltar.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">07</span>
+          <div>
+            <h3>Twitch reconecta</h3>
+            <p>Si se cae el IRC, el estudio vuelve a entrar.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">08</span>
+          <div>
+            <h3>Bits</h3>
+            <p>Lee bits del chat de Twitch.</p>
+          </div>
+        </li>
       </ul>
     </section>
 
@@ -144,6 +179,10 @@
             <li>TikTok con tu clave Euler</li>
             <li>Modo escenario</li>
             <li>Voz del navegador: velocidad, volumen y tono</li>
+            <li>Filtros</li>
+            <li>Cola</li>
+            <li>Twitch reconecta</li>
+            <li>Bits</li>
           </ul>
         </article>
         <article class="tier soon">
@@ -183,14 +222,14 @@
       <span>YuiCoder</span>
       <a href="studio.html">Abrir estudio</a>
       <a href="https://github.com/YuiCoder/VoxStream">github.com/YuiCoder/VoxStream</a>
-      <span>Voxlive Free — uso gratuito</span>
+      <span>VoxStream Free — uso gratuito</span>
       <span>GitHub Pages</span>
     </footer>
   </div>
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
       <h3>Próximamente Pro</h3>
-      <p>Pro no está activo. Hoy Voxlive es Free. Te avisamos cuando haya YouTube, TikTok sin pegar clave y más voces.</p>
+      <p>Pro no está activo. Hoy VoxStream es Free. Te avisamos cuando haya YouTube, TikTok sin pegar clave y más voces.</p>
       <button class="btn" id="pro-close" type="button">Cerrar</button>
     </div>
   </div>

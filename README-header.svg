@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 280" width="1200" height="280">
   <rect width="1200" height="280" fill="#09090b"/>
   <polygon points="1110,34 1132,56 1110,78 1088,56" fill="#c9a2ff"/>
-  <text x="64" y="150" font-family="Arial, Helvetica, sans-serif" font-size="64" font-weight="700" fill="#f4f0ff">VOX<tspan fill="#c9a2ff">·</tspan>LIVE</text>
+  <text x="64" y="150" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="700" fill="#f4f0ff">VOX<tspan fill="#c9a2ff">·</tspan>STREAM</text>
   <text x="64" y="210" font-family="Arial, Helvetica, sans-serif" font-size="24" fill="#9b93ad">Lee el chat en voz alta</text>
 </svg>

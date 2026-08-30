@@ -1,4 +1,4 @@
-# Voxlive — instrucciones maestras para el bot
+# VoxStream — instrucciones maestras para el bot
 
 Repo: https://github.com/YuiCoder/VoxStream
 Sitio publico: https://yuicoder.github.io/VoxStream/
@@ -12,9 +12,9 @@ Trabaja, commitea y haz `git push origin main`. No dejes cambios solo en local. 
 
 ---
 
-## 0. Que es Voxlive
+## 0. Que es VoxStream
 
-Voxlive es un lector de chat en vivo para streamers. Muestra el chat de Twitch y TikTok y lo lee en voz alta.
+VoxStream es un lector de chat en vivo para streamers. Muestra el chat de Twitch y TikTok y lo lee en voz alta.
 
 No es un .exe. Es una web. La gente entra al link y lo usa. Eso es lo que se va a vender despues con suscripciones. Primero tiene que funcionar bien y ser usable por cualquiera, gratis.
 
@@ -22,7 +22,7 @@ Idioma de la interfaz: espanol primero, ingles con toggle ES/EN.
 Publico objetivo: streamers en Windows 11 + Chrome. Tambien OBS (browser source).
 
 Licencia actual: uso gratuito publico. En la web y el README debe decir claro:
-**Voxlive Free — uso gratuito. Planes de pago despues.**
+**VoxStream Free — uso gratuito. Planes de pago despues.**
 No pongas precios inventados. No conectes Stripe todavia.
 
 ---
@@ -117,7 +117,7 @@ Preferido: `index.html` landing + `studio.html` app.
 ### 3.5 Voz (critico)
 Chrome bloquea speak() hasta un clic.
 - No hablar al cargar la pagina
-- El primer clic en **Probar voz** o **Conectar** desbloquea audio y dice una frase corta: "Voxlive listo"
+- El primer clic en **Probar voz** o **Conectar** desbloquea audio y dice una frase corta: "VoxStream listo"
 - Skip, Pausa, Seguir
 - Cola maxima 10. Si se llena, tira el mas viejo
 - Si una frase lleva mas de 8 segundos, cancelar y pasar a la siguiente
@@ -129,12 +129,12 @@ Chrome bloquea speak() hasta un clic.
 ### 3.6 UI del estudio
 Tema oscuro tipo estudio (ya hay base).
 - Inputs SIEMPRE oscuros. Chrome autofill no puede pintarlos blancos
-- Header: logo VOX·LIVE, pill AL AIRE / EN ESPERA, ES/EN, Escenario
+- Header: logo VOX·STREAM, pill AL AIRE / EN ESPERA, ES/EN, Escenario
 - Checklist de primera visita (se oculta cuando el usuario ya probo voz):
   1. Pulsa Probar voz
   2. Conecta Twitch (canal en directo)
   3. TikTok: clave + usuario en LIVE
-- Badge Free visible: `VOXLIVE FREE`
+- Badge Free visible: `VOXSTREAM FREE`
 - Modo Escenario: esconde settings, deja lector + feed. URL `studio.html#stage` entra directo a eso (OBS)
 - Feed con avatar, nombre, texto, hora, plataforma
 - Vacio: texto que diga que hacer, no un recuadro muerto
@@ -157,7 +157,7 @@ Tema oscuro tipo estudio (ya hay base).
 Secciones, en este orden:
 
 1. Hero
-   - VOX·LIVE
+   - VOX·STREAM
    - Una linea: Lee el chat de Twitch y TikTok en voz alta.
    - Boton principal: **Abrir estudio** → studio.html
    - Texto pequeno: Gratis. Sin instalar. Chrome.
@@ -178,7 +178,7 @@ Secciones, en este orden:
 5. Footer
    - YuiCoder
    - Link al repo
-   - "Voxlive Free — uso gratuito"
+   - "VoxStream Free — uso gratuito"
    - GitHub Pages
 
 La landing tiene que verse seria, no un readme con CSS. Misma tipografia que el estudio (Syne + IBM Plex Sans o la que ya este).
@@ -199,7 +199,7 @@ Crea `PRECIOS.md` y una seccion en la landing.
 
 ### Pro (proximamente, no activo)
 - Todo lo Free
-- TikTok live sin clave del usuario (servidor Voxlive)
+- TikTok live sin clave del usuario (servidor VoxStream)
 - Cuenta
 - Cola y filtros extra
 - Precio: no pongas un numero inventado. Pon **Proximamente**

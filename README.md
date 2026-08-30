@@ -1,12 +1,12 @@
-# Voxlive
+# VoxStream
 
-![Voxlive](README-header.svg)
+![VoxStream](README-header.svg)
 
 Lee el chat de Twitch y TikTok en voz alta. Es una web. No hay exe.
 
-Voxlive reads Twitch and TikTok chat out loud. It is a website. There is no exe.
+VoxStream reads Twitch and TikTok chat out loud. It is a website. There is no exe.
 
-Voxlive Free. Uso gratuito. Paid plans come later.
+VoxStream Free. Uso gratuito. Paid plans come later.
 
 Sitio: https://yuicoder.github.io/VoxStream/
 
