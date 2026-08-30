@@ -4,16 +4,19 @@ import express from "express";
 import cors from "cors";
 import { WebSocketServer, WebSocket } from "ws";
 import { PLANS, publicPlans } from "./plans.mjs";
+import { readSession, createSession, sidCookie, mePayload } from "./session.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
 const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
+const MAILER = Boolean((process.env.RESEND_API_KEY || "").trim());
 
 const app = express();
 app.use(express.json({ limit: "32kb" }));
 app.use(cors({
-  origin: [ORIGIN, "http://localhost:4173", "http://127.0.0.1:4173", "http://localhost:5500"],
+  origin: [ORIGIN, "http://localhost:4173", "http://127.0.0.1:4173", "http://localhost:5500", "http://localhost:8787"],
+  credentials: true,
   methods: ["GET", "POST", "OPTIONS"]
 }));
 
@@ -23,6 +26,7 @@ app.get("/health", (_req, res) => {
     product: "voxstream",
     stripe: Boolean(STRIPE),
     euler: Boolean(EULER),
+    mailer: MAILER,
     time: new Date().toISOString()
   });
 });
@@ -36,25 +40,43 @@ app.get("/v1/plans", (_req, res) => {
   });
 });
 
+app.get("/v1/me", (req, res) => {
+  res.json(mePayload(readSession(req)));
+});
+
 app.get("/v1/entitlement", (req, res) => {
   const plan = String(req.query.plan || "free").toLowerCase();
   const row = PLANS[plan] || PLANS.free;
   res.json({ plan: row.id, live: row.live, features: row });
 });
 
-app.post("/v1/checkout", (_req, res) => {
-  if (!STRIPE) {
+app.post("/v1/auth/magic", (req, res) => {
+  const email = String((req.body && req.body.email) || "").trim().toLowerCase();
+  if (!/^[^
+\s@]+@[^
+\s@]+\.[^
+\s@]+$/.test(email)) {
+    res.status(400).json({ ok: false, code: "bad_email" });
+    return;
+  }
+  if (!MAILER) {
     res.status(501).json({
       ok: false,
-      code: "stripe_not_configured",
-      hint: "Set STRIPE_SECRET_KEY on the host. Do not collect cards on GitHub Pages."
+      code: "mailer_not_configured",
+      hint: "Set RESEND_API_KEY later. No email was sent. Account is not created."
     });
     return;
   }
+  const session = createSession(email, "free");
+  res.setHeader("Set-Cookie", sidCookie(session.sid));
+  res.json({ ok: true, sent: true, me: mePayload(session) });
+});
+
+app.post("/v1/checkout", (_req, res) => {
   res.status(501).json({
     ok: false,
-    code: "stripe_not_wired",
-    hint: "Secret present, Checkout Session not implemented until Auth exists."
+    code: STRIPE ? "stripe_not_wired" : "stripe_not_configured",
+    hint: "Checkout waits for magic-link sessions. Do not collect cards on Pages."
   });
 });
 
@@ -64,18 +86,22 @@ app.post("/v1/tiktok/hosted", (req, res) => {
     res.status(400).json({ ok: false, code: "bad_user" });
     return;
   }
+  const me = mePayload(readSession(req));
+  if (!me.flags.tiktokHosted) {
+    res.status(403).json({ ok: false, code: "need_pro" });
+    return;
+  }
   if (!EULER) {
     res.status(501).json({
       ok: false,
       code: "euler_not_configured",
-      hint: "Put EULER_API_KEY in server/.env. This is the Pro hosted TikTok path."
+      hint: "Put EULER_API_KEY in server/.env."
     });
     return;
   }
   res.json({
     ok: true,
-    relay: "/v1/tiktok/relay?uniqueId=" + encodeURIComponent(uniqueId),
-    note: "Open that path as WebSocket on this same host."
+    relay: "/v1/tiktok/relay?uniqueId=" + encodeURIComponent(uniqueId)
   });
 });
 
@@ -83,8 +109,9 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: "/v1/tiktok/relay" });
 
 wss.on("connection", (client, req) => {
-  if (!EULER) {
-    client.close(1011, "euler_not_configured");
+  const me = mePayload(readSession(req));
+  if (!me.flags.tiktokHosted || !EULER) {
+    client.close(1008, me.flags.tiktokHosted ? "euler_not_configured" : "need_pro");
     return;
   }
   const url = new URL(req.url, "http://localhost");
@@ -107,8 +134,8 @@ wss.on("connection", (client, req) => {
 
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
-  console.log("health  GET  /health");
-  console.log("plans   GET  /v1/plans");
+  console.log("me      GET  /v1/me");
+  console.log("magic   POST /v1/auth/magic  (501 without RESEND_API_KEY)");
   console.log("euler   " + (EULER ? "yes" : "no"));
-  console.log("stripe  " + (STRIPE ? "key set, checkout still 501" : "no"));
+  console.log("stripe  " + (STRIPE ? "key set, checkout 501" : "no"));
 });
