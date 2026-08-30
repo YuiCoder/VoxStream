@@ -1,52 +1,50 @@
 # How to run the VoxStream server
 
-The website on GitHub Pages is not the server. The server is a program on your computer.
+GitHub Pages is the website. This program is separate. It runs on your PC.
 
-## Once
+## Windows (PowerShell)
 
-1. Install Node.js LTS from https://nodejs.org (the big LTS button).
-2. Install Git if you do not have it: https://git-scm.com
-3. Open **PowerShell** (Windows: Start, type PowerShell).
-4. Get the repo:
+Install Node LTS from https://nodejs.org and Git from https://git-scm.com.
 
 ```
 cd $HOME\Downloads
 git clone https://github.com/YuiCoder/VoxStream.git
 cd VoxStream\server
-```
-
-If you already cloned it, just `cd` into that `server` folder.
-
-5. Create the env file:
-
-```
 copy .env.example .env
 ```
 
-6. Leave `.env` empty of secrets. Do not paste Euler or Stripe keys until you are ready.
-
-## Every time you want it on
-
-PowerShell:
+If PowerShell blocks `npm`:
 
 ```
-cd $HOME\Downloads\VoxStream\server
-npm install
-npm start
+npm.cmd install
+npm.cmd start
 ```
 
-You should see: `VoxStream server on http://localhost:8787`
+Or one time:
 
-Browser: http://localhost:8787/health
-Browser: http://localhost:8787/v1/me
+```
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
 
-That JSON should say `"plan":"free"`.
+Then `npm install` and `npm start` work.
 
-Stop it: click the PowerShell window and press Ctrl+C.
+Update the folder later:
 
-## Point the studio at it (optional)
+```
+cd C:\Users\blood\Downloads\VoxStream
+git pull
+cd server
+npm.cmd start
+```
 
-Pages cannot talk to localhost from the public site in a useful way.
-This is for you on the same machine, later.
+Stop: Ctrl+C in that window.
 
-For now you only need `/health` to prove Node runs.
+## Check
+
+http://localhost:8787/
+http://localhost:8787/health
+http://localhost:8787/v1/me
+
+`plan` must be `free`. `stripe` / `euler` / `mailer` stay false until you add keys. Do not add keys yet.
+
+Pages keeps working if this window is closed.
