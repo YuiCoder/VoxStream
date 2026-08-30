@@ -43,6 +43,21 @@ STOP after C5.
 - [x] D2. FAQ.md: Free needs no account. Stripe test is not live charges.
 - [x] D3. BACKLOG: check C3; record D1 D2.
 
+
+## Done (F)
+
+- [x] F1. HOST.md: Railway Volume + DATA_DIR=/data. Paid rows die on deploy without it.
+- [x] F2. FAQ.md: no local terminal, live Stripe off, Free keeps user Euler.
+- [x] F3. SERVER.md: checkout sync + webhook stub documented.
+
+## G (owner)
+
+Volume is owner (Railway click). Webhook secret is owner (`STRIPE_WEBHOOK_SECRET`). L still closed.
+
+- [x] G1. BACKLOG: F done; G is owner (volume + webhook secret); L closed.
+- [ ] G2. SERVER.md: webhook verifies Stripe signature; 501 without STRIPE_WEBHOOK_SECRET.
+- [ ] G3. FAQ: going Live is not a bot task. YouTube is closed.
+
 ## Later (do not start)
 
 - [ ] L1. YouTube OAuth
