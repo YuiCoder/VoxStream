@@ -12,6 +12,12 @@ const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
 const MAILER = Boolean((process.env.RESEND_API_KEY || "").trim());
 
+function okEmail(email) {
+  const at = email.indexOf("@");
+  const dot = email.lastIndexOf(".");
+  return at > 0 && dot > at + 1 && dot < email.length - 1 && !email.includes(" ");
+}
+
 const app = express();
 app.use(express.json({ limit: "32kb" }));
 app.use(cors({
@@ -52,10 +58,7 @@ app.get("/v1/entitlement", (req, res) => {
 
 app.post("/v1/auth/magic", (req, res) => {
   const email = String((req.body && req.body.email) || "").trim().toLowerCase();
-  if (!/^[^
-\s@]+@[^
-\s@]+\.[^
-\s@]+$/.test(email)) {
+  if (!okEmail(email)) {
     res.status(400).json({ ok: false, code: "bad_email" });
     return;
   }
