@@ -10,6 +10,8 @@ VoxStream Free. Uso gratuito. Paid plans come later.
 
 Sitio: https://yuicoder.github.io/VoxStream/
 
+Docs: [SERVER.md](SERVER.md) · [BACKLOG.md](BACKLOG.md)
+
 ## Español
 
 Abre el estudio en https://yuicoder.github.io/VoxStream/ y pulsa **Abrir estudio**.
