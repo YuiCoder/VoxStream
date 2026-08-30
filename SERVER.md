@@ -83,7 +83,17 @@ Body `{ email }`. Bad email → `400`. No `RESEND_API_KEY` → `501`, no mail, n
 
 ### `POST /v1/checkout`
 
-Always `501`. Waits for Stripe **and** a real magic session. No cards on GitHub Pages. No Customer Portal.
+Stripe **test** Checkout. Not live. Not always `501`.
+
+Needs a Stripe **test** key. Missing key returns `501` (`stripe_not_configured`). Bad plan returns `400`. On success returns a test Checkout Session url (subscription mode). No cards on GitHub Pages. No Customer Portal. Do not print cents on Pages.
+
+### `GET /v1/checkout/sync` and `POST /v1/checkout/sync`
+
+Applies a paid **test** session to SQLite (`users` + `sessions`). Query or body: `session_id` (`cs_...`) or `subscription_id` (`sub_...`). Paid or complete session applies the plan to SQLite, mints a cookie, and returns `/me`. Missing test key returns `501`. Not paid returns `409`. No email on the session returns `422`. Test only. Not live charges.
+
+### `POST /v1/stripe/webhook`
+
+`501` without the webhook secret (`webhook_not_wired`). Stub. Not wired yet.
 
 ### `POST /v1/tiktok/hosted`
 
