@@ -1,7 +1,7 @@
 # Voxlive — instrucciones maestras para el bot
 
-Repo: https://github.com/YuiCoder/Voxlive
-Sitio publico: https://yuicoder.github.io/Voxlive/
+Repo: https://github.com/YuiCoder/VoxStream
+Sitio publico: https://yuicoder.github.io/VoxStream/
 Owner GitHub: YuiCoder
 Branch: main
 Pages: main / root (index.html en la raiz)
@@ -46,7 +46,7 @@ No pongas precios inventados. No conectes Stripe todavia.
 
 ### FASE A — que el publico lo pueda usar (HAZ ESTO PRIMERO)
 El programa tiene que servir hoy, gratis, en:
-https://yuicoder.github.io/Voxlive/
+https://yuicoder.github.io/VoxStream/
 
 ### FASE B — sitio / landing del mismo estilo
 Una cara publica de producto, no solo el estudio.
@@ -230,7 +230,7 @@ Reescribe en espanol y ingles.
 
 Debe decir:
 - Que es
-- Link: https://yuicoder.github.io/Voxlive/
+- Link: https://yuicoder.github.io/VoxStream/
 - Abrir estudio
 - Twitch: canal en directo, sin #, Conectar
 - Voz: un clic en Probar voz; la pestana de Chrome no puede estar muteada
@@ -245,8 +245,8 @@ Debe decir:
 
 Puedes parar cuando TODO esto sea verdad:
 
-- [ ] `git push` hecho. El commit se ve en github.com/YuiCoder/Voxlive/commits/main
-- [ ] https://yuicoder.github.io/Voxlive/ carga la landing (o el estudio si no separaste)
+- [ ] `git push` hecho. El commit se ve en github.com/YuiCoder/VoxStream/commits/main
+- [ ] https://yuicoder.github.io/VoxStream/ carga la landing (o el estudio si no separaste)
 - [ ] El estudio abre y Ensayo pinta mensajes
 - [ ] Probar voz no requiere recargar 8 veces (el codigo espera el clic)
 - [ ] Twitch documentado y el cliente IRC sigue ahi

@@ -1,8 +1,8 @@
 # Fase E — pulido para que se sienta producto de verdad
 
-Repo: YuiCoder/Voxlive  |  branch main
-Sitio: https://yuicoder.github.io/Voxlive/
-Estudio: https://yuicoder.github.io/Voxlive/studio.html
+Repo: YuiCoder/VoxStream  |  branch main
+Sitio: https://yuicoder.github.io/VoxStream/
+Estudio: https://yuicoder.github.io/VoxStream/studio.html
 
 La Fase A–C ya está en main. NO reescribas el programa. NO toques Stripe, login, exe ni servidores.
 Haz pulido visual + copy + detalle. Commit y `git push origin main`. Sube `?v=` en css/js (v=7 o más).
@@ -95,5 +95,5 @@ Al pegar el link en Discord/WhatsApp no debe salir genérico.
 
 Push a main. Responde SOLO:
 1. URL del commit
-2. https://yuicoder.github.io/Voxlive/
+2. https://yuicoder.github.io/VoxStream/
 3. Lista de 5 cambios visibles

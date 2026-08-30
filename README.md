@@ -32,7 +32,7 @@ Sin clave no hay chat real. **Ensayo** es la demo.
 
 Es Free. No hay exe.
 
-Issues: https://github.com/YuiCoder/Voxlive/issues
+Issues: https://github.com/YuiCoder/VoxStream/issues
 
 ## English
 
@@ -56,4 +56,4 @@ No key means no real TikTok chat. **Ensayo** is the demo.
 
 It is Free. There is no exe.
 
-Issues: https://github.com/YuiCoder/Voxlive/issues
+Issues: https://github.com/YuiCoder/VoxStream/issues
