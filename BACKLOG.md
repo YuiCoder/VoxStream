@@ -10,6 +10,7 @@ Rules that never expire:
 - Do not add Auth0, Firebase, React, or an exe.
 - YouTube, Ultra seats, Business software, Twitch login = only when an item is marked OPEN.
 - After every push: reply with commit URL and WAIT for the owner if the item says STOP.
+- Do not edit app.js unless the owner pastes a concrete bug.
 
 ## Now (bot may take these in order)
 
@@ -74,7 +75,7 @@ Owner paused Stripe Live. Money later. Next is studio bugs the owner files.
 
 - [x] I1. FAQ: how to test studio (voice, Twitch, Euler TikTok, Escenario). No prices.
 - [x] I2. BACKLOG: money later. Next is studio bugs the owner files.
-- [ ] I3. Do not edit app.js unless owner pastes a concrete bug.
+- [x] I3. Do not edit app.js unless owner pastes a concrete bug.
 
 STOP after I3.
 
