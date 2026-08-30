@@ -9,6 +9,10 @@ function stripeClient(secret) {
   return new Stripe(secret);
 }
 
+function appOrigin() {
+  return String(process.env.APP_URL || ("http://localhost:" + (process.env.PORT || 8787))).replace(/\/$/, "");
+}
+
 function grant(res, email, plan, extra) {
   const use = PLANS[plan] ? plan : "pro";
   upsertUser(email, use, extra);
@@ -28,7 +32,7 @@ export async function startCheckout(req, res, secret) {
     return;
   }
   const cents = priceTable()[want];
-  const origin = "http://localhost:" + (process.env.PORT || 8787);
+  const origin = appOrigin();
   try {
     const session = await stripeClient(secret).checkout.sessions.create({
       mode: "subscription",
