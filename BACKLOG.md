@@ -11,6 +11,7 @@ Rules that never expire:
 - YouTube, Ultra seats, Business software, Twitch login = only when an item is marked OPEN.
 - After every push: reply with commit URL and WAIT for the owner if the item says STOP.
 - Do not edit app.js unless the owner pastes a concrete bug.
+- Do not touch app.js, server, or Stripe.
 
 ## Now (bot may take these in order)
 
@@ -86,7 +87,7 @@ Owner confirmed studio works on Twitch + TikTok. Queue cap is on main. Money sta
 Product pass ok. Next is look (CSS) or copy only if owner says A or B.
 
 - [x] J1. BACKLOG: product pass ok. Next is look (CSS) or copy only if owner says A or B.
-- [ ] J2. Do not touch app.js, server, or Stripe.
+- [x] J2. Do not touch app.js, server, or Stripe.
 
 STOP after J1 unless owner says A or B.
 
