@@ -20,7 +20,7 @@ Rules that never expire:
 - [x] B5. Favicon / og / header: confirm VOX·STREAM + rhombus + lilac. Fix if a file still says LIVE.
 - [x] B6. CONTRIBUTING.md: friend may edit copy. Bot and owner own app.js / server.
 - [x] B7. Add a short FAQ.md: muted tab, Probar voz, Euler key, no exe, old /Voxlive/ URL is dead.
-- [ ] B8. Stage-mode CSS pass only (styles.css). Bigger now-text, hide more chrome, no JS rewrite.
+- [x] B8. Stage-mode CSS pass only (styles.css). Bigger now-text, hide more chrome, no JS rewrite.
 - [ ] B9. Accessible labels on sliders (aria-valuetext) in studio.html. Do not change app.js logic.
 - [ ] B10. 404.html on Pages that points people to /VoxStream/studio.html.
 

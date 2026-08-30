@@ -138,10 +138,13 @@ input[type=range] { width:100%; accent-color:var(--accent); background:transpare
 
 body.stage aside,
 body.stage header .hide-stage,
-body.stage .hide-stage { display:none; }
+body.stage .hide-stage,
+body.stage .lang,
+body.stage .freebadge { display:none; }
 body.stage .wrap { max-width:720px; }
 body.stage .feed { max-height:none; min-height:auto; }
 body.stage .now { min-height:auto; }
+body.stage .now p.big { font-size:42px; }
 
 body.opener {
   min-height:100vh;
