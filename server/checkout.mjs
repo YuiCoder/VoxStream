@@ -9,6 +9,14 @@ function stripeClient(secret) {
   return new Stripe(secret);
 }
 
+function grant(res, email, plan, extra) {
+  const use = PLANS[plan] ? plan : "pro";
+  upsertUser(email, use, extra);
+  const cookie = createSession(email, use);
+  res.setHeader("Set-Cookie", sidCookie(cookie.sid));
+  res.json(mePayload(cookie));
+}
+
 export async function startCheckout(req, res, secret) {
   if (!secret) {
     res.status(501).json({ ok: false, code: "stripe_not_configured" });
@@ -45,34 +53,49 @@ export async function startCheckout(req, res, secret) {
 }
 
 export async function syncCheckout(req, res, secret) {
-  const id = String((req.query && req.query.session_id) || (req.body && req.body.session_id) || "").trim();
+  const id = String(
+    (req.query && (req.query.session_id || req.query.subscription_id)) ||
+    (req.body && (req.body.session_id || req.body.subscription_id)) ||
+    ""
+  ).trim();
   if (!secret) {
     res.status(501).json({ ok: false, code: "stripe_not_configured" });
     return;
   }
-  if (!id.startsWith("cs_")) {
-    res.status(400).json({ ok: false, code: "bad_session" });
-    return;
-  }
+  const stripe = stripeClient(secret);
   try {
-    const session = await stripeClient(secret).checkout.sessions.retrieve(id);
+    if (id.startsWith("sub_")) {
+      const sub = await stripe.subscriptions.retrieve(id);
+      if (sub.status !== "active" && sub.status !== "trialing") {
+        res.status(409).json({ ok: false, code: "not_active", status: sub.status });
+        return;
+      }
+      const customer = await stripe.customers.retrieve(String(sub.customer));
+      const email = String(customer.email || "").toLowerCase();
+      if (!email) {
+        res.status(422).json({ ok: false, code: "no_email" });
+        return;
+      }
+      const plan = (sub.metadata && sub.metadata.plan) || "pro";
+      grant(res, email, plan, { customer: sub.customer, sub: sub.id });
+      return;
+    }
+    if (!id.startsWith("cs_")) {
+      res.status(400).json({ ok: false, code: "bad_session" });
+      return;
+    }
+    const session = await stripe.checkout.sessions.retrieve(id);
     if (session.status !== "complete" && session.payment_status !== "paid") {
       res.status(409).json({ ok: false, code: "not_paid", status: session.status });
       return;
     }
-    const email = String(session.customer_details && session.customer_details.email || session.customer_email || "").toLowerCase();
+    const email = String((session.customer_details && session.customer_details.email) || session.customer_email || "").toLowerCase();
     const plan = (session.metadata && session.metadata.plan) || "pro";
     if (!email) {
       res.status(422).json({ ok: false, code: "no_email" });
       return;
     }
-    upsertUser(email, PLANS[plan] ? plan : "pro", {
-      customer: session.customer || null,
-      sub: session.subscription || null
-    });
-    const cookie = createSession(email, PLANS[plan] ? plan : "pro");
-    res.setHeader("Set-Cookie", sidCookie(cookie.sid));
-    res.json(mePayload(cookie));
+    grant(res, email, plan, { customer: session.customer, sub: session.subscription });
   } catch (err) {
     res.status(502).json({ ok: false, code: "stripe_error", hint: String(err && err.message || err) });
   }
