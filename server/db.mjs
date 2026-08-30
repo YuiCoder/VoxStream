@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { DatabaseSync } from "node:sqlite";
 
 const fallback = path.join(path.dirname(fileURLToPath(import.meta.url)), "data");
-const dir = process.env.DATA_DIR || fallback;
+const dir = process.env.DATA_DIR || process.env.RAILWAY_VOLUME_MOUNT_PATH || fallback;
 fs.mkdirSync(dir, { recursive: true });
 
 export const db = new DatabaseSync(path.join(dir, "voxstream.db"));
