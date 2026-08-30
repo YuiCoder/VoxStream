@@ -3,9 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voxlive — Estudio</title>
-  <link rel="stylesheet" href="styles.css?v=6" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <title>Voxlive Estudio</title>
+  <meta name="theme-color" content="#09090b" />
+  <meta name="description" content="Estudio Voxlive: lee el chat de Twitch y TikTok en voz alta." />
+  <meta property="og:title" content="Voxlive Estudio" />
+  <meta property="og:description" content="Estudio Voxlive: lee el chat de Twitch y TikTok en voz alta." />
+  <meta property="og:url" content="https://yuicoder.github.io/Voxlive/studio.html" />
+  <meta property="og:image" content="https://yuicoder.github.io/Voxlive/og.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css?v=7" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="wrap">
@@ -25,6 +34,10 @@
       </div>
     </header>
     <div id="checklist" class="card checklist hide-stage">
+      <div class="checklist-head">
+        <span class="fineprint">Primera visita</span>
+        <button class="ck-x" id="checklist-x" type="button" aria-label="Cerrar">×</button>
+      </div>
       <ol>
         <li id="ck1">Pulsa Probar voz</li>
         <li id="ck2">Conecta Twitch (canal en directo)</li>
@@ -41,7 +54,7 @@
             <button class="btn" id="twitch-btn" type="button">Conectar</button>
           </div>
           <div class="status"><span class="dot" id="twitch-dot"></span><span id="twitch-st">-</span></div>
-          <p class="hint" id="twitch-h">Twitch no pide contrasena.</p>
+          <p class="hint" id="twitch-h">Twitch no pide contraseña.</p>
           <hr />
           <label for="tiktok">TikTok</label>
           <div class="connect">
@@ -50,11 +63,11 @@
           </div>
           <label for="ttkey" id="ttkey-l" style="margin-top:10px">Clave TikTok (gratis)</label>
           <div class="keyrow">
-            <input id="ttkey" type="password" placeholder="pega aqui tu API key" autocomplete="off" spellcheck="false" />
+            <input id="ttkey" type="password" placeholder="Pega aquí tu API key" autocomplete="off" spellcheck="false" />
             <button class="btn ghost" id="ttkey-toggle" type="button">Mostrar</button>
           </div>
           <div class="status"><span class="dot" id="tiktok-dot"></span><span id="tiktok-st">-</span></div>
-          <p class="hint" id="tiktok-h">TikTok necesita LIVE abierto y clave de eulerstream.com</p>
+          <p class="hint" id="tiktok-h">TikTok necesita LIVE abierto y una <a href="https://www.eulerstream.com/register" target="_blank" rel="noopener">clave gratis en eulerstream.com</a>.</p>
           <hr />
           <div class="line">
             <div>
@@ -63,7 +76,7 @@
             </div>
             <label class="switch"><input id="demo" type="checkbox" checked /><span class="knob"></span></label>
           </div>
-          <p class="hint" id="free-note">Uso gratuito. Planes despues.</p>
+          <p class="hint" id="free-note">Uso gratuito. Planes después.</p>
         </section>
         <section class="card">
           <h2 id="h-voice">Voz</h2>
@@ -94,7 +107,6 @@
             <div class="row">
               <button class="btn ghost" id="skip" type="button">Saltar</button>
               <button class="btn ghost" id="pause" type="button">Pausa</button>
-              <button class="btn ghost" id="resume" type="button">Seguir</button>
             </div>
           </div>
         </section>
@@ -106,11 +118,11 @@
   </div>
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
-      <h3 id="pro-title">Proximamente Pro</h3>
-      <p id="pro-body">Pro no esta activo. Hoy Voxlive es Free.</p>
+      <h3 id="pro-title">Próximamente Pro</h3>
+      <p id="pro-body">Pro no está activo. Hoy Voxlive es Free.</p>
       <button class="btn" id="pro-close" type="button">Cerrar</button>
     </div>
   </div>
-  <script src="app.js?v=6"></script>
+  <script src="app.js?v=7"></script>
 </body>
 </html>

@@ -3,38 +3,21 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VOX·LIVE — Lee el chat en voz alta</title>
-  <link rel="stylesheet" href="styles.css?v=6" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
-  <style>
-    .land { max-width:880px; margin:0 auto; padding:48px 20px 72px; display:flex; flex-direction:column; gap:56px; }
-    .hero { text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; padding:24px 0 8px; }
-    .hero .word { font-size:52px; }
-    .hero h1 { font-family:Syne,system-ui; font-size:28px; font-weight:600; margin:0; letter-spacing:-.03em; line-height:1.2; }
-    .hero .sub { color:var(--muted); margin:0; font-size:16px; }
-    .hero .fine { color:var(--subtle); font-size:13px; margin:0; }
-    .sec h2 { font-size:22px; margin:0 0 18px; }
-    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-    .step { background:var(--surface); border-radius:16px; padding:18px; box-shadow:var(--border); }
-    .n { font-family:Syne,system-ui; color:var(--accent); font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
-    .step h3 { font-family:Syne,system-ui; margin:8px 0 0; font-size:18px; }
-    .list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .list li { background:var(--surface); border-radius:12px; padding:14px 16px; box-shadow:var(--border); }
-    .notify { display:flex; gap:8px; margin-top:16px; max-width:480px; }
-    .notify input { flex:1; }
-    .foot { color:var(--subtle); font-size:13px; display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center; }
-    .foot a { color:var(--accent); }
-    .tiers { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .tier { background:var(--surface); border-radius:16px; padding:20px; box-shadow:var(--border); }
-    .tier h3 { font-family:Syne,system-ui; margin:0 0 6px; font-size:20px; }
-    .price { color:var(--accent); font-size:13px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 12px; }
-    .tier ul { margin:0; padding-left:18px; color:var(--muted); line-height:1.6; }
-    .soon { opacity:.85; }
-    @media (max-width:720px) {
-      .steps, .tiers { grid-template-columns:1fr; }
-      .hero .word { font-size:40px; }
-    }
-  </style>
+  <title>Voxlive — Lee el chat en voz alta</title>
+  <meta name="theme-color" content="#09090b" />
+  <meta name="description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
+  <meta property="og:title" content="Voxlive — Lee el chat en voz alta" />
+  <meta property="og:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
+  <meta property="og:url" content="https://yuicoder.github.io/Voxlive/" />
+  <meta property="og:image" content="https://yuicoder.github.io/Voxlive/og.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Voxlive — Lee el chat en voz alta" />
+  <meta name="twitter:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
+  <meta name="twitter:image" content="https://yuicoder.github.io/Voxlive/og.png" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css?v=7" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="land">
@@ -42,38 +25,108 @@
       <div class="word">VOX<span>·</span>LIVE</div>
       <h1>Lee el chat de Twitch y TikTok en voz alta.</h1>
       <a class="btn" href="studio.html">Abrir estudio</a>
-      <p class="fine">Gratis. Sin instalar. Chrome.</p>
+      <p class="fine">Uso gratuito. Se abre en Chrome.</p>
     </section>
 
-    <section class="sec">
-      <h2>Como funciona</h2>
-      <div class="steps">
-        <article class="step"><div class="n">01</div><h3>Abre el estudio</h3></article>
-        <article class="step"><div class="n">02</div><h3>Conecta Twitch o TikTok</h3></article>
-        <article class="step"><div class="n">03</div><h3>El chat se lee solo</h3></article>
+    <section class="sec vista" aria-label="Vista del estudio">
+      <h2>Vista del estudio</h2>
+      <div class="studio-mock">
+        <div class="mock-bar">
+          <div class="word">VOX<span>·</span>LIVE</div>
+          <span class="pill">AL AIRE</span>
+          <span class="freebadge">VOXLIVE FREE</span>
+        </div>
+        <article class="msg">
+          <div class="av">VA</div>
+          <div>
+            <div class="name">valeria.r<span class="tag">ENSAYO</span></div>
+            <div class="body">hola, acabo de entrar</div>
+          </div>
+          <div>
+            <div class="time">20:14</div>
+            <div class="plat">tiktok</div>
+          </div>
+        </article>
+        <article class="msg">
+          <div class="av">NE</div>
+          <div>
+            <div class="name">nexo_<span class="tag">ENSAYO</span></div>
+            <div class="body">vamos con todo hoy</div>
+          </div>
+          <div>
+            <div class="time">20:14</div>
+            <div class="plat">twitch</div>
+          </div>
+        </article>
       </div>
     </section>
 
     <section class="sec">
-      <h2>Que hay hoy (Free)</h2>
-      <ul class="list">
-        <li>Twitch en vivo</li>
-        <li>Ensayo para TikTok / prueba de voz</li>
-        <li>TikTok real con clave gratuita de Euler</li>
-        <li>Modo escenario para OBS</li>
+      <h2>Cómo funciona</h2>
+      <div class="steps">
+        <article class="step">
+          <div class="n">01</div>
+          <h3>Abre el estudio</h3>
+          <p>Entra al link. Sin instalar nada.</p>
+        </article>
+        <article class="step">
+          <div class="n">02</div>
+          <h3 class="nowrap">Conecta Twitch o TikTok</h3>
+          <p>Canal en directo, o TikTok con LIVE y clave.</p>
+        </article>
+        <article class="step">
+          <div class="n">03</div>
+          <h3>El chat se lee solo</h3>
+          <p>Un clic en Probar voz y el chat se oye.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Qué hay hoy (Free)</h2>
+      <ul class="features">
+        <li>
+          <span class="n">01</span>
+          <div>
+            <h3>Twitch en vivo</h3>
+            <p>Chat real, sin contraseña.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">02</span>
+          <div>
+            <h3>Ensayo</h3>
+            <p>Mensajes de prueba para oír la voz y TikTok.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">03</span>
+          <div>
+            <h3>TikTok real</h3>
+            <p>Con clave gratuita de Euler y el LIVE abierto.</p>
+          </div>
+        </li>
+        <li>
+          <span class="n">04</span>
+          <div>
+            <h3>Modo escenario</h3>
+            <p>Vista limpia para OBS, en #stage.</p>
+          </div>
+        </li>
       </ul>
     </section>
 
     <section class="sec">
-      <h2>Que viene (Pro)</h2>
+      <h2>Qué viene (Pro)</h2>
+      <p class="soon-kicker">PRÓXIMAMENTE</p>
       <ul class="list">
         <li>TikTok sin que el usuario pegue clave</li>
-        <li>Cuentas y suscripcion</li>
-        <li>Mas voces</li>
+        <li>Cuentas y suscripción</li>
+        <li>Más voces</li>
       </ul>
       <form class="notify" id="avisame">
         <input id="aviso-email" type="email" placeholder="tu@email.com" autocomplete="email" required />
-        <button class="btn" type="submit">Avisame</button>
+        <button class="btn" type="submit">Avísame</button>
       </form>
       <p class="hint" id="aviso-ok" hidden>te avisamos</p>
     </section>
@@ -94,7 +147,7 @@
         </article>
         <article class="tier soon">
           <h3>Pro</h3>
-          <p class="price">Proximamente · no activo</p>
+          <p class="price">PRÓXIMAMENTE · no activo</p>
           <ul>
             <li>Todo lo Free</li>
             <li>TikTok live sin clave del usuario (servidor Voxlive)</li>
@@ -108,6 +161,7 @@
 
     <footer class="foot">
       <span>YuiCoder</span>
+      <a href="studio.html">Abrir estudio</a>
       <a href="https://github.com/YuiCoder/Voxlive">github.com/YuiCoder/Voxlive</a>
       <span>Voxlive Free — uso gratuito</span>
       <span>GitHub Pages</span>
@@ -115,8 +169,8 @@
   </div>
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
-      <h3>Proximamente Pro</h3>
-      <p>Pro no esta activo. Hoy Voxlive es Free. Te avisamos cuando haya cuenta, TikTok sin pegar clave y mas voces.</p>
+      <h3>Próximamente Pro</h3>
+      <p>Pro no está activo. Hoy Voxlive es Free. Te avisamos cuando haya cuenta, TikTok sin pegar clave y más voces.</p>
       <button class="btn" id="pro-close" type="button">Cerrar</button>
     </div>
   </div>

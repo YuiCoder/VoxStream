@@ -2,7 +2,7 @@
 
 Lector de chat en vivo para Twitch y TikTok. Lo abre en el navegador y lee el chat en voz alta.
 
-**Voxlive Free — uso gratuito. Planes de pago despues.** No hay `.exe`. No hay instalador.
+**Voxlive Free — uso gratuito. Planes de pago después.** No hay `.exe`. No hay instalador.
 
 Sitio: **https://yuicoder.github.io/Voxlive/**
 
@@ -21,7 +21,7 @@ Sitio: **https://yuicoder.github.io/Voxlive/**
 ### Voz
 - Un clic en **Probar voz** desbloquea el audio (Chrome bloquea `speak()` hasta un gesto).
 - La pestaña de Chrome **no puede estar muteada**. Si no se oye, revisa el icono de altavoz de la pestaña.
-- Saltar, Pausa y Seguir controlan la cola.
+- Saltar y Pausa/Seguir controlan la cola.
 
 ### TikTok
 - Chat real necesita LIVE abierto y una clave gratis:
