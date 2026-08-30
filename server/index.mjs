@@ -5,7 +5,7 @@ import cors from "cors";
 import { WebSocketServer, WebSocket } from "ws";
 import { PLANS, publicPlans } from "./plans.mjs";
 import { readSession, createSession, sidCookie, mePayload } from "./session.mjs";
-import { startCheckout } from "./checkout.mjs";
+import { startCheckout, syncCheckout } from "./checkout.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
@@ -86,11 +86,7 @@ app.post("/v1/auth/magic", (req, res) => {
     return;
   }
   if (!MAILER) {
-    res.status(501).json({
-      ok: false,
-      code: "mailer_not_configured",
-      hint: "Set RESEND_API_KEY later. No email was sent. Account is not created."
-    });
+    res.status(501).json({ ok: false, code: "mailer_not_configured" });
     return;
   }
   const session = createSession(email, "free");
@@ -99,13 +95,11 @@ app.post("/v1/auth/magic", (req, res) => {
 });
 
 app.post("/v1/checkout", (req, res) => startCheckout(req, res, STRIPE));
+app.get("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
+app.post("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 
 app.post("/v1/stripe/webhook", (_req, res) => {
-  res.status(501).json({
-    ok: false,
-    code: STRIPE_WH ? "webhook_not_wired" : "webhook_not_configured",
-    hint: "Paying in test does not flip /me yet. Webhook comes next."
-  });
+  res.status(501).json({ ok: false, code: "webhook_not_wired" });
 });
 
 app.post("/v1/tiktok/hosted", (req, res) => {
@@ -120,17 +114,10 @@ app.post("/v1/tiktok/hosted", (req, res) => {
     return;
   }
   if (!EULER) {
-    res.status(501).json({
-      ok: false,
-      code: "euler_not_configured",
-      hint: "Put EULER_API_KEY in server/.env."
-    });
+    res.status(501).json({ ok: false, code: "euler_not_configured" });
     return;
   }
-  res.json({
-    ok: true,
-    relay: "/v1/tiktok/relay?uniqueId=" + encodeURIComponent(uniqueId)
-  });
+  res.json({ ok: true, relay: "/v1/tiktok/relay?uniqueId=" + encodeURIComponent(uniqueId) });
 });
 
 app.use((req, res) => {
@@ -166,9 +153,7 @@ wss.on("connection", (client, req) => {
 
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
-  console.log("me      GET  /v1/me");
   console.log("pay     POST /v1/checkout");
-  console.log("hook    POST /v1/stripe/webhook  (501)");
-  console.log("euler   " + (EULER ? "yes" : "no"));
+  console.log("sync    GET  /v1/checkout/sync?session_id=");
   console.log("stripe  " + (STRIPE ? "key set" : "no"));
 });
