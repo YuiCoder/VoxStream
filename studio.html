@@ -3,27 +3,27 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voxlive Estudio</title>
+  <title>VoxStream Estudio</title>
   <meta name="theme-color" content="#09090b" />
-  <meta name="description" content="Estudio Voxlive: lee el chat de Twitch y TikTok en voz alta." />
-  <meta property="og:title" content="Voxlive Estudio" />
-  <meta property="og:description" content="Estudio Voxlive: lee el chat de Twitch y TikTok en voz alta." />
+  <meta name="description" content="Estudio VoxStream: lee el chat de Twitch y TikTok en voz alta." />
+  <meta property="og:title" content="VoxStream Estudio" />
+  <meta property="og:description" content="Estudio VoxStream: lee el chat de Twitch y TikTok en voz alta." />
   <meta property="og:url" content="https://yuicoder.github.io/VoxStream/studio.html" />
   <meta property="og:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=10" />
+  <link rel="stylesheet" href="styles.css?v=11" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="wrap">
     <header>
       <div class="row">
-        <div class="word">VOX<span>·</span>LIVE</div>
+        <div class="word">VOX<span>·</span>STREAM</div>
         <div id="livepill" class="pill off">EN ESPERA</div>
-        <button class="freebadge" id="freebadge" type="button">VOXLIVE FREE</button>
+        <button class="freebadge" id="freebadge" type="button">VOXSTREAM FREE</button>
       </div>
       <div class="row">
         <span class="hide-stage" id="msgcount" style="font-variant-numeric:tabular-nums;font-size:12px;color:var(--subtle)"></span>
@@ -108,6 +108,23 @@
           <input id="pitch" type="range" min="0.5" max="1.5" step="0.05" value="1" />
           <button class="btn outline wide" id="test" type="button" style="margin-top:12px">Probar voz</button>
         </section>
+        <section class="card hide-stage">
+          <h2 id="h-filter">Filtros</h2>
+          <div class="line"><span id="gift-l">Leer regalos</span><label class="switch"><input id="readgift" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="follow-l">Leer follows</span><label class="switch"><input id="readfollow" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="sub-l">Leer subs</span><label class="switch"><input id="readsub" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="bot-l">Saltar bots</span><label class="switch"><input id="skipbots" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="emo-l">Saltar solo emotes</span><label class="switch"><input id="skipemo" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line" style="margin-top:14px"><span id="qmax-l">Cola máx</span><span id="qmax-v">12</span></div>
+          <input id="qmax" type="range" min="4" max="24" step="1" value="12" />
+          <p class="hint" id="keys-h">Atajos: S saltar, P pausa (fuera de un campo).</p>
+        </section>
+        <section class="card hide-stage soon" id="locked-card">
+          <h2 id="h-soon">Después</h2>
+          <p class="hint" id="soon-h">Plus y Pro se abren en el mismo estudio. Hoy no hay cobro.</p>
+          <button class="btn outline wide" id="lock-plus" type="button" style="margin-top:10px">Plus: filtros extra</button>
+          <button class="btn outline wide" id="lock-pro" type="button" style="margin-top:8px">Pro: YouTube + ElevenLabs</button>
+        </section>
       </aside>
       <main>
         <section class="card now">
@@ -116,6 +133,7 @@
           <div class="meta">
             <span id="now-user"></span>
             <div class="row">
+              <button class="btn ghost" id="clearq" type="button">Vaciar</button>
               <button class="btn ghost" id="skip" type="button">Saltar</button>
               <button class="btn ghost" id="pause" type="button">Pausa</button>
             </div>
@@ -129,11 +147,11 @@
   </div>
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
-      <h3 id="pro-title">Próximamente Pro</h3>
-      <p id="pro-body">Pro no está activo. Hoy Voxlive es Free.</p>
+      <h3 id="pro-title">Próximamente</h3>
+      <p id="pro-body">Hoy VoxStream es Free. Plus y Pro se activan en este mismo estudio cuando haya cuenta.</p>
       <button class="btn" id="pro-close" type="button">Cerrar</button>
     </div>
   </div>
-  <script src="app.js?v=10"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
