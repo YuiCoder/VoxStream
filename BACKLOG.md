@@ -79,6 +79,17 @@ Owner paused Stripe Live. Money later. Next is studio bugs the owner files.
 
 STOP after I3.
 
+
+## J (after product pass)
+
+Owner confirmed studio works on Twitch + TikTok. Queue cap is on main. Money stays later.
+Product pass ok. Next is look (CSS) or copy only if owner says A or B.
+
+- [x] J1. BACKLOG: product pass ok. Next is look (CSS) or copy only if owner says A or B.
+- [ ] J2. Do not touch app.js, server, or Stripe.
+
+STOP after J1 unless owner says A or B.
+
 ## Later (do not start)
 
 - [ ] L1. YouTube OAuth
