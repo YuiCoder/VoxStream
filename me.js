@@ -12,6 +12,17 @@
     }
   }
 
+  function capQueue(flags) {
+    const cap = Number(flags.maxQueue || 12);
+    const el = $("qmax");
+    if (!el) return;
+    el.max = String(cap);
+    if (Number(el.value) > cap) {
+      el.value = String(cap);
+      el.dispatchEvent(new Event("input"));
+    }
+  }
+
   function paint(me) {
     const plan = (me && me.plan) || "free";
     const flags = (me && me.flags) || {};
@@ -32,6 +43,7 @@
         ? "Free: Twitch, Ensayo, tu clave Euler. Pro no se cobra en esta página."
         : ("Plan " + plan + ". Hosted TikTok y BYOK siguen las flags del servidor.");
     }
+    capQueue(flags);
     window.voxMe = me;
   }
 
@@ -40,7 +52,7 @@
       const res = await fetch(apiBase() + "/v1/me", { credentials: "include" });
       paint(await res.json());
     } catch (e) {
-      paint({ plan: "free", email: null, flags: {} });
+      paint({ plan: "free", email: null, flags: { maxQueue: 12 } });
     }
   }
 
