@@ -1,28 +1,19 @@
 # Voxlive
 
-Lector de chat en vivo para **Twitch** y **TikTok**. Windows 11 x64.
+Lector de chat en vivo para Twitch y TikTok. Se usa en el navegador. Sin exe.
 
-## Descargar
+## Usar ahora
 
-**Zip con los 3 programas:**
-https://litter.catbox.moe/bdk7ls.zip
+1. Abre este enlace cuando GitHub Pages esté activo:
+   **https://yuicoder.github.io/Voxlive/**
+2. Si aún no carga, en el repo: **Settings → Pages → Deploy from a branch → main → / (root) → Save**.
+3. Espera un minuto y recarga.
 
-(El enlace dura unos 3 días.)
+## Cómo funciona
 
-## Programas dentro del zip
+- **Twitch:** chat real en vivo. Canal sin `#`. Sin contraseña.
+- **TikTok:** en esta página pública el chat se prueba con **Ensayo**. El LIVE real de TikTok necesita servidor (eso va en el plan de suscripción).
+- **Voz:** elige voz, velocidad, decir el nombre.
+- **Escenario:** vista limpia para transmitir.
 
-| Archivo | Qué hace |
-|---|---|
-| `Voxlive.exe` | Completo: Twitch + TikTok |
-| `Voxlive-Twitch.exe` | Solo Twitch |
-| `Voxlive-TikTok.exe` | Solo TikTok |
-
-## Cómo usarlo
-
-1. Descarga el zip.
-2. Extrae.
-3. Doble clic en el `.exe`.
-4. Si Windows avisa: **Más información → Ejecutar de todas formas**.
-5. Canal Twitch sin `#`, usuario TikTok sin `@`.
-6. **Conectar**. El chat se lee en voz alta.
-7. TikTok solo funciona si el LIVE está abierto.
+No hay `.exe` ni zip. Comparte el enlace y listo.
