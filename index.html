@@ -3,92 +3,16 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Voxlive</title>
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <title>VOX·LIVE</title>
+  <link rel="stylesheet" href="styles.css?v=6" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
 </head>
-<body>
-  <div class="wrap">
-    <header>
-      <div class="row">
-        <div class="word">VOX<span>·</span>LIVE</div>
-        <div id="livepill" class="pill off">EN ESPERA</div>
-      </div>
-      <div class="row">
-        <span class="hide-stage" id="msgcount" style="font-variant-numeric:tabular-nums;font-size:12px;color:var(--subtle)"></span>
-        <div class="lang">
-          <button id="es" class="on" type="button">ES</button>
-          <button id="en" type="button">EN</button>
-        </div>
-        <button class="btn outline hide-stage" id="stage" type="button">Escenario</button>
-      </div>
-    </header>
-    <div class="layout">
-      <aside>
-        <section class="card">
-          <h2 id="h-src">Fuentes</h2>
-          <label for="twitch">Twitch</label>
-          <div class="connect">
-            <input id="twitch" placeholder="Canal, sin #" autocomplete="off" spellcheck="false" />
-            <button class="btn" id="twitch-btn" type="button">Conectar</button>
-          </div>
-          <div class="status"><span class="dot" id="twitch-dot"></span><span id="twitch-st">-</span></div>
-          <p class="hint" id="twitch-h"></p>
-          <hr />
-          <label for="tiktok">TikTok</label>
-          <div class="connect">
-            <input id="tiktok" placeholder="Usuario, sin @" autocomplete="off" spellcheck="false" />
-            <button class="btn" id="tiktok-btn" type="button">Conectar</button>
-          </div>
-          <label for="ttkey" id="ttkey-l" style="margin-top:10px">Clave TikTok (gratis)</label>
-          <input id="ttkey" type="text" placeholder="pega aqui tu API key" autocomplete="off" spellcheck="false" />
-          <div class="status"><span class="dot" id="tiktok-dot"></span><span id="tiktok-st">-</span></div>
-          <p class="hint" id="tiktok-h"></p>
-          <hr />
-          <div class="line">
-            <div>
-              <div id="demo-l">Ensayo</div>
-              <p class="hint" id="demo-h"></p>
-            </div>
-            <label class="switch"><input id="demo" type="checkbox" checked /><span class="knob"></span></label>
-          </div>
-        </section>
-        <section class="card">
-          <h2 id="h-voice">Voz</h2>
-          <div class="line">
-            <span id="tts-l">Leer en voz alta</span>
-            <label class="switch"><input id="tts" type="checkbox" checked /><span class="knob"></span></label>
-          </div>
-          <div class="line">
-            <span id="name-l">Decir el nombre</span>
-            <label class="switch"><input id="readname" type="checkbox" checked /><span class="knob"></span></label>
-          </div>
-          <label for="voice" id="voice-l">Voz</label>
-          <select id="voice"></select>
-          <div class="line" style="margin-top:14px">
-            <span id="rate-l">Velocidad</span>
-            <span id="rate-v">1.0x</span>
-          </div>
-          <input id="rate" type="range" min="0.7" max="1.4" step="0.05" value="1" />
-          <button class="btn outline wide" id="test" type="button" style="margin-top:12px">Probar voz</button>
-        </section>
-      </aside>
-      <main>
-        <section class="card now">
-          <div class="kicker"><span id="now-k">En silencio</span><span id="q">0 en cola</span></div>
-          <p class="big" id="now-text">-</p>
-          <div class="meta">
-            <span id="now-user"></span>
-            <div class="row">
-              <button class="btn ghost" id="pause" type="button">Pausa</button>
-              <button class="btn ghost" id="skip" type="button">Saltar</button>
-            </div>
-          </div>
-        </section>
-        <section class="card feed" id="feed"></section>
-      </main>
-    </div>
+<body class="opener">
+  <div class="opener-inner">
+    <div class="word">VOX<span>·</span>LIVE</div>
+    <p class="opener-line">Lee el chat de Twitch y TikTok en voz alta.</p>
+    <a class="btn" href="studio.html">Abrir estudio</a>
+    <p class="hint">Gratis. Sin instalar. Chrome.</p>
   </div>
-  <script src="app.js?v=5"></script>
 </body>
 </html>
