@@ -31,7 +31,7 @@ STOP after B10. Owner reviews.
 - [x] C1. Magic-link email copy (subject + body) in server/mail.mjs. Do not send until RESEND_API_KEY exists.
 - [x] C2. Stripe test fixtures: document products Plus/Pro/Ultra in STRIPE.md. No live keys.
 - [ ] C3. Webhook handler stub POST /v1/stripe/webhook that returns 501 without the secret.
-- [ ] C4. Hosted TikTok status text in the studio lock card only. No new socket code.
+- [x] C4. Hosted TikTok status text in the studio lock card only. No new socket code.
 - [ ] C5. ElevenLabs BYOK fields in studio.html (hidden behind Pro label). Do not call ElevenLabs yet.
 
 STOP after C5.
