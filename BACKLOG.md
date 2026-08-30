@@ -65,7 +65,7 @@ Owner created Stripe destination **VoxStream test** → `/v1/stripe/webhook`. Si
 
 - [x] H1. BACKLOG: VoxStream test destination; secret on Railway; L closed.
 - [x] H2. SERVER.md: destination VoxStream test → /v1/stripe/webhook; signing secret on Railway only.
-- [ ] H3. FAQ: signing secret is Railway only. No Live.
+- [x] H3. FAQ: signing secret is Railway only. No Live.
 
 ## Later (do not start)
 

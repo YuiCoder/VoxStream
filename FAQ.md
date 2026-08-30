@@ -45,13 +45,9 @@ No. Live Stripe is off. Stripe is test only, not live charges.
 Free keeps your own Euler key in the studio. Hosted TikTok is Pro.
 
 
-## Can the bot turn on live Stripe?
+## Where does the Stripe signing secret go?
 
-No. Going Live is not a bot task. Owner only.
-
-## YouTube?
-
-Closed. Do not start it.
+Railway only (`STRIPE_WEBHOOK_SECRET`). Never GitHub, never chat. Destination name: VoxStream test → `/v1/stripe/webhook`.
 
 ## Español
 
@@ -73,6 +69,4 @@ Closed. Do not start it.
 
 **Euler en Free.** Free usa tu clave Euler. TikTok hospedado es Pro.
 
-**Pasar a Live no es tarea del bot.** Solo el owner.
-
-**YouTube está cerrado.** No se empieza.
+**El secreto de firma de Stripe va solo a Railway.** Nunca al repo ni al chat.
