@@ -1,27 +1,33 @@
 # Precios. Papel solamente.
 
-No hay cobros ahora. No hay montos.
+No hay cobros ahora. No hay montos en la web.
 
 ## Free (ahora, activo)
-El estudio actual.
+Estudio web.
 Twitch en vivo.
 Ensayo.
 TikTok con tu clave Euler o tik.tools.
 Modo escenario.
+Voz del navegador: velocidad, volumen, tono.
+No lee comandos `!` ni links.
 
-## Plus (después)
-Ajustes extra: filtros, tono, volumen.
-Todavía no.
+## Plus (despues)
+Filtros extra y cola mas larga.
+Sigue siendo tu clave de TikTok.
+Todavia no se cobra.
 
-## Pro (después)
+## Pro (despues)
+Todo lo Free.
 YouTube.
-TikTok sin que el usuario pegue clave Euler.
+TikTok sin pegar clave Euler (servidor Voxlive).
 ElevenLabs con tu propia clave (BYOK).
-Todavía no.
+Cuenta.
+Todavia no se cobra.
 
-## Ultra (después)
-Todo lo anterior.
-Todavía no.
+## Ultra (despues)
+Todo lo Pro.
+Mas asientos y techos mas altos.
+Todavia no se cobra.
 
 ## Business
-Más adelante. No es esta fase.
+A medida. No es esta fase.
