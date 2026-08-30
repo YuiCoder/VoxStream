@@ -5,6 +5,7 @@ import cors from "cors";
 import { WebSocketServer, WebSocket } from "ws";
 import { PLANS, publicPlans } from "./plans.mjs";
 import { readSession, createSession, sidCookie, mePayload } from "./session.mjs";
+import { startCheckout } from "./checkout.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
@@ -63,7 +64,7 @@ app.get("/v1/plans", (_req, res) => {
   res.json({
     product: "voxstream",
     selling: false,
-    note: "Checkout is not live. Pages stays Free.",
+    note: "Checkout is test-only on localhost. Pages stays Free.",
     plans: publicPlans()
   });
 });
@@ -97,19 +98,13 @@ app.post("/v1/auth/magic", (req, res) => {
   res.json({ ok: true, sent: true, me: mePayload(session) });
 });
 
-app.post("/v1/checkout", (_req, res) => {
-  res.status(501).json({
-    ok: false,
-    code: STRIPE ? "stripe_not_wired" : "stripe_not_configured",
-    hint: "Checkout waits for magic-link sessions. Do not collect cards on Pages."
-  });
-});
+app.post("/v1/checkout", (req, res) => startCheckout(req, res, STRIPE));
 
 app.post("/v1/stripe/webhook", (_req, res) => {
   res.status(501).json({
     ok: false,
     code: STRIPE_WH ? "webhook_not_wired" : "webhook_not_configured",
-    hint: "No plan is written from Stripe yet. Test mode later."
+    hint: "Paying in test does not flip /me yet. Webhook comes next."
   });
 });
 
@@ -172,8 +167,8 @@ wss.on("connection", (client, req) => {
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
   console.log("me      GET  /v1/me");
-  console.log("magic   POST /v1/auth/magic  (501 without RESEND_API_KEY)");
+  console.log("pay     POST /v1/checkout");
   console.log("hook    POST /v1/stripe/webhook  (501)");
   console.log("euler   " + (EULER ? "yes" : "no"));
-  console.log("stripe  " + (STRIPE ? "key set, checkout 501" : "no"));
+  console.log("stripe  " + (STRIPE ? "key set" : "no"));
 });
