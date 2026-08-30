@@ -5,9 +5,7 @@
   function apiBase() {
     try {
       const q = new URLSearchParams(location.search).get("api");
-      if (q) {
-        localStorage.setItem("voxstreamApi", q.replace(/\/$/, ""));
-      }
+      if (q) localStorage.setItem("voxstreamApi", q.replace(/\/$/, ""));
       return (localStorage.getItem("voxstreamApi") || DEFAULT_API).replace(/\/$/, "");
     } catch (e) {
       return DEFAULT_API;
@@ -16,23 +14,33 @@
 
   function paint(me) {
     const plan = (me && me.plan) || "free";
+    const flags = (me && me.flags) || {};
     const badge = $("freebadge");
     if (badge) badge.textContent = "VOXSTREAM " + String(plan).toUpperCase();
     const plus = $("lock-plus");
     const pro = $("lock-pro");
-    if (plus) plus.textContent = plan === "free" ? "Plus: filtros extra" : "Plus " + (me.flags && me.flags.extraFilters ? "activo" : "cerrado");
-    if (pro) pro.textContent = me.flags && me.flags.tiktokHosted ? "Pro activo" : "Pro: TikTok hosted + ElevenLabs BYOK";
+    if (plus) plus.textContent = flags.extraFilters ? "Plus activo" : "Plus: filtros extra (cerrado)";
+    if (pro) pro.textContent = flags.tiktokHosted ? "Pro activo" : "Pro: TikTok hosted (cerrado)";
+    const box = $("eleven-byok");
+    if (box) {
+      if (flags.elevenLabsByok) box.removeAttribute("hidden");
+      else box.setAttribute("hidden", "");
+    }
+    const note = $("free-note");
+    if (note) {
+      note.textContent = plan === "free"
+        ? "Free: Twitch, Ensayo, tu clave Euler. Pro no se cobra en esta página."
+        : ("Plan " + plan + ". Hosted TikTok y BYOK siguen las flags del servidor.");
+    }
     window.voxMe = me;
   }
 
   async function loadMe() {
-    const base = apiBase();
     try {
-      const res = await fetch(base + "/v1/me", { credentials: "include" });
-      const me = await res.json();
-      paint(me);
+      const res = await fetch(apiBase() + "/v1/me", { credentials: "include" });
+      paint(await res.json());
     } catch (e) {
-      paint({ plan: "free", email: null, flags: { extraFilters: false, tiktokHosted: false, youtube: false } });
+      paint({ plan: "free", email: null, flags: {} });
     }
   }
 
