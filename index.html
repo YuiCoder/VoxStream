@@ -3,16 +3,142 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VOX·LIVE</title>
+  <title>VOX·LIVE — Lee el chat en voz alta</title>
   <link rel="stylesheet" href="styles.css?v=6" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    .land { max-width:880px; margin:0 auto; padding:48px 20px 72px; display:flex; flex-direction:column; gap:56px; }
+    .hero { text-align:center; display:flex; flex-direction:column; align-items:center; gap:16px; padding:24px 0 8px; }
+    .hero .word { font-size:52px; }
+    .hero h1 { font-family:Syne,system-ui; font-size:28px; font-weight:600; margin:0; letter-spacing:-.03em; line-height:1.2; }
+    .hero .sub { color:var(--muted); margin:0; font-size:16px; }
+    .hero .fine { color:var(--subtle); font-size:13px; margin:0; }
+    .sec h2 { font-size:22px; margin:0 0 18px; }
+    .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    .step { background:var(--surface); border-radius:16px; padding:18px; box-shadow:var(--border); }
+    .n { font-family:Syne,system-ui; color:var(--accent); font-size:13px; letter-spacing:.14em; text-transform:uppercase; }
+    .step h3 { font-family:Syne,system-ui; margin:8px 0 0; font-size:18px; }
+    .list { margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .list li { background:var(--surface); border-radius:12px; padding:14px 16px; box-shadow:var(--border); }
+    .notify { display:flex; gap:8px; margin-top:16px; max-width:480px; }
+    .notify input { flex:1; }
+    .foot { color:var(--subtle); font-size:13px; display:flex; flex-wrap:wrap; gap:12px 20px; align-items:center; }
+    .foot a { color:var(--accent); }
+    .tiers { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .tier { background:var(--surface); border-radius:16px; padding:20px; box-shadow:var(--border); }
+    .tier h3 { font-family:Syne,system-ui; margin:0 0 6px; font-size:20px; }
+    .price { color:var(--accent); font-size:13px; letter-spacing:.12em; text-transform:uppercase; margin:0 0 12px; }
+    .tier ul { margin:0; padding-left:18px; color:var(--muted); line-height:1.6; }
+    .soon { opacity:.85; }
+    @media (max-width:720px) {
+      .steps, .tiers { grid-template-columns:1fr; }
+      .hero .word { font-size:40px; }
+    }
+  </style>
 </head>
-<body class="opener">
-  <div class="opener-inner">
-    <div class="word">VOX<span>·</span>LIVE</div>
-    <p class="opener-line">Lee el chat de Twitch y TikTok en voz alta.</p>
-    <a class="btn" href="studio.html">Abrir estudio</a>
-    <p class="hint">Gratis. Sin instalar. Chrome.</p>
+<body>
+  <div class="land">
+    <section class="hero">
+      <div class="word">VOX<span>·</span>LIVE</div>
+      <h1>Lee el chat de Twitch y TikTok en voz alta.</h1>
+      <a class="btn" href="studio.html">Abrir estudio</a>
+      <p class="fine">Gratis. Sin instalar. Chrome.</p>
+    </section>
+
+    <section class="sec">
+      <h2>Como funciona</h2>
+      <div class="steps">
+        <article class="step"><div class="n">01</div><h3>Abre el estudio</h3></article>
+        <article class="step"><div class="n">02</div><h3>Conecta Twitch o TikTok</h3></article>
+        <article class="step"><div class="n">03</div><h3>El chat se lee solo</h3></article>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Que hay hoy (Free)</h2>
+      <ul class="list">
+        <li>Twitch en vivo</li>
+        <li>Ensayo para TikTok / prueba de voz</li>
+        <li>TikTok real con clave gratuita de Euler</li>
+        <li>Modo escenario para OBS</li>
+      </ul>
+    </section>
+
+    <section class="sec">
+      <h2>Que viene (Pro)</h2>
+      <ul class="list">
+        <li>TikTok sin que el usuario pegue clave</li>
+        <li>Cuentas y suscripcion</li>
+        <li>Mas voces</li>
+      </ul>
+      <form class="notify" id="avisame">
+        <input id="aviso-email" type="email" placeholder="tu@email.com" autocomplete="email" required />
+        <button class="btn" type="submit">Avisame</button>
+      </form>
+      <p class="hint" id="aviso-ok" hidden>te avisamos</p>
+    </section>
+
+    <section class="sec" id="precios">
+      <h2>Planes</h2>
+      <div class="tiers">
+        <article class="tier">
+          <h3>Free</h3>
+          <p class="price">Ahora, activo · $0</p>
+          <ul>
+            <li>Estudio web</li>
+            <li>Twitch live</li>
+            <li>Ensayo</li>
+            <li>TikTok si pones clave Euler / tik.tools</li>
+            <li>Modo escenario</li>
+          </ul>
+        </article>
+        <article class="tier soon">
+          <h3>Pro</h3>
+          <p class="price">Proximamente · no activo</p>
+          <ul>
+            <li>Todo lo Free</li>
+            <li>TikTok live sin clave del usuario (servidor Voxlive)</li>
+            <li>Cuenta</li>
+            <li>Cola y filtros extra</li>
+          </ul>
+          <button class="btn outline" id="pro-btn" type="button" style="margin-top:14px">Pro</button>
+        </article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>YuiCoder</span>
+      <a href="https://github.com/YuiCoder/Voxlive">github.com/YuiCoder/Voxlive</a>
+      <span>Voxlive Free — uso gratuito</span>
+      <span>GitHub Pages</span>
+    </footer>
   </div>
+  <div class="modal-back hidden" id="pro-modal">
+    <div class="modal">
+      <h3>Proximamente Pro</h3>
+      <p>Pro no esta activo. Hoy Voxlive es Free. Te avisamos cuando haya cuenta, TikTok sin pegar clave y mas voces.</p>
+      <button class="btn" id="pro-close" type="button">Cerrar</button>
+    </div>
+  </div>
+  <script>
+    document.getElementById("avisame").addEventListener("submit", function (e) {
+      e.preventDefault();
+      var email = (document.getElementById("aviso-email").value || "").trim();
+      if (!email) return;
+      try {
+        var list = JSON.parse(localStorage.getItem("voxlive-avisame") || "[]");
+        if (list.indexOf(email) < 0) list.push(email);
+        localStorage.setItem("voxlive-avisame", JSON.stringify(list));
+        localStorage.setItem("voxlive-avisame-last", email);
+      } catch (err) {}
+      document.getElementById("aviso-ok").hidden = false;
+    });
+    document.getElementById("pro-btn").onclick = function () {
+      document.getElementById("pro-modal").classList.remove("hidden");
+    };
+    document.getElementById("pro-close").onclick = function () {
+      document.getElementById("pro-modal").classList.add("hidden");
+    };
+  </script>
 </body>
 </html>
