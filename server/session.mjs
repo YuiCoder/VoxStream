@@ -36,6 +36,10 @@ export function sidCookie(sid) {
   return "voxstream_sid=" + sid + "; Path=/; SameSite=None; Secure; Max-Age=2592000";
 }
 
+export function clearSidCookie() {
+  return "voxstream_sid=; Path=/; SameSite=None; Secure; Max-Age=0";
+}
+
 export function mePayload(session) {
   const plan = PLANS[session.plan] ? session.plan : "free";
   const flags = PLANS[plan];
