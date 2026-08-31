@@ -29,8 +29,9 @@
         <a href="plans.html" class="on" data-i18n="nav.plans">Plans</a>
         <a href="future.html" data-i18n="nav.future">Future</a>
         <a href="faq.html" data-i18n="nav.faq">FAQ</a>
-        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
-        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Google</a>
+        <a class="btn outline" href="https://github.com/YuiCoder/VoxStream">Repo</a>
+        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/github">Sign in · GitHub</a>
+        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Sign in · Google</a>
         <a class="btn" href="studio.html" data-i18n="nav.studio">Open studio</a>
       </div>
       <div class="lang site-lang" data-i18n-bar>
@@ -142,12 +143,6 @@
     };
     fetch(API + "/v1/me", { credentials: "include" }).then(function (r) { return r.json(); }).then(function (body) {
       me = body || me;
-      try {
-        if (me.email && localStorage.getItem("voxstream-buy")) {
-          localStorage.removeItem("voxstream-buy");
-          openShop();
-        }
-      } catch (e) {}
     }).catch(function () {});
   </script>
 </body>
