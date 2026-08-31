@@ -2,7 +2,7 @@
 
 Contract for the Node host in `server/`. Pages stays the app. One studio. Tiers are flags, not SKUs.
 
-This file lists the routes that exist in `server/index.mjs`. Do not add extra routes. Do not put `EULER_API_KEY`, Stripe secrets, `ADMIN_SECRET`, or dollar amounts on Pages. Never commit `ADMIN_SECRET`.
+This file lists the routes that exist in `server/index.mjs`. Do not add extra routes. Do not put `EULER_API_KEY`, Stripe secrets, `ADMIN_SECRET`, Ko-fi tokens, OAuth client secrets, or dollar amounts on Pages. Never commit `ADMIN_SECRET`.
 
 Free never needs an account. Twitch, Ensayo, user Euler, TTS, filters, queue, bits, rejoin stay in the browser. ElevenLabs BYOK stays in the browser.
 
@@ -11,7 +11,7 @@ Local default: `http://localhost:8787`
 
 ## SQLite
 
-Users and sessions live in SQLite (`server/db.mjs`). No OAuth.
+Users and sessions live in SQLite (`server/db.mjs`). Login is GitHub or Google OAuth (cookie session). There is no password form.
 
 - File: `server/data/voxstream.db`
 - Directory `server/data/` is gitignored (already in `.gitignore`). Do not commit the database.
@@ -39,11 +39,11 @@ Anonymous `GET /v1/me` (no cookie / unknown sid) is still plan `free`.
 
 ### `GET /health`
 
-Liveness. `{ ok, product, stripe, webhook, admin, euler, mailer, time }`. Booleans only. No secrets. `admin` is true when `ADMIN_SECRET` is set on the host.
+Liveness. `{ ok, product, stripe, webhook, admin, github, google, kofi, euler, time }`. Booleans only. No secrets. `admin` is true when `ADMIN_SECRET` is set on the host.
 
 ### `GET /v1/plans`
 
-Public flag table from `server/plans.mjs`. `{ product, selling: false, note, plans }`. Team plans are granted by the owner. Stripe is not required. Do not print any cents on the Pages landing.
+Public flag table from `server/plans.mjs`. `{ product, selling: false, note, plans }`. Team plans are granted by the owner or a Ko-fi shop order. Stripe is not required. Do not print any cents on the Pages landing.
 
 ### `GET /v1/me`
 
@@ -72,7 +72,23 @@ Example body:
 }
 ```
 
+### `GET /v1/auth/github` and `GET /v1/auth/github/callback`
 
+GitHub OAuth. Scope `read:user user:email`. Mints the same session cookie. Keeps an existing plan on that email. Redirects to `studio.html?ok=github`.
+
+### `GET /v1/auth/google` and `GET /v1/auth/google/callback`
+
+Google OAuth. Scope `openid email profile`. Same session model. Redirects to `studio.html?ok=google`.
+
+### `POST /v1/kofi`
+
+Ko-fi webhook. `application/x-www-form-urlencoded` body with `data` JSON. Needs `KOFI_VERIFICATION_TOKEN`.
+
+**Shop Order only.** Donation, Commission, Subscription, and Tip return `{ ok: true, ignored: true }` and do not change a plan. Twitch bits, Twitch subs, and stream coffees never hit this route.
+
+When `KOFI_PLUS_CODE` or `KOFI_PRO_CODE` is set on the host, only shop items whose `direct_link_code` matches grant Plus or Pro. That keeps the VTuber tip jar off the coding shop. Without those vars, the handler only accepts product names that contain `VoxStream Plus` or `VoxStream Pro`.
+
+Do not put the verification token or the codes in the repo.
 
 ### `POST /v1/admin/grant`
 
@@ -124,18 +140,20 @@ Same Pro + Euler rules. If either is missing, the socket closes. Relays to Euler
 From `PLANS` in `server/plans.mjs`:
 
 - Free: live. No account.
-- Plus / Pro / Ultra: granted by the owner (`POST /v1/admin/grant`). Not a card.
+- Plus / Pro / Ultra: granted by the owner (`POST /v1/admin/grant`) or a matching Ko-fi shop SKU. Not a card. Not a stream tip.
 - Pro: hosted TikTok. BYOK in the browser.
 - Ultra / YouTube / seats / Business: later. Not new routes.
-- Stripe live closed. Donations later.
+- Stripe live closed.
 
 ## Build order
 
 1. `/me` + magic link stub
 2. Owner grant (`POST /v1/admin/grant`)
-3. Hosted TikTok gated on Pro
-4. YouTube later
+3. GitHub + Google OAuth
+4. Ko-fi shop webhook
+5. Hosted TikTok gated on Pro
+6. YouTube later
 
 ## Out of scope
 
-Auth0, Firebase, rewriting `app.js`, Twitch login, dollar amounts on the Pages landing, live Stripe keys, selling via card, Customer Portal, committing `ADMIN_SECRET`.
+Auth0, Firebase, rewriting `app.js`, Twitch login, dollar amounts on the Pages landing, live Stripe keys, selling via card, Customer Portal, committing `ADMIN_SECRET`, treating stream tips as a plan.
