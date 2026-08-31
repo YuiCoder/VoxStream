@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plans — VoxStream</title>
+  <meta name="theme-color" content="#09090b" />
+  <meta name="description" content="Free, Plus, Pro, Ultra. Sign in, then the Ko-fi shop." />
+  <meta property="og:title" content="Plans — VoxStream" />
+  <meta property="og:description" content="Free, Plus, Pro, Ultra. Sign in, then the Ko-fi shop." />
+  <meta property="og:url" content="https://yuicoder.github.io/VoxStream/plans.html" />
+  <meta property="og:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css?v=16" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet" />
+</head>
+<body class="landing">
+  <div class="land">
+    <nav class="site-nav" aria-label="Site">
+      <a class="word" href="index.html">VOX<span>·</span>STREAM</a>
+      <div class="site-nav-links">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="how.html" data-i18n="nav.how">How</a>
+        <a href="features.html" data-i18n="nav.features">Features</a>
+        <a href="plans.html" class="on" data-i18n="nav.plans">Plans</a>
+        <a href="future.html" data-i18n="nav.future">Future</a>
+        <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
+        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Google</a>
+        <a class="btn" href="studio.html" data-i18n="nav.studio">Open studio</a>
+      </div>
+      <div class="lang site-lang" data-i18n-bar>
+        <button type="button" data-lang="en" class="on">EN</button>
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="pt">PT</button>
+        <button type="button" data-lang="ja">JA</button>
+      </div>
+    </nav>
+
+    <section class="sec enter">
+      <h1 data-i18n="plans.h2">Plans</h1>
+      <p class="hint" data-i18n="plans.hint">Plus or Pro: 1) sign in with GitHub or Google, 2) buy the VoxStream product in the Ko-fi shop with the same email. Stream tips do not count.</p>
+      <div class="tiers">
+        <article class="tier">
+          <h3>Free</h3>
+          <p class="price" data-i18n="plans.free">Active</p>
+          <ul>
+            <li data-i18n="plans.f1">Web studio</li>
+            <li data-i18n="plans.f2">Live Twitch</li>
+            <li data-i18n="plans.f3">Demo</li>
+            <li data-i18n="plans.f4">TikTok with your Euler key</li>
+            <li data-i18n="plans.f5">Stage mode</li>
+            <li data-i18n="plans.f6">Browser voice</li>
+            <li data-i18n="plans.f7">Filters, queue, bits</li>
+          </ul>
+          <a class="btn outline" href="studio.html" data-i18n="nav.studio" style="margin-top:14px">Open studio</a>
+        </article>
+        <article class="tier">
+          <h3>Plus</h3>
+          <p class="price" data-i18n="plans.shop">Ko-fi shop</p>
+          <ul>
+            <li data-i18n="plans.p1">Extra filters</li>
+            <li data-i18n="plans.p2">Longer queue</li>
+            <li data-i18n="plans.p3">GitHub or Google account</li>
+          </ul>
+          <button class="btn" id="plus-btn" type="button" style="margin-top:14px" data-i18n="plans.buyPlus">Buy Plus</button>
+        </article>
+        <article class="tier featured">
+          <h3>Pro</h3>
+          <p class="price" data-i18n="plans.shop">Ko-fi shop</p>
+          <ul>
+            <li data-i18n="plans.pr1">Everything in Plus</li>
+            <li data-i18n="plans.pr2">TikTok without your Euler key</li>
+            <li data-i18n="plans.pr3">ElevenLabs with your key (BYOK)</li>
+            <li data-i18n="plans.pr4">YouTube when it opens</li>
+          </ul>
+          <button class="btn" id="pro-btn" type="button" style="margin-top:14px" data-i18n="plans.buyPro">Buy Pro</button>
+        </article>
+        <article class="tier soon">
+          <h3>Ultra</h3>
+          <p class="price" data-i18n="plans.later">Later</p>
+          <ul>
+            <li data-i18n="plans.u1">Everything in Pro</li>
+            <li data-i18n="plans.u2">Extra seats</li>
+            <li data-i18n="plans.u3">Not this pass</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>YuiCoder</span>
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="how.html" data-i18n="nav.how">How</a>
+      <a href="features.html" data-i18n="nav.features">Features</a>
+      <a href="plans.html" data-i18n="nav.plans">Plans</a>
+      <a href="future.html" data-i18n="nav.future">Future</a>
+      <a href="faq.html" data-i18n="nav.faq">FAQ</a>
+      <a href="studio.html" data-i18n="nav.studio">Open studio</a>
+      <a href="https://ko-fi.com/bloodybytes/shop">Ko-fi shop</a>
+      <a href="https://github.com/YuiCoder/VoxStream">GitHub repo</a>
+    </footer>
+  </div>
+  <div class="modal-back hidden" id="buy-modal">
+    <div class="modal">
+      <h3 id="buy-title">Sign in first</h3>
+      <p id="buy-body">Sign in with GitHub or Google. Then we send you to the shop. Buy the VoxStream product with the same email so the plan can turn on.</p>
+      <div class="hero-actions" style="justify-content:flex-start;margin-bottom:12px">
+        <a class="btn" id="buy-github" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
+        <a class="btn outline" id="buy-google" href="https://voxstream-production.up.railway.app/v1/auth/google">Google</a>
+      </div>
+      <button class="btn ghost" id="buy-close" type="button">Close</button>
+    </div>
+  </div>
+  <script>
+    var API = "https://voxstream-production.up.railway.app";
+    var SHOP = "https://ko-fi.com/bloodybytes/shop";
+    var pending = "pro";
+    var me = { email: null, plan: "free" };
+    function setBuy(plan) {
+      pending = plan || "pro";
+      try { localStorage.setItem("voxstream-buy", pending); } catch (e) {}
+    }
+    function openShop() { location.href = SHOP; }
+    function showNeedAccount() {
+      document.getElementById("buy-title").textContent = pending === "plus" ? "Plus: sign in first" : "Pro: sign in first";
+      document.getElementById("buy-modal").classList.remove("hidden");
+    }
+    function want(plan) {
+      setBuy(plan);
+      if (me && me.email) openShop();
+      else showNeedAccount();
+    }
+    document.getElementById("plus-btn").onclick = function () { want("plus"); };
+    document.getElementById("pro-btn").onclick = function () { want("pro"); };
+    document.getElementById("buy-close").onclick = function () {
+      document.getElementById("buy-modal").classList.add("hidden");
+    };
+    fetch(API + "/v1/me", { credentials: "include" }).then(function (r) { return r.json(); }).then(function (body) {
+      me = body || me;
+      try {
+        if (me.email && localStorage.getItem("voxstream-buy")) {
+          localStorage.removeItem("voxstream-buy");
+          openShop();
+        }
+      } catch (e) {}
+    }).catch(function () {});
+  </script>
+</body>
+</html>
