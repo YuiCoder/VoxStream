@@ -348,3 +348,22 @@ body.landing::before {
 }
 .site-nav-links > a:not(.btn) { font-weight:500; }
 .site-lang { margin-left:auto; }
+
+/* site pass N5 — landing only */
+body.landing .enter {
+  animation: site-enter .24s ease;
+}
+@keyframes site-enter {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.landing .enter { animation: none; }
+}
+body.landing .tier {
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+body.landing .tier:hover {
+  transform: perspective(800px) rotateX(2deg) translateY(-4px);
+  box-shadow: var(--border), 0 18px 36px rgb(0 0 0 / .4);
+}
