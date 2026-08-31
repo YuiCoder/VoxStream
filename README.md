@@ -12,6 +12,8 @@ Sitio: https://yuicoder.github.io/VoxStream/
 
 Docs: [SERVER.md](SERVER.md) · [BACKLOG.md](BACKLOG.md)
 
+License: proprietary. Copyright (c) 2026 YuiCoder. All rights reserved. See [LICENSE](LICENSE).
+
 ## Español
 
 Abre el estudio en https://yuicoder.github.io/VoxStream/ y pulsa **Abrir estudio**.
@@ -33,6 +35,7 @@ Pégala, pon el usuario sin `@`, pulsa **Conectar**.
 Sin clave no hay chat real. **Ensayo** es la demo.
 
 Es Free. No hay exe.
+El código es de YuiCoder. Todos los derechos reservados. [LICENSE](LICENSE).
 
 Issues: https://github.com/YuiCoder/VoxStream/issues
 
@@ -57,5 +60,6 @@ Paste it, type the username without `@`, click **Conectar**.
 No key means no real TikTok chat. **Ensayo** is the demo.
 
 It is Free. There is no exe.
+The source is YuiCoder's. All rights reserved. [LICENSE](LICENSE).
 
 Issues: https://github.com/YuiCoder/VoxStream/issues
