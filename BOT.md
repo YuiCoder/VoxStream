@@ -1,7 +1,7 @@
-# Lee INSTRUCCIONES.md
+# Lee INSTRUCCIONES.md y CHATS.md
 
-La especificacion completa esta en:
-https://github.com/YuiCoder/VoxStream/blob/main/INSTRUCCIONES.md
+Especificacion: https://github.com/YuiCoder/VoxStream/blob/main/INSTRUCCIONES.md
+Estado del ultimo chat: https://github.com/YuiCoder/VoxStream/blob/main/CHATS.md
 
-Ese archivo manda. Haz Fase A + B + C, luego push a main.
-No construyas pagos. No abras Chrome hasta que el push exista.
+INSTRUCCIONES.md manda para producto. CHATS.md + `chats/` mandan para "donde lo dejamos".
+No reinicies el producto. No construyas Stripe live. No edites app.js salvo bug concreto del owner.
