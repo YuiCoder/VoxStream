@@ -2,7 +2,7 @@
 
 Contract for the Node host in `server/`. Pages stays the app. One studio. Tiers are flags, not SKUs.
 
-This file lists the routes that exist in `server/index.mjs`. Do not add extra routes. Do not put `EULER_API_KEY`, Stripe secrets, or dollar amounts on Pages.
+This file lists the routes that exist in `server/index.mjs`. Do not add extra routes. Do not put `EULER_API_KEY`, Stripe secrets, `ADMIN_SECRET`, or dollar amounts on Pages. Never commit `ADMIN_SECRET`.
 
 Free never needs an account. Twitch, Ensayo, user Euler, TTS, filters, queue, bits, rejoin stay in the browser. ElevenLabs BYOK stays in the browser.
 
@@ -39,11 +39,11 @@ Anonymous `GET /v1/me` (no cookie / unknown sid) is still plan `free`.
 
 ### `GET /health`
 
-Liveness. `{ ok, product, stripe, euler, mailer, time }`. Booleans only. No secrets.
+Liveness. `{ ok, product, stripe, webhook, admin, euler, mailer, time }`. Booleans only. No secrets. `admin` is true when `ADMIN_SECRET` is set on the host.
 
 ### `GET /v1/plans`
 
-Public flag table from `server/plans.mjs`. `{ product, selling: false, note, plans }`. Checkout is not live. Do not print any cents on the Pages landing.
+Public flag table from `server/plans.mjs`. `{ product, selling: false, note, plans }`. Team plans are granted by the owner. Stripe is not required. Do not print any cents on the Pages landing.
 
 ### `GET /v1/me`
 
@@ -73,9 +73,21 @@ Example body:
 ```
 
 
-### `GET /v1/entitlement?plan=`
 
-Lookup a row in `PLANS` by query string. Not a session. Unknown plan falls back to free.
+### `POST /v1/admin/grant`
+
+Owner grant. This is how teammates get Plus/Pro/Ultra. Not a card. Stripe is not required.
+
+Needs `ADMIN_SECRET` on the host (Railway). Never commit it. Never put it in Pages, GitHub, or chat.
+
+- No `ADMIN_SECRET` → `501` `{ ok: false, code: "admin_not_configured" }`
+- Secret from JSON `secret` or header `x-admin-secret`. Wrong secret → `401` `{ ok: false, code: "bad_admin" }`
+- Body `{ email, plan }`. `plan` defaults to `pro`. Email is lowercased.
+- Bad email → `400` `{ ok: false, code: "bad_email" }`
+- Unknown plan, or `free` → `400` `{ ok: false, code: "bad_plan" }`
+- Success: upserts the user, mints a session cookie, `{ ok: true, granted, me }`
+
+Owner-only. Team is VE/LATAM/US/EU.
 
 ### `POST /v1/auth/magic`
 
@@ -83,7 +95,7 @@ Body `{ email }`. Bad email → `400`. No `RESEND_API_KEY` → `501`, no mail, n
 
 ### `POST /v1/checkout`
 
-Stripe **test** Checkout. Not live. Not always `501`.
+Still in the binary. **Not required.** Stripe live is closed. Donations later. Test Checkout only.
 
 Needs a Stripe **test** key. Missing key returns `501` (`stripe_not_configured`). Bad plan returns `400`. On success returns a test Checkout Session url (subscription mode). No cards on GitHub Pages. No Customer Portal. Do not print cents on Pages.
 
@@ -93,7 +105,7 @@ Applies a paid **test** session to SQLite (`users` + `sessions`). Query or body:
 
 ### `POST /v1/stripe/webhook`
 
-Verifies the Stripe signature. Owner shipped the signed handler.
+Still in the binary. **Not required.** Stripe live is closed. Verifies the Stripe signature in test.
 
 Stripe Dashboard destination: **VoxStream test** → `APP_URL/v1/stripe/webhook` (Railway).
 
@@ -112,17 +124,18 @@ Same Pro + Euler rules. If either is missing, the socket closes. Relays to Euler
 From `PLANS` in `server/plans.mjs`:
 
 - Free: live. No account.
-- Plus: not for sale. UI lock until Pro sells.
-- Pro: the SKU we sell. Hosted TikTok. BYOK in the browser.
+- Plus / Pro / Ultra: granted by the owner (`POST /v1/admin/grant`). Not a card.
+- Pro: hosted TikTok. BYOK in the browser.
 - Ultra / YouTube / seats / Business: later. Not new routes.
+- Stripe live closed. Donations later.
 
 ## Build order
 
 1. `/me` + magic link stub
-2. Stripe test Checkout
+2. Owner grant (`POST /v1/admin/grant`)
 3. Hosted TikTok gated on Pro
 4. YouTube later
 
 ## Out of scope
 
-Auth0, Firebase, rewriting `app.js`, Twitch login, dollar amounts on the Pages landing, live Stripe keys, Customer Portal this week.
+Auth0, Firebase, rewriting `app.js`, Twitch login, dollar amounts on the Pages landing, live Stripe keys, selling via card, Customer Portal, committing `ADMIN_SECRET`.

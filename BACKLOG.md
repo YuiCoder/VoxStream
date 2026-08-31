@@ -12,6 +12,7 @@ Rules that never expire:
 - After every push: reply with commit URL and WAIT for the owner if the item says STOP.
 - Do not edit app.js unless the owner pastes a concrete bug.
 - Do not touch app.js, server, or Stripe.
+- Never commit ADMIN_SECRET. Stripe live is closed. Donations later.
 
 ## Now (bot may take these in order)
 
@@ -90,6 +91,18 @@ Product pass ok. Next is look (CSS) or copy only if owner says A or B.
 - [x] J2. Do not touch app.js, server, or Stripe.
 
 STOP after J1 unless owner says A or B.
+
+
+## K (grant, Stripe not required)
+
+Owner dropped Stripe-as-required. Team is VE/LATAM/US/EU. Grant API is on main: `POST /v1/admin/grant`.
+Stripe live closed. Donations later. L closed.
+
+- [x] K1. SERVER.md: document grant. Needs ADMIN_SECRET. Never commit the secret.
+- [ ] K2. FAQ: teammates get Pro from the owner, not a card.
+- [ ] K3. BACKLOG: Stripe live closed. Donations later. L closed.
+
+STOP after K3.
 
 ## Later (do not start)
 
