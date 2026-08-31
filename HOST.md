@@ -2,7 +2,9 @@
 
 Pages stays the estudio. Railway runs `server/`.
 
-Owner confirmed `/health` returns `ok: true` and `stripe: true`.
+Team Pro is owner grant (`POST /v1/admin/grant`), not a card. Stripe live is closed. Donations later.
+
+Live `/health` should look like `{ ok: true, stripe: false, webhook: false, admin: true }`. `admin: true` means `ADMIN_SECRET` is set on Railway. Never commit that secret. Never paste it in GitHub or chat.
 
 ## Once
 
@@ -16,37 +18,29 @@ Owner confirmed `/health` returns `ok: true` and `stripe: true`.
 APP_URL=https://something.up.railway.app
 PUBLIC_ORIGIN=https://yuicoder.github.io
 DATA_DIR=/data
-STRIPE_SECRET_KEY=sk_test_your_local_key
+ADMIN_SECRET=
 ```
 
-Stay on a Stripe **test** key. No live keys.
+Leave Stripe keys unset. Grant does not need them.
 
-6. Volume (required if anyone pays):
+6. Volume (required so granted users survive deploys):
    - Railway → service → Volumes → New volume
    - Mount path: `/data`
    - Then `DATA_DIR=/data` as above
 7. Deploy. Open `https://something.up.railway.app/health`
 
-`ok: true` and `stripe: true` means the API is up.
+`ok: true` and `admin: true` means the API is up and grant is on.
 
 ## After it is up
 
-Test checkout from PowerShell:
-
-```
-Invoke-RestMethod -Method POST -Uri https://YOUR-APP.up.railway.app/v1/checkout -ContentType "application/json" -Body '{"plan":"pro"}'
-```
-
-Stay in Stripe Test mode. Card 4242 only.
+Owner grants a plan with `POST /v1/admin/grant`. Body `{ email, plan }`. `plan` defaults to `pro`. Secret is JSON `secret` or header `x-admin-secret`. Never put the secret in this file.
 
 ## Volume + DATA_DIR=/data
 
 SQLite is the user/session store (`users` + `sessions`). On Railway the disk is empty after each deploy unless a Volume holds it.
 
-Without the Volume, paid SQLite rows die on deploy.
+Without the Volume, granted rows die on deploy.
 
 - Mount the Volume at `/data`
 - Set `DATA_DIR=/data`
 - The db file is `voxstream.db` on that mount (locally it is `server/data/voxstream.db`, which is gitignored)
-
-Do this before treating Checkout as sticky.

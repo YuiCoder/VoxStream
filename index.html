@@ -241,10 +241,10 @@
       var email = (document.getElementById("aviso-email").value || "").trim();
       if (!email) return;
       try {
-        var list = JSON.parse(localStorage.getItem("voxlive-avisame") || "[]");
+        var list = JSON.parse(localStorage.getItem("voxstream-avisame") || "[]");
         if (list.indexOf(email) < 0) list.push(email);
-        localStorage.setItem("voxlive-avisame", JSON.stringify(list));
-        localStorage.setItem("voxlive-avisame-last", email);
+        localStorage.setItem("voxstream-avisame", JSON.stringify(list));
+        localStorage.setItem("voxstream-avisame-last", email);
       } catch (err) {}
       document.getElementById("aviso-ok").hidden = false;
     });
