@@ -63,6 +63,15 @@
           <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/logout" data-i18n="acct.outbtn">Sign out</a>
         </div>
       </div>
+
+      <div id="acct-buy" hidden style="margin-top:16px">
+        <p class="hint" data-i18n="plans.hint">Plus or Pro: 1) sign in with GitHub or Google, 2) buy the VoxStream product in the Ko-fi shop with the same email. Stream tips do not count.</p>
+        <p class="hint">Pro is everything in Plus plus a longer queue. Hosted TikTok and ElevenLabs are later, not live now.</p>
+        <div class="hero-actions" style="justify-content:flex-start;margin-top:12px">
+          <button class="btn" id="plus-btn" type="button" data-i18n="plans.buyPlus">Buy Plus</button>
+          <button class="btn outline" id="pro-btn" type="button" data-i18n="plans.buyPro">Buy Pro</button>
+        </div>
+      </div>
     </section>
 
     <footer class="foot">
@@ -79,14 +88,57 @@
       <a href="https://github.com/YuiCoder/VoxStream">GitHub repo</a>
     </footer>
   </div>
+
+  <div class="modal-back hidden" id="buy-modal">
+    <div class="modal">
+      <h3 id="buy-title">Sign in first</h3>
+      <p id="buy-body">Sign in with GitHub or Google. Then we send you to the shop. Buy the VoxStream product with the same email so the plan can turn on.</p>
+      <div class="hero-actions" style="justify-content:flex-start;margin-bottom:12px">
+        <a class="btn" id="buy-github" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
+        <a class="btn outline" id="buy-google" href="https://voxstream-production.up.railway.app/v1/auth/google">Google</a>
+      </div>
+      <button class="btn ghost" id="buy-close" type="button">Close</button>
+    </div>
+  </div>
   <script>
     var API = "https://voxstream-production.up.railway.app";
-    fetch(API + "/v1/me", { credentials: "include" }).then(function (r) { return r.json(); }).then(function (me) {
+    var SHOP = "https://ko-fi.com/bloodybytes/shop";
+    var pending = "pro";
+    var me = { email: null, plan: "free" };
+    function setBuy(plan) {
+      pending = plan || "pro";
+      try { localStorage.setItem("voxstream-buy", pending); } catch (e) {}
+    }
+    function openShop() { location.href = SHOP; }
+    function showNeedAccount() {
+      document.getElementById("buy-title").textContent = pending === "plus" ? "Plus: sign in first" : "Pro: sign in first";
+      document.getElementById("buy-modal").classList.remove("hidden");
+    }
+    function want(plan) {
+      setBuy(plan);
+      if (me && me.email) openShop();
+      else showNeedAccount();
+    }
+    document.getElementById("plus-btn").onclick = function () { want("plus"); };
+    document.getElementById("pro-btn").onclick = function () { want("pro"); };
+    document.getElementById("buy-close").onclick = function () {
+      document.getElementById("buy-modal").classList.add("hidden");
+    };
+    fetch(API + "/v1/me", { credentials: "include" }).then(function (r) { return r.json(); }).then(function (body) {
+      me = body || me;
       if (me && me.email) {
         document.getElementById("acct-email").textContent = me.email;
         document.getElementById("acct-plan").textContent = me.plan || "free";
         document.getElementById("signed-out").hidden = true;
         document.getElementById("signed-in").hidden = false;
+        var plan = String(me.plan || "free").toLowerCase();
+        document.getElementById("acct-buy").hidden = !(plan === "free");
+        try {
+          if (me.email && localStorage.getItem("voxstream-buy")) {
+            localStorage.removeItem("voxstream-buy");
+            openShop();
+          }
+        } catch (e) {}
       }
     }).catch(function () {});
   </script>
