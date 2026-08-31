@@ -16,63 +16,88 @@
   <meta name="twitter:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
   <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=13" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=14" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 </head>
-<body>
+<body class="landing">
   <div class="land">
+    <nav class="land-nav" aria-label="Principal">
+      <a class="word" href="index.html">VOX<span>·</span>STREAM</a>
+      <div class="land-nav-links">
+        <a href="#como">Cómo</a>
+        <a href="#hoy">Hoy</a>
+        <a href="#precios">Planes</a>
+        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
+        <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Google</a>
+        <a class="btn" href="studio.html">Abrir estudio</a>
+      </div>
+    </nav>
+
     <section class="hero">
+      <p class="hero-kicker">Lector de chat en vivo</p>
       <div class="word">VOX<span>·</span>STREAM</div>
-      <h1>VoxStream lee el chat de Twitch y TikTok en voz alta.</h1>
-      <a class="btn" href="studio.html">Abrir estudio</a>
+      <h1>El chat de Twitch y TikTok se oye solo.</h1>
+      <p class="hero-lead">Ábrelo en Chrome. Sin instalar. Sin cuenta para Free. El estudio lee el chat en voz alta mientras tú haces stream.</p>
       <div class="hero-actions">
+        <a class="btn" href="studio.html">Abrir estudio</a>
         <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/github">Entrar · GitHub</a>
         <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Entrar · Google</a>
       </div>
-      <p class="fine">Uso gratuito. Plus y Pro: tienda Ko-fi (solo shop). Tips y bits del stream no otorgan.</p>
+      <p class="fine">Uso gratuito. Plus y Pro: tienda Ko-fi (solo shop). Tips, bits y subs del stream no otorgan.</p>
     </section>
 
     <section class="sec vista" aria-label="Vista del estudio">
       <h2>Vista del estudio</h2>
-      <div class="studio-mock">
-        <div class="mock-bar">
-          <div class="word">VOX<span>·</span>STREAM</div>
-          <span class="pill">AL AIRE</span>
-          <span class="freebadge">VOXSTREAM FREE</span>
+      <div class="studio-frame">
+        <div class="studio-chrome">
+          <span></span><span></span><span></span>
+          <em>studio.html</em>
         </div>
-        <div class="mock-bar">
-          <div class="lang">
-            <button class="on" type="button">ES</button>
-            <button type="button">EN</button>
+        <div class="studio-mock">
+          <div class="mock-bar">
+            <div class="word">VOX<span>·</span>STREAM</div>
+            <span class="pill">AL AIRE</span>
+            <span class="freebadge">VOXSTREAM FREE</span>
           </div>
-          <button class="btn outline" type="button">Escenario</button>
+          <div class="mock-bar">
+            <div class="lang">
+              <button class="on" type="button">ES</button>
+              <button type="button">EN</button>
+            </div>
+            <button class="btn outline" type="button">Escenario</button>
+          </div>
+          <div class="mock-now">
+            <div class="kicker"><span>Leyendo</span><span>2 en cola</span></div>
+            <p class="big">hola, acabo de entrar</p>
+            <div class="meta"><span>valeria.r · tiktok</span></div>
+          </div>
+          <article class="msg">
+            <div class="av">VA</div>
+            <div>
+              <div class="name">valeria.r<span class="tag">ENSAYO</span></div>
+              <div class="body">hola, acabo de entrar</div>
+            </div>
+            <div>
+              <div class="time">20:14</div>
+              <div class="plat">tiktok</div>
+            </div>
+          </article>
+          <article class="msg">
+            <div class="av">NE</div>
+            <div>
+              <div class="name">nexo_<span class="tag">ENSAYO</span></div>
+              <div class="body">vamos con todo hoy</div>
+            </div>
+            <div>
+              <div class="time">20:14</div>
+              <div class="plat">twitch</div>
+            </div>
+          </article>
         </div>
-        <article class="msg">
-          <div class="av">VA</div>
-          <div>
-            <div class="name">valeria.r<span class="tag">ENSAYO</span></div>
-            <div class="body">hola, acabo de entrar</div>
-          </div>
-          <div>
-            <div class="time">20:14</div>
-            <div class="plat">tiktok</div>
-          </div>
-        </article>
-        <article class="msg">
-          <div class="av">NE</div>
-          <div>
-            <div class="name">nexo_<span class="tag">ENSAYO</span></div>
-            <div class="body">vamos con todo hoy</div>
-          </div>
-          <div>
-            <div class="time">20:14</div>
-            <div class="plat">twitch</div>
-          </div>
-        </article>
       </div>
     </section>
 
-    <section class="sec">
+    <section class="sec" id="como">
       <h2>Cómo funciona</h2>
       <div class="steps">
         <article class="step">
@@ -93,7 +118,7 @@
       </div>
     </section>
 
-    <section class="sec">
+    <section class="sec" id="hoy">
       <h2>Qué hay hoy (Free)</h2>
       <ul class="features">
         <li>
@@ -149,7 +174,7 @@
           <span class="n">08</span>
           <div>
             <h3>Bits</h3>
-            <p>Lee bits del chat de Twitch.</p>
+            <p>Lee bits del chat de Twitch. No otorgan plan.</p>
           </div>
         </li>
       </ul>
@@ -186,7 +211,7 @@
             <li>Filtros</li>
             <li>Cola</li>
             <li>Twitch reconecta</li>
-            <li>Bits</li>
+            <li>Bits (se leen, no otorgan)</li>
           </ul>
         </article>
         <article class="tier soon">
@@ -198,7 +223,7 @@
             <li>Más adelante</li>
           </ul>
         </article>
-        <article class="tier soon">
+        <article class="tier soon featured">
           <h3>Pro</h3>
           <p class="price">Tienda Ko-fi</p>
           <ul>
@@ -219,7 +244,7 @@
           </ul>
         </article>
       </div>
-      <p class="hint">Plus y Pro: tienda Ko-fi. Tips y bits del stream no otorgan. Business más adelante, bajo petición.</p>
+      <p class="hint">Plus y Pro: solo pedidos de la shop Ko-fi de VoxStream. Tips, bits y subs del stream no otorgan. La vida VTuber y la tienda del código van aparte. Business más adelante, bajo petición.</p>
     </section>
 
     <footer class="foot">
@@ -236,7 +261,7 @@
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
       <h3>Próximamente Pro</h3>
-      <p>Pro no está activo. Hoy VoxStream es Free. Te avisamos cuando haya YouTube, TikTok sin pegar clave y más voces.</p>
+      <p>Pro se activa con un pedido de la shop Ko-fi, no con tips del stream. Hoy el estudio Free funciona sin cuenta.</p>
       <button class="btn" id="pro-close" type="button">Cerrar</button>
     </div>
   </div>
