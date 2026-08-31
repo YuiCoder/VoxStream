@@ -246,7 +246,7 @@ body.landing::before {
 }
 .landing .land { position:relative; z-index:1; max-width:960px; padding:28px 20px 88px; gap:72px; }
 
-.land-nav {
+.site-nav, .land-nav {
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -254,21 +254,22 @@ body.landing::before {
   flex-wrap:wrap;
   padding:6px 0 8px;
 }
-.land-nav .word { font-size:22px; text-decoration:none; color:inherit; }
-.land-nav-links {
+.site-nav .word, .land-nav .word { font-size:22px; text-decoration:none; color:inherit; }
+.site-nav-links, .land-nav-links {
   display:flex;
   align-items:center;
   gap:8px;
   flex-wrap:wrap;
 }
-.land-nav-links > a:not(.btn) {
-  color:var(--muted);
+.site-nav-links > a:not(.btn), .land-nav-links > a:not(.btn) {
+  color:var(--fg);
   text-decoration:none;
   font-size:13px;
   padding:8px 10px;
 }
-.land-nav-links > a:not(.btn):hover { color:var(--fg); }
-.land-nav .btn { height:38px; padding:0 12px; font-size:13px; }
+.site-nav-links > a:not(.btn):hover, .land-nav-links > a:not(.btn):hover { color:var(--accent); }
+.site-nav-links > a.on { color:var(--accent); }
+.site-nav .btn, .land-nav .btn { height:38px; padding:0 12px; font-size:13px; }
 
 .land .hero { gap:18px; padding:36px 0 12px; }
 .land .hero .word { font-size:clamp(44px, 10vw, 72px); }
@@ -335,5 +336,15 @@ body.landing::before {
 
 @media (max-width:720px) {
   .features { grid-template-columns:1fr; }
-  .land-nav-links .btn.outline { display:none; }
 }
+
+.site-nav {
+  position:sticky; top:12px; z-index:5;
+  padding:10px 14px;
+  border-radius:14px;
+  background:rgb(18 17 26 / .82);
+  backdrop-filter:blur(12px);
+  box-shadow:var(--border);
+}
+.site-nav-links > a:not(.btn) { font-weight:500; }
+.site-lang { margin-left:auto; }

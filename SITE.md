@@ -65,7 +65,7 @@ Do not delete the Spanish strings. Put them in the dictionary.
 
 ## Bot order
 
-- [ ] N1. Extract a shared nav + footer pattern (copy-paste is fine; no build step). English default. Nav contrast fix. Home link.
+- [x] N1. Extract a shared nav + footer pattern (copy-paste is fine; no build step). English default. Nav contrast fix. Home link.
 - [ ] N2. Split current `index.html` into the files in the site map. Home gets thinner. Plans move to `plans.html` with the existing buy modal.
 - [ ] N3. `faq.html` + `future.html` from FAQ.md / ROADMAP.md. No new product promises.
 - [ ] N4. `i18n.js`: EN default, ES, and at least PT + JA stubs for nav + home + plans. Persist lang.
