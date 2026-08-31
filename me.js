@@ -24,6 +24,25 @@
     }
   }
 
+  function justAuthed() {
+    try {
+      const ok = new URLSearchParams(location.search).get("ok");
+      return ok === "github" || ok === "google";
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function consumeBuy(me) {
+    try {
+      if (!me || !me.email) return;
+      if (!localStorage.getItem("voxstream-buy")) return;
+      if (!justAuthed()) return;
+      localStorage.removeItem("voxstream-buy");
+      location.href = SHOP;
+    } catch (e) {}
+  }
+
   function paint(me) {
     const plan = (me && me.plan) || "free";
     const flags = (me && me.flags) || {};
@@ -46,12 +65,7 @@
     }
     capQueue(flags);
     window.voxMe = me;
-    try {
-      if (me && me.email && localStorage.getItem("voxstream-buy")) {
-        localStorage.removeItem("voxstream-buy");
-        location.href = SHOP;
-      }
-    } catch (e) {}
+    consumeBuy(me);
   }
 
   async function loadMe() {
