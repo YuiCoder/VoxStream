@@ -100,7 +100,7 @@ Stripe live closed. Donations later. L closed.
 
 - [x] K1. SERVER.md: document grant. Needs ADMIN_SECRET. Never commit the secret.
 - [x] K2. FAQ: teammates get Pro from the owner, not a card.
-- [ ] K3. BACKLOG: Stripe live closed. Donations later. L closed.
+- [x] K3. BACKLOG: Stripe live closed. Donations later. L closed.
 
 STOP after K3.
 
