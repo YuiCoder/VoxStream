@@ -1,7 +1,7 @@
 (function () {
   const $ = function (id) { return document.getElementById(id); };
   const DEFAULT_API = "https://voxstream-production.up.railway.app";
-  const SHOP = "https://ko-fi.com/bloodbyte/shop";
+  const SHOP = "https://ko-fi.com/bloodybytes/shop";
 
   function apiBase() {
     try {
