@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=12" />
+  <link rel="stylesheet" href="styles.css?v=15" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -121,11 +121,11 @@
           <input id="qmax" type="range" min="4" max="24" step="1" value="12" aria-labelledby="qmax-l" aria-valuetext="12" />
           <p class="hint" id="keys-h">Atajos: S saltar, P pausa (fuera de un campo).</p>
         </section>
-        <section class="card hide-stage soon" id="locked-card">
-          <h2 id="h-soon">Después</h2>
-          <p class="hint" id="soon-h">TikTok hosted es Pro. Tu clave Euler sigue en Free. Hoy no hay cobro.</p>
-          <button class="btn outline wide" id="lock-plus" type="button" style="margin-top:10px">Plus: filtros extra</button>
-          <button class="btn outline wide" id="lock-pro" type="button" style="margin-top:8px">Pro: TikTok hosted</button>
+        <section class="card hide-stage" id="locked-card">
+          <h2 id="h-soon">Plus / Pro</h2>
+          <p class="hint" id="soon-h">Entra con GitHub o Google. Luego compra en la shop Ko-fi con el mismo email. Tips del stream no otorgan.</p>
+          <button class="btn outline wide" id="lock-plus" type="button" style="margin-top:10px">Comprar Plus</button>
+          <button class="btn wide" id="lock-pro" type="button" style="margin-top:8px">Comprar Pro</button>
           <div hidden id="eleven-byok">
             <label for="elkey" id="elkey-l">ElevenLabs (Pro, tu clave)</label>
             <div class="keyrow">
@@ -156,12 +156,14 @@
   </div>
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
-      <h3 id="pro-title">Próximamente</h3>
-      <p id="pro-body">Hoy VoxStream es Free. Plus y Pro se activan en este mismo estudio cuando haya cuenta.</p>
-      <button class="btn" id="pro-close" type="button">Cerrar</button>
+      <h3 id="pro-title">Antes de Ko-fi</h3>
+      <p id="pro-body">Entra con GitHub o Google. Luego compra el producto VoxStream en la shop con el mismo email.</p>
+      <a class="btn" href="https://voxstream-production.up.railway.app/v1/auth/github">Entrar · GitHub</a>
+      <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google" style="margin-top:8px">Entrar · Google</a>
+      <button class="btn ghost" id="pro-close" type="button" style="margin-top:8px">Cerrar</button>
     </div>
   </div>
   <script src="app.js?v=12"></script>
-  <script src="me.js?v=12"></script>
+  <script src="me.js?v=15"></script>
 </body>
 </html>
