@@ -18,16 +18,15 @@ function parseBody(req) {
 }
 
 function planFrom(payload) {
+  const type = String(payload.type || "").toLowerCase();
+  if (type !== "shop order") return "";
   const items = Array.isArray(payload.shop_items) ? payload.shop_items : [];
   const codes = items.map((i) => String((i && i.direct_link_code) || "").toLowerCase());
   if (PRO_CODE && codes.includes(PRO_CODE)) return "pro";
   if (PLUS_CODE && codes.includes(PLUS_CODE)) return "plus";
-  const blob = [payload.type, payload.tier_name, payload.message].join(" ").toLowerCase();
+  const blob = [payload.tier_name, payload.message].concat(items.map((i) => i && (i.name || i.direct_link_code))).join(" ").toLowerCase();
   if (/\bpro\b/.test(blob)) return "pro";
-  if (/\bplus\b/.test(blob) || /subscription/.test(blob)) return "plus";
-  const amount = Number(payload.amount);
-  if (amount >= 19) return "pro";
-  if (amount >= 9) return "plus";
+  if (/\bplus\b/.test(blob)) return "plus";
   return "";
 }
 
