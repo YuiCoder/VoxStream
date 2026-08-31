@@ -19,14 +19,19 @@ function parseBody(req) {
 
 function planFrom(payload) {
   const type = String(payload.type || "").toLowerCase();
+  // Shop Order only. Donation, Commission, Subscription, and Tip never grant.
+  // Twitch bits / subs / stream coffees never reach this route.
   if (type !== "shop order") return "";
   const items = Array.isArray(payload.shop_items) ? payload.shop_items : [];
   const codes = items.map((i) => String((i && i.direct_link_code) || "").toLowerCase());
-  if (PRO_CODE && codes.includes(PRO_CODE)) return "pro";
-  if (PLUS_CODE && codes.includes(PLUS_CODE)) return "plus";
-  const blob = [payload.tier_name, payload.message].concat(items.map((i) => i && (i.name || i.direct_link_code))).join(" ").toLowerCase();
-  if (/\bpro\b/.test(blob)) return "pro";
-  if (/\bplus\b/.test(blob)) return "plus";
+  if (PRO_CODE || PLUS_CODE) {
+    if (PRO_CODE && codes.includes(PRO_CODE)) return "pro";
+    if (PLUS_CODE && codes.includes(PLUS_CODE)) return "plus";
+    return "";
+  }
+  const names = items.map((i) => String((i && i.name) || "").toLowerCase()).join(" ");
+  if (/\bvoxstream pro\b/.test(names)) return "pro";
+  if (/\bvoxstream plus\b/.test(names)) return "plus";
   return "";
 }
 

@@ -2,9 +2,9 @@
 
 Pages stays the estudio. Railway runs `server/`.
 
-Team Pro is owner grant (`POST /v1/admin/grant`), not a card. Stripe live is closed. Donations later.
+Team Pro is owner grant (`POST /v1/admin/grant`) or a Ko-fi **shop** order. Stripe live is closed. Stream tips, bits, and Twitch subs do not grant.
 
-Live `/health` should look like `{ ok: true, stripe: false, webhook: false, admin: true }`. `admin: true` means `ADMIN_SECRET` is set on Railway. Never commit that secret. Never paste it in GitHub or chat.
+Live `/health` should look like `{ ok: true, stripe: false, webhook: false, admin: true, github: true, google: true, kofi: true }`. `admin: true` means `ADMIN_SECRET` is set on Railway. Never commit that secret. Never paste it in GitHub or chat.
 
 ## Once
 
@@ -15,13 +15,18 @@ Live `/health` should look like `{ ok: true, stripe: false, webhook: false, admi
 5. Variables (do not paste secrets into chat or GitHub):
 
 ```
-APP_URL=https://something.up.railway.app
+APP_URL=https://voxstream-production.up.railway.app
 PUBLIC_ORIGIN=https://yuicoder.github.io
 DATA_DIR=/data
 ADMIN_SECRET=
+KOFI_VERIFICATION_TOKEN=
+KOFI_PLUS_CODE=
+KOFI_PRO_CODE=
 ```
 
 Leave Stripe keys unset. Grant does not need them.
+
+`KOFI_PLUS_CODE` and `KOFI_PRO_CODE` are the shop item `direct_link_code` values (the slug in `ko-fi.com/s/...`). When either is set, only those two shop SKUs grant Plus/Pro. Donations, commissions, memberships, tips, Twitch bits, and Twitch subs never grant.
 
 6. Volume (required so granted users survive deploys):
    - Railway → service → Volumes → New volume
@@ -34,6 +39,8 @@ Leave Stripe keys unset. Grant does not need them.
 ## After it is up
 
 Owner grants a plan with `POST /v1/admin/grant`. Body `{ email, plan }`. `plan` defaults to `pro`. Secret is JSON `secret` or header `x-admin-secret`. Never put the secret in this file.
+
+Ko-fi webhook: `APP_URL/v1/kofi`. Shop orders only.
 
 ## Volume + DATA_DIR=/data
 

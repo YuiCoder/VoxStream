@@ -35,3 +35,4 @@ One session = one file. Update the index table below.
 | File | When | Topic |
 | --- | --- | --- |
 | [chats/2026-08-30-oauth-kofi.md](chats/2026-08-30-oauth-kofi.md) | 2026-08-30 | GitHub + Google OAuth, abandon Stripe, Ko-fi Shop Plus/Pro, studio login links, grant |
+| [chats/2026-08-30-kofi-codes-landing.md](chats/2026-08-30-kofi-codes-landing.md) | 2026-08-30 | Shop SKU codes only, LICENSE check, landing look pass |
