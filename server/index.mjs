@@ -8,6 +8,7 @@ import { readSession, createSession, sidCookie, mePayload } from "./session.mjs"
 import { startCheckout, syncCheckout } from "./checkout.mjs";
 import { handleStripeWebhook } from "./webhook.mjs";
 import { upsertUser } from "./db.mjs";
+import { githubReady, startGithub, finishGithub } from "./github.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
@@ -42,14 +43,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (_req, res) => {
-  res.type("html").send(
-    "<!doctype html><meta charset=utf-8><title>VoxStream server</title>" +
-    "<body style=\"font-family:sans-serif;background:#09090b;color:#f4f0ff;padding:32px\">" +
-    "<h1>VoxStream</h1><p>API. Not the public estudio.</p></body>"
-  );
-});
-
 app.get("/health", (_req, res) => {
   res.json({
     ok: true,
@@ -57,6 +50,7 @@ app.get("/health", (_req, res) => {
     stripe: Boolean(STRIPE),
     webhook: Boolean(STRIPE_WH),
     admin: Boolean(ADMIN),
+    github: githubReady(),
     euler: Boolean(EULER),
     mailer: MAILER,
     time: new Date().toISOString()
@@ -75,6 +69,9 @@ app.get("/v1/plans", (_req, res) => {
 app.get("/v1/me", (req, res) => {
   res.json(mePayload(readSession(req)));
 });
+
+app.get("/v1/auth/github", startGithub);
+app.get("/v1/auth/github/callback", finishGithub);
 
 app.post("/v1/admin/grant", (req, res) => {
   if (!ADMIN) {
@@ -100,21 +97,6 @@ app.post("/v1/admin/grant", (req, res) => {
   const session = createSession(email, plan);
   res.setHeader("Set-Cookie", sidCookie(session.sid));
   res.json({ ok: true, granted: plan, me: mePayload(session) });
-});
-
-app.post("/v1/auth/magic", (req, res) => {
-  const email = String((req.body && req.body.email) || "").trim().toLowerCase();
-  if (!okEmail(email)) {
-    res.status(400).json({ ok: false, code: "bad_email" });
-    return;
-  }
-  if (!MAILER) {
-    res.status(501).json({ ok: false, code: "mailer_not_configured" });
-    return;
-  }
-  const session = createSession(email, "free");
-  res.setHeader("Set-Cookie", sidCookie(session.sid));
-  res.json({ ok: true, sent: true, me: mePayload(session) });
 });
 
 app.post("/v1/checkout", (req, res) => startCheckout(req, res, STRIPE));
@@ -145,7 +127,6 @@ app.use((req, res) => {
 
 const server = http.createServer(app);
 const wss = new WebSocketServer({ server, path: "/v1/tiktok/relay" });
-
 wss.on("connection", (client, req) => {
   const me = mePayload(readSession(req));
   if (!me.flags.tiktokHosted || !EULER) {
@@ -173,4 +154,5 @@ wss.on("connection", (client, req) => {
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
   console.log("admin   " + (ADMIN ? "grant on" : "no ADMIN_SECRET"));
+  console.log("github  " + (githubReady() ? "oauth on" : "no GITHUB_CLIENT_*"));
 });
