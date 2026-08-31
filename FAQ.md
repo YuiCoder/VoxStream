@@ -30,7 +30,7 @@ No. Free does not need an account. Open the studio and use it.
 
 ## How do teammates get Pro?
 
-Ko-fi shop orders grant Plus/Pro. Stream tips and bits do not. The owner can still grant (`POST /v1/admin/grant`). Team is VE/LATAM/US/EU. Free stays free with no account.
+Ko-fi shop orders grant Plus/Pro. Stream tips, bits, and Twitch subs do not. The owner can still grant (`POST /v1/admin/grant`). Team is VE/LATAM/US/EU. Free stays free with no account.
 
 
 ## How do I log in?
@@ -45,7 +45,7 @@ Free does not need an account. There is no password form.
 
 ## How do I get Plus or Pro?
 
-Ko-fi **shop orders** grant Plus or Pro (use the same email as GitHub/Google). Stream tips, bits, and donations do **not** grant. Owner grant still works for the team.
+Ko-fi **shop orders** for the VoxStream products grant Plus or Pro (use the same email as GitHub/Google). Stream tips, bits, Twitch subs, and the VTuber tip jar do **not** grant. Owner grant still works for the team.
 
 ## Do I need a local terminal?
 
@@ -87,7 +87,7 @@ https://voxstream-production.up.railway.app/v1/auth/github
 https://voxstream-production.up.railway.app/v1/auth/google
 Free no necesita cuenta. No hay formulario de contraseña.
 
-**Tienda Ko-fi.** Solo pedidos de la shop otorgan Plus/Pro. Tips y bits del stream no. El owner también puede otorgar al equipo.
+**Tienda Ko-fi.** Solo pedidos de la shop de VoxStream otorgan Plus/Pro. Tips, bits y subs del stream no. El owner también puede otorgar al equipo.
 
 
 **No hace falta terminal.** Abre el estudio en Pages. La API está en Railway. No necesitas npm.
