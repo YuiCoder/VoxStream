@@ -224,3 +224,15 @@ body.opener {
   .hero .word { font-size:40px; }
   .step h3.nowrap { white-space:normal; }
 }
+
+.land .hero { position:relative; isolation:isolate; }
+.land .hero::before {
+  content:"";
+  position:absolute;
+  inset:-72px -24px auto;
+  height:260px;
+  background:radial-gradient(ellipse at 50% 0%, rgb(201 162 255 / .18), transparent 68%);
+  pointer-events:none;
+  z-index:-1;
+}
+.land .hero-actions { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
