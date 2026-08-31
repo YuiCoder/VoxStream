@@ -10,6 +10,7 @@ import { handleStripeWebhook } from "./webhook.mjs";
 import { upsertUser } from "./db.mjs";
 import { githubReady, startGithub, finishGithub } from "./github.mjs";
 import { googleReady, startGoogle, finishGoogle } from "./google.mjs";
+import { kofiReady, handleKofi } from "./kofi.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
@@ -18,7 +19,6 @@ const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
 const STRIPE_WH = (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
 const ADMIN = (process.env.ADMIN_SECRET || "").trim();
-const MAILER = Boolean((process.env.RESEND_API_KEY || "").trim());
 
 function okEmail(email) {
   const at = email.indexOf("@");
@@ -31,6 +31,7 @@ app.post("/v1/stripe/webhook", express.raw({ type: "application/json" }), (req, 
   handleStripeWebhook(req, res, STRIPE, STRIPE_WH);
 });
 app.use(express.json({ limit: "32kb" }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors({
   origin: [ORIGIN, APP_URL, "http://localhost:4173", "http://127.0.0.1:4173", "http://localhost:5500", "http://localhost:8787"].filter(Boolean),
   credentials: true,
@@ -53,8 +54,8 @@ app.get("/health", (_req, res) => {
     admin: Boolean(ADMIN),
     github: githubReady(),
     google: googleReady(),
+    kofi: kofiReady(),
     euler: Boolean(EULER),
-    mailer: MAILER,
     time: new Date().toISOString()
   });
 });
@@ -63,7 +64,7 @@ app.get("/v1/plans", (_req, res) => {
   res.json({
     product: "voxstream",
     selling: false,
-    note: "Public estudio stays Free. Team plans are granted by the owner.",
+    note: "Public estudio stays Free. Team plans are granted by the owner or Ko-fi.",
     plans: publicPlans()
   });
 });
@@ -76,6 +77,7 @@ app.get("/v1/auth/github", startGithub);
 app.get("/v1/auth/github/callback", finishGithub);
 app.get("/v1/auth/google", startGoogle);
 app.get("/v1/auth/google/callback", finishGoogle);
+app.post("/v1/kofi", handleKofi);
 
 app.post("/v1/admin/grant", (req, res) => {
   if (!ADMIN) {
@@ -108,7 +110,7 @@ app.get("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 app.post("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 
 app.post("/v1/tiktok/hosted", (req, res) => {
-  const uniqueId = String((req.body && req.body.uniqueId || "")).replace(/^@/, "").trim();
+  const uniqueId = String((req.body && req.body.uniqueId) || "").replace(/^@/, "").trim();
   if (uniqueId.length < 2) {
     res.status(400).json({ ok: false, code: "bad_user" });
     return;
@@ -157,6 +159,5 @@ wss.on("connection", (client, req) => {
 
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
-  console.log("github  " + (githubReady() ? "on" : "off"));
-  console.log("google  " + (googleReady() ? "on" : "off"));
+  console.log("kofi    " + (kofiReady() ? "on" : "off"));
 });
