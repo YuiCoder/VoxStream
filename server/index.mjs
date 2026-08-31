@@ -9,6 +9,7 @@ import { startCheckout, syncCheckout } from "./checkout.mjs";
 import { handleStripeWebhook } from "./webhook.mjs";
 import { upsertUser } from "./db.mjs";
 import { githubReady, startGithub, finishGithub } from "./github.mjs";
+import { googleReady, startGoogle, finishGoogle } from "./google.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
@@ -51,6 +52,7 @@ app.get("/health", (_req, res) => {
     webhook: Boolean(STRIPE_WH),
     admin: Boolean(ADMIN),
     github: githubReady(),
+    google: googleReady(),
     euler: Boolean(EULER),
     mailer: MAILER,
     time: new Date().toISOString()
@@ -72,6 +74,8 @@ app.get("/v1/me", (req, res) => {
 
 app.get("/v1/auth/github", startGithub);
 app.get("/v1/auth/github/callback", finishGithub);
+app.get("/v1/auth/google", startGoogle);
+app.get("/v1/auth/google/callback", finishGoogle);
 
 app.post("/v1/admin/grant", (req, res) => {
   if (!ADMIN) {
@@ -104,7 +108,7 @@ app.get("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 app.post("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 
 app.post("/v1/tiktok/hosted", (req, res) => {
-  const uniqueId = String((req.body && req.body.uniqueId) || "").replace(/^@/, "").trim();
+  const uniqueId = String((req.body && req.body.uniqueId || "")).replace(/^@/, "").trim();
   if (uniqueId.length < 2) {
     res.status(400).json({ ok: false, code: "bad_user" });
     return;
@@ -153,6 +157,6 @@ wss.on("connection", (client, req) => {
 
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
-  console.log("admin   " + (ADMIN ? "grant on" : "no ADMIN_SECRET"));
-  console.log("github  " + (githubReady() ? "oauth on" : "no GITHUB_CLIENT_*"));
+  console.log("github  " + (githubReady() ? "on" : "off"));
+  console.log("google  " + (googleReady() ? "on" : "off"));
 });
