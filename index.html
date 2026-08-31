@@ -16,7 +16,7 @@
   <meta name="twitter:description" content="Lector de chat en vivo para Twitch y TikTok. Gratis, en el navegador." />
   <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="styles.css?v=14" />
+  <link rel="stylesheet" href="styles.css?v=15" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700;800&amp;display=swap" rel="stylesheet" />
 </head>
 <body class="landing">
@@ -43,7 +43,7 @@
         <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/github">Entrar · GitHub</a>
         <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Entrar · Google</a>
       </div>
-      <p class="fine">Uso gratuito. Plus y Pro: tienda Ko-fi (solo shop). Tips, bits y subs del stream no otorgan.</p>
+      <p class="fine">Uso gratuito. Plus y Pro: primero entra (GitHub o Google), luego la shop Ko-fi. Tips, bits y subs del stream no otorgan.</p>
     </section>
 
     <section class="sec vista" aria-label="Vista del estudio">
@@ -181,22 +181,18 @@
     </section>
 
     <section class="sec">
-      <h2>Qué viene (Pro)</h2>
-      <p class="soon-kicker">PRÓXIMAMENTE</p>
+      <h2>Qué viene</h2>
+      <p class="soon-kicker">EN EL ESTUDIO DESPUÉS</p>
       <ul class="list">
         <li>YouTube</li>
         <li>TikTok sin pegar una clave</li>
         <li>Más voces</li>
       </ul>
-      <form class="notify" id="avisame">
-        <input id="aviso-email" type="email" placeholder="tu@email.com" autocomplete="email" required />
-        <button class="btn" type="submit">Avísame</button>
-      </form>
-      <p class="hint" id="aviso-ok" hidden>te avisamos</p>
     </section>
 
     <section class="sec" id="precios">
       <h2>Planes</h2>
+      <p class="hint" style="margin:0 0 16px">Para Plus o Pro: 1) entra con GitHub o Google, 2) compra el producto VoxStream en la shop Ko-fi con el mismo email. Tips del stream no cuentan.</p>
       <div class="tiers">
         <article class="tier">
           <h3>Free</h3>
@@ -207,32 +203,31 @@
             <li>Ensayo</li>
             <li>TikTok con tu clave Euler</li>
             <li>Modo escenario</li>
-            <li>Voz del navegador: velocidad, volumen y tono</li>
-            <li>Filtros</li>
-            <li>Cola</li>
-            <li>Twitch reconecta</li>
-            <li>Bits (se leen, no otorgan)</li>
+            <li>Voz del navegador</li>
+            <li>Filtros, cola, bits</li>
           </ul>
+          <a class="btn outline" href="studio.html" style="margin-top:14px">Abrir estudio</a>
         </article>
-        <article class="tier soon">
+        <article class="tier">
           <h3>Plus</h3>
           <p class="price">Tienda Ko-fi</p>
           <ul>
             <li>Filtros extra</li>
             <li>Cola más larga</li>
-            <li>Más adelante</li>
+            <li>Cuenta GitHub o Google</li>
           </ul>
+          <button class="btn" id="plus-btn" type="button" style="margin-top:14px">Comprar Plus</button>
         </article>
-        <article class="tier soon featured">
+        <article class="tier featured">
           <h3>Pro</h3>
           <p class="price">Tienda Ko-fi</p>
           <ul>
-            <li>YouTube</li>
+            <li>Todo lo Plus</li>
             <li>TikTok sin clave Euler del usuario</li>
             <li>ElevenLabs con tu clave (BYOK)</li>
-            <li>Cuenta</li>
+            <li>YouTube cuando abra</li>
           </ul>
-          <button class="btn outline" id="pro-btn" type="button" style="margin-top:14px">Pro</button>
+          <button class="btn" id="pro-btn" type="button" style="margin-top:14px">Comprar Pro</button>
         </article>
         <article class="tier soon">
           <h3>Ultra</h3>
@@ -244,7 +239,6 @@
           </ul>
         </article>
       </div>
-      <p class="hint">Plus y Pro: solo pedidos de la shop Ko-fi de VoxStream. Tips, bits y subs del stream no otorgan. La vida VTuber y la tienda del código van aparte. Business más adelante, bajo petición.</p>
     </section>
 
     <footer class="foot">
@@ -252,38 +246,57 @@
       <a href="studio.html">Abrir estudio</a>
       <a href="https://voxstream-production.up.railway.app/v1/auth/github">Entrar</a>
       <a href="https://github.com/YuiCoder/VoxStream">github.com/YuiCoder/VoxStream</a>
-      <a href="https://github.com/YuiCoder/VoxStream/blob/main/SERVER.md">SERVER.md</a>
-      <a href="https://github.com/YuiCoder/VoxStream/blob/main/BACKLOG.md">BACKLOG.md</a>
+      <a href="https://ko-fi.com/bloodbyte/shop">Shop Ko-fi</a>
       <span>VoxStream Free — uso gratuito</span>
-      <span>GitHub Pages</span>
     </footer>
   </div>
-  <div class="modal-back hidden" id="pro-modal">
+  <div class="modal-back hidden" id="buy-modal">
     <div class="modal">
-      <h3>Próximamente Pro</h3>
-      <p>Pro se activa con un pedido de la shop Ko-fi, no con tips del stream. Hoy el estudio Free funciona sin cuenta.</p>
-      <button class="btn" id="pro-close" type="button">Cerrar</button>
+      <h3 id="buy-title">Antes de Ko-fi</h3>
+      <p id="buy-body">Entra con GitHub o Google. Luego te mandamos a la shop. Compra el producto VoxStream con el mismo email para que el plan se active.</p>
+      <div class="hero-actions" style="justify-content:flex-start;margin-bottom:12px">
+        <a class="btn" id="buy-github" href="https://voxstream-production.up.railway.app/v1/auth/github">Entrar · GitHub</a>
+        <a class="btn outline" id="buy-google" href="https://voxstream-production.up.railway.app/v1/auth/google">Entrar · Google</a>
+      </div>
+      <button class="btn ghost" id="buy-close" type="button">Cerrar</button>
     </div>
   </div>
   <script>
-    document.getElementById("avisame").addEventListener("submit", function (e) {
-      e.preventDefault();
-      var email = (document.getElementById("aviso-email").value || "").trim();
-      if (!email) return;
+    var API = "https://voxstream-production.up.railway.app";
+    var SHOP = "https://ko-fi.com/bloodbyte/shop";
+    var pending = "pro";
+    var me = { email: null, plan: "free" };
+
+    function setBuy(plan) {
+      pending = plan || "pro";
+      try { localStorage.setItem("voxstream-buy", pending); } catch (e) {}
+    }
+    function openShop() {
+      location.href = SHOP;
+    }
+    function showNeedAccount() {
+      document.getElementById("buy-title").textContent = pending === "plus" ? "Plus: primero tu cuenta" : "Pro: primero tu cuenta";
+      document.getElementById("buy-modal").classList.remove("hidden");
+    }
+    function want(plan) {
+      setBuy(plan);
+      if (me && me.email) openShop();
+      else showNeedAccount();
+    }
+    document.getElementById("plus-btn").onclick = function () { want("plus"); };
+    document.getElementById("pro-btn").onclick = function () { want("pro"); };
+    document.getElementById("buy-close").onclick = function () {
+      document.getElementById("buy-modal").classList.add("hidden");
+    };
+    fetch(API + "/v1/me", { credentials: "include" }).then(function (r) { return r.json(); }).then(function (body) {
+      me = body || me;
       try {
-        var list = JSON.parse(localStorage.getItem("voxstream-avisame") || "[]");
-        if (list.indexOf(email) < 0) list.push(email);
-        localStorage.setItem("voxstream-avisame", JSON.stringify(list));
-        localStorage.setItem("voxstream-avisame-last", email);
-      } catch (err) {}
-      document.getElementById("aviso-ok").hidden = false;
-    });
-    document.getElementById("pro-btn").onclick = function () {
-      document.getElementById("pro-modal").classList.remove("hidden");
-    };
-    document.getElementById("pro-close").onclick = function () {
-      document.getElementById("pro-modal").classList.add("hidden");
-    };
+        if (me.email && localStorage.getItem("voxstream-buy")) {
+          localStorage.removeItem("voxstream-buy");
+          openShop();
+        }
+      } catch (e) {}
+    }).catch(function () {});
   </script>
 </body>
 </html>
