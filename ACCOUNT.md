@@ -24,7 +24,7 @@ No expiry date. Ko-fi shop is a one-time order.
 ## Bot order
 
 - [x] A1. `account.html` with the same site nav/footer as the other pages. English default + `i18n.js`.
-- [ ] A2. Signed out: “Not signed in” + GitHub + Google. Signed in: email, plan name, Open studio, Sign out (`GET https://voxstream-production.up.railway.app/v1/logout`).
+- [x] A2. Signed out: “Not signed in” + GitHub + Google. Signed in: email, plan name, Open studio, Sign out (`GET https://voxstream-production.up.railway.app/v1/logout`).
 - [ ] A3. If plan is free: Buy Plus / Buy Pro buttons using the same account-first modal as `plans.html`. If plus/pro: no buy push, just the plan name.
 - [ ] A4. Add Account to the site nav on every public page (Home How Features Plans Future FAQ Account). Studio header: Account link next to Home. Do not restyle the reader.
 - [ ] A5. STOP. Commit URLs. Wait.

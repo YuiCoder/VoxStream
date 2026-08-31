@@ -45,6 +45,24 @@
     <section class="sec enter">
       <h1 data-i18n="acct.h1">Account</h1>
       <p class="hero-lead" data-i18n="acct.lead">Sign in to see your email and plan. Free needs no account.</p>
+
+      <div id="signed-out" class="card" style="margin-top:20px">
+        <p data-i18n="acct.out">Not signed in</p>
+        <div class="hero-actions" style="justify-content:flex-start;margin-top:12px">
+          <a class="btn" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
+          <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google">Google</a>
+        </div>
+      </div>
+
+      <div id="signed-in" class="card" hidden style="margin-top:20px">
+        <p data-i18n="acct.in">Signed in</p>
+        <p><span data-i18n="acct.email">Email</span>: <strong id="acct-email"></strong></p>
+        <p><span data-i18n="acct.plan">Plan</span>: <strong id="acct-plan"></strong></p>
+        <div class="hero-actions" style="justify-content:flex-start;margin-top:12px">
+          <a class="btn" href="studio.html" data-i18n="nav.studio">Open studio</a>
+          <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/logout" data-i18n="acct.outbtn">Sign out</a>
+        </div>
+      </div>
     </section>
 
     <footer class="foot">
@@ -61,5 +79,16 @@
       <a href="https://github.com/YuiCoder/VoxStream">GitHub repo</a>
     </footer>
   </div>
+  <script>
+    var API = "https://voxstream-production.up.railway.app";
+    fetch(API + "/v1/me", { credentials: "include" }).then(function (r) { return r.json(); }).then(function (me) {
+      if (me && me.email) {
+        document.getElementById("acct-email").textContent = me.email;
+        document.getElementById("acct-plan").textContent = me.plan || "free";
+        document.getElementById("signed-out").hidden = true;
+        document.getElementById("signed-in").hidden = false;
+      }
+    }).catch(function () {});
+  </script>
 </body>
 </html>
