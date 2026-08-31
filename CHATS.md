@@ -36,8 +36,8 @@ One session = one file. Update the index table below.
 | --- | --- | --- |
 | [chats/2026-08-30-oauth-kofi.md](chats/2026-08-30-oauth-kofi.md) | 2026-08-30 | GitHub + Google OAuth, abandon Stripe, Ko-fi Shop Plus/Pro, studio login links, grant |
 | [chats/2026-08-30-kofi-codes-landing.md](chats/2026-08-30-kofi-codes-landing.md) | 2026-08-30 | Shop SKU codes only, LICENSE check, landing look pass |
-| [chats/2026-08-31-site-pages.md](chats/2026-08-31-site-pages.md) | 2026-08-31 | OPEN: multi-page site, EN default, nav, motion. See SITE.md |
+| [chats/2026-08-31-site-pages.md](chats/2026-08-31-site-pages.md) | 2026-08-31 | DONE: multi-page site N1–N8. EN default, nav, i18n, motion. |
 
 ## Next
 
-GitHub Grok bot: `SITE.md` N1 → N8. Owner said OPEN.
+SITE.md N1–N8 done. Wait for the owner. Do not start L.

@@ -71,7 +71,7 @@ Do not delete the Spanish strings. Put them in the dictionary.
 - [x] N4. `i18n.js`: EN default, ES, and at least PT + JA stubs for nav + home + plans. Persist lang.
 - [x] N5. CSS: nav bar, fade-in, tier hover tilt. `?v=` bump. Studio reader untouched aside from Home link.
 - [x] N6. 404 + footer links match the new map. Ko-fi URL `bloodybytes`.
-- [ ] N7. CHATS.md + `chats/2026-08-31-site-pages.md` update when done.
+- [x] N7. CHATS.md + `chats/2026-08-31-site-pages.md` update when done.
 - [ ] N8. STOP. Reply with commit URLs and Pages links. Wait for the owner.
 
 Do not start N4 before N2 is on main.
