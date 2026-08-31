@@ -30,7 +30,22 @@ No. Free does not need an account. Open the studio and use it.
 
 ## How do teammates get Pro?
 
-The owner grants it (`POST /v1/admin/grant`). Not a card. Team is VE/LATAM/US/EU. Free stays free with no account.
+Ko-fi shop orders grant Plus/Pro. Stream tips and bits do not. The owner can still grant (`POST /v1/admin/grant`). Team is VE/LATAM/US/EU. Free stays free with no account.
+
+
+## How do I log in?
+
+Studio has GitHub and Google next to the badge, or open:
+
+https://voxstream-production.up.railway.app/v1/auth/github
+
+https://voxstream-production.up.railway.app/v1/auth/google
+
+Free does not need an account. There is no password form.
+
+## How do I get Plus or Pro?
+
+Ko-fi **shop orders** grant Plus or Pro (use the same email as GitHub/Google). Stream tips, bits, and donations do **not** grant. Owner grant still works for the team.
 
 ## Do I need a local terminal?
 
@@ -38,7 +53,7 @@ No. Open the Pages studio. The API runs on Railway. You do not need npm on your 
 
 ## Is live Stripe on?
 
-No. Stripe live is closed. Donations later. Pro is not sold on a card.
+No. Stripe live is closed. Plus/Pro come from the Ko-fi shop, not a card. Stream tips do not grant.
 
 ## Whose Euler key?
 
@@ -66,11 +81,18 @@ Open https://yuicoder.github.io/VoxStream/studio.html in Chrome. No account. No 
 
 **No hace falta cuenta.** Free no necesita cuenta.
 
-**Pro para el equipo.** Lo otorga el owner. No es una tarjeta. Equipo VE/LATAM/US/EU.
+
+**Entrar.** GitHub o Google en el estudio, o:
+https://voxstream-production.up.railway.app/v1/auth/github
+https://voxstream-production.up.railway.app/v1/auth/google
+Free no necesita cuenta. No hay formulario de contraseña.
+
+**Tienda Ko-fi.** Solo pedidos de la shop otorgan Plus/Pro. Tips y bits del stream no. El owner también puede otorgar al equipo.
+
 
 **No hace falta terminal.** Abre el estudio en Pages. La API está en Railway. No necesitas npm.
 
-**Stripe live está cerrado.** Donaciones después. Pro no se vende con tarjeta.
+**Stripe live está cerrado.** Plus/Pro salen de la tienda Ko-fi. Tips del stream no otorgan.
 
 **Euler en Free.** Free usa tu clave Euler. TikTok hospedado es Pro.
 
