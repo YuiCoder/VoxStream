@@ -28,9 +28,9 @@ No. There is no exe. It is a website. Open the studio in Chrome.
 
 No. Free does not need an account. Open the studio and use it.
 
-## Does Stripe charge me?
+## How do teammates get Pro?
 
-No. Stripe is test mode. It is not live charges. There are no live cents on the site.
+The owner grants it (`POST /v1/admin/grant`). Not a card. Team is VE/LATAM/US/EU. Free stays free with no account.
 
 ## Do I need a local terminal?
 
@@ -38,16 +38,11 @@ No. Open the Pages studio. The API runs on Railway. You do not need npm on your 
 
 ## Is live Stripe on?
 
-No. Live Stripe is off. Stripe is test only, not live charges.
+No. Stripe live is closed. Donations later. Pro is not sold on a card.
 
 ## Whose Euler key?
 
 Free keeps your own Euler key in the studio. Hosted TikTok is Pro.
-
-
-## Where does the Stripe signing secret go?
-
-Railway only (`STRIPE_WEBHOOK_SECRET`). Never GitHub, never chat. Destination name: VoxStream test → `/v1/stripe/webhook`.
 
 
 ## How do I test the studio?
@@ -71,14 +66,12 @@ Open https://yuicoder.github.io/VoxStream/studio.html in Chrome. No account. No 
 
 **No hace falta cuenta.** Free no necesita cuenta.
 
-**Stripe no cobra.** Es test mode. No son cargos reales.
+**Pro para el equipo.** Lo otorga el owner. No es una tarjeta. Equipo VE/LATAM/US/EU.
 
 **No hace falta terminal.** Abre el estudio en Pages. La API está en Railway. No necesitas npm.
 
-**Stripe live está apagado.** Solo test. No son cargos reales.
+**Stripe live está cerrado.** Donaciones después. Pro no se vende con tarjeta.
 
 **Euler en Free.** Free usa tu clave Euler. TikTok hospedado es Pro.
-
-**El secreto de firma de Stripe va solo a Railway.** Nunca al repo ni al chat.
 
 **Cómo probar el estudio.** Chrome, sin cuenta y sin precios: 1) **Probar voz** (pestaña no muteada). 2) Twitch: canal en directo, **Conectar**. 3) TikTok Free: tu clave Euler + LIVE, o **Ensayo**. 4) **Escenario** para OBS.

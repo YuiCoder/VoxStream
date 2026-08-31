@@ -99,7 +99,7 @@ Owner dropped Stripe-as-required. Team is VE/LATAM/US/EU. Grant API is on main: 
 Stripe live closed. Donations later. L closed.
 
 - [x] K1. SERVER.md: document grant. Needs ADMIN_SECRET. Never commit the secret.
-- [ ] K2. FAQ: teammates get Pro from the owner, not a card.
+- [x] K2. FAQ: teammates get Pro from the owner, not a card.
 - [ ] K3. BACKLOG: Stripe live closed. Donations later. L closed.
 
 STOP after K3.
