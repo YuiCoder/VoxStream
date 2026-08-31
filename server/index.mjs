@@ -4,7 +4,7 @@ import express from "express";
 import cors from "cors";
 import { WebSocketServer, WebSocket } from "ws";
 import { PLANS, publicPlans } from "./plans.mjs";
-import { readSession, createSession, sidCookie, mePayload } from "./session.mjs";
+import { readSession, createSession, sidCookie, clearSidCookie, mePayload } from "./session.mjs";
 import { startCheckout, syncCheckout } from "./checkout.mjs";
 import { handleStripeWebhook } from "./webhook.mjs";
 import { upsertUser } from "./db.mjs";
@@ -19,6 +19,7 @@ const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
 const STRIPE_WH = (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
 const ADMIN = (process.env.ADMIN_SECRET || "").trim();
+const ACCOUNT = (process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io") + "/VoxStream/account.html";
 
 function okEmail(email) {
   const at = email.indexOf("@");
@@ -73,6 +74,11 @@ app.get("/v1/me", (req, res) => {
   res.json(mePayload(readSession(req)));
 });
 
+app.get("/v1/logout", (req, res) => {
+  res.setHeader("Set-Cookie", clearSidCookie());
+  res.redirect(ACCOUNT);
+});
+
 app.get("/v1/auth/github", startGithub);
 app.get("/v1/auth/github/callback", finishGithub);
 app.get("/v1/auth/google", startGoogle);
@@ -95,7 +101,7 @@ app.post("/v1/admin/grant", (req, res) => {
     res.status(400).json({ ok: false, code: "bad_email" });
     return;
   }
-  if (!PLANS[plan] || plan === "free") {
+  if (!PLANS[plan]) {
     res.status(400).json({ ok: false, code: "bad_plan" });
     return;
   }
