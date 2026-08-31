@@ -7,6 +7,7 @@ import { PLANS, publicPlans } from "./plans.mjs";
 import { readSession, createSession, sidCookie, mePayload } from "./session.mjs";
 import { startCheckout, syncCheckout } from "./checkout.mjs";
 import { handleStripeWebhook } from "./webhook.mjs";
+import { upsertUser } from "./db.mjs";
 
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
@@ -14,6 +15,7 @@ const APP_URL = String(process.env.APP_URL || "").replace(/\/$/, "");
 const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
 const STRIPE_WH = (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
+const ADMIN = (process.env.ADMIN_SECRET || "").trim();
 const MAILER = Boolean((process.env.RESEND_API_KEY || "").trim());
 
 function okEmail(email) {
@@ -44,10 +46,7 @@ app.get("/", (_req, res) => {
   res.type("html").send(
     "<!doctype html><meta charset=utf-8><title>VoxStream server</title>" +
     "<body style=\"font-family:sans-serif;background:#09090b;color:#f4f0ff;padding:32px\">" +
-    "<h1>VoxStream</h1><p>API. Not the public estudio.</p><ul>" +
-    "<li><a href=/health style=color:#c9a2ff>GET /health</a></li>" +
-    "<li><a href=/v1/me style=color:#c9a2ff>GET /v1/me</a></li>" +
-    "<li><a href=/v1/plans style=color:#c9a2ff>GET /v1/plans</a></li></ul></body>"
+    "<h1>VoxStream</h1><p>API. Not the public estudio.</p></body>"
   );
 });
 
@@ -57,6 +56,7 @@ app.get("/health", (_req, res) => {
     product: "voxstream",
     stripe: Boolean(STRIPE),
     webhook: Boolean(STRIPE_WH),
+    admin: Boolean(ADMIN),
     euler: Boolean(EULER),
     mailer: MAILER,
     time: new Date().toISOString()
@@ -67,7 +67,7 @@ app.get("/v1/plans", (_req, res) => {
   res.json({
     product: "voxstream",
     selling: false,
-    note: "Checkout is test-only. Pages stays Free.",
+    note: "Public estudio stays Free. Team plans are granted by the owner.",
     plans: publicPlans()
   });
 });
@@ -76,10 +76,30 @@ app.get("/v1/me", (req, res) => {
   res.json(mePayload(readSession(req)));
 });
 
-app.get("/v1/entitlement", (req, res) => {
-  const plan = String(req.query.plan || "free").toLowerCase();
-  const row = PLANS[plan] || PLANS.free;
-  res.json({ plan: row.id, live: row.live, features: row });
+app.post("/v1/admin/grant", (req, res) => {
+  if (!ADMIN) {
+    res.status(501).json({ ok: false, code: "admin_not_configured" });
+    return;
+  }
+  const secret = String((req.body && req.body.secret) || req.headers["x-admin-secret"] || "");
+  if (secret !== ADMIN) {
+    res.status(401).json({ ok: false, code: "bad_admin" });
+    return;
+  }
+  const email = String((req.body && req.body.email) || "").trim().toLowerCase();
+  const plan = String((req.body && req.body.plan) || "pro").toLowerCase();
+  if (!okEmail(email)) {
+    res.status(400).json({ ok: false, code: "bad_email" });
+    return;
+  }
+  if (!PLANS[plan] || plan === "free") {
+    res.status(400).json({ ok: false, code: "bad_plan" });
+    return;
+  }
+  upsertUser(email, plan, {});
+  const session = createSession(email, plan);
+  res.setHeader("Set-Cookie", sidCookie(session.sid));
+  res.json({ ok: true, granted: plan, me: mePayload(session) });
 });
 
 app.post("/v1/auth/magic", (req, res) => {
@@ -152,6 +172,5 @@ wss.on("connection", (client, req) => {
 
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
-  console.log("stripe  " + (STRIPE ? "key set" : "no"));
-  console.log("webhook " + (STRIPE_WH ? "signed" : "501 until STRIPE_WEBHOOK_SECRET"));
+  console.log("admin   " + (ADMIN ? "grant on" : "no ADMIN_SECRET"));
 });
