@@ -73,6 +73,7 @@ let rate = 1;
 let volume = 1;
 let pitch = 1;
 let maxQ = 12;
+const SPEAK_FRESH_MS = 12000;
 let twitchOn = false;
 let tiktokOn = false;
 let demoOn = true;
@@ -211,6 +212,23 @@ function unlockFromGesture() {
   if (first) speakReady();
 }
 
+
+function trimSpeakQueue() {
+  const now = Date.now();
+  const busy = queue.length >= Math.max(4, Math.floor(maxQ * 0.5));
+  if (busy) {
+    for (let i = queue.length - 1; i >= 0; i--) {
+      const q = queue[i];
+      if (q && q.kind !== "chat" && q.kind !== "bits") queue.splice(i, 1);
+    }
+  }
+  for (let i = queue.length - 1; i >= 0; i--) {
+    const q = queue[i];
+    if (q && q.ts && now - q.ts > SPEAK_FRESH_MS) queue.splice(i, 1);
+  }
+  while (queue.length >= maxQ) queue.shift();
+}
+
 function addMsg(m) {
   msgN++;
   const empty = $("feed-empty");
@@ -236,15 +254,16 @@ function addMsg(m) {
   if (ttsOn && unlocked) {
     lastSpeakKey = String(m.user || "").toLowerCase() + "|" + String(m.text || "").toLowerCase();
     lastSpeakAt = Date.now();
-    if (queue.length >= maxQ) queue.shift();
+    trimSpeakQueue();
     queue.push(m);
+    while (queue.length > maxQ) queue.shift();
     $("q").textContent = queue.length + " " + t().queue;
     kick();
   }
 }
 
-function speechText(m) {
-  const name = readName ? (m.displayName || m.user) : "";
+function speechText(m, short) {
+  const name = (!short && readName) ? (m.displayName || m.user) : "";
   if (m.kind === "gift") return (name ? name + " " : "") + "envió " + (m.giftName || "un regalo");
   if (m.kind === "follow") return (name || "alguien") + " empezó a seguir";
   if (m.kind === "sub") return (name || "alguien") + " se suscribió";
@@ -285,7 +304,14 @@ function fillVoices() {
 
 function kick() {
   if (!unlocked || paused || speaking || !ttsOn) return;
-  const next = queue.shift();
+  let next = null;
+  const now = Date.now();
+  while (queue.length) {
+    const cand = queue.shift();
+    if (cand && cand.ts && now - cand.ts > SPEAK_FRESH_MS) continue;
+    next = cand;
+    break;
+  }
   $("q").textContent = queue.length + " " + t().queue;
   if (!next) {
     speaking = null;
@@ -299,7 +325,8 @@ function kick() {
   $("now-k").textContent = t().reading;
   $("now-text").textContent = next.text || "";
   $("now-user").textContent = (next.displayName || next.user || "") + (next.platform ? " - " + next.platform : "");
-  const u = new SpeechSynthesisUtterance(speechText(next));
+  const shortForm = next.platform === "tiktok" && queue.length >= 1;
+  const u = new SpeechSynthesisUtterance(speechText(next, shortForm));
   u.lang = lang === "es" ? "es-ES" : "en-US";
   applyVoice(u);
   u.onend = function () { speaking = null; kick(); };
@@ -672,9 +699,13 @@ window.addEventListener("keydown", function (e) {
 });
 
 setInterval(function () {
-  if (speaking && speakStarted && Date.now() - speakStarted > 8000) {
+  trimSpeakQueue();
+  if ($("q")) $("q").textContent = queue.length + " " + t().queue;
+  if (speaking && speakStarted && Date.now() - speakStarted > 15000) {
     try { speechSynthesis.cancel(); } catch (e) {}
     speaking = null; kick();
+  } else if (!speaking && !paused && ttsOn && unlocked && queue.length) {
+    kick();
   }
 }, 1000);
 
