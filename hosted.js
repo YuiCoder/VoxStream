@@ -1,8 +1,10 @@
 (function () {
   const DEFAULT_API = "https://voxstream-production.up.railway.app";
   const $ = function (id) { return document.getElementById(id); };
-  let hostedOn = false;
-  let hostedSock = null;
+  let wanted = false;
+  let sock = null;
+  let retry = null;
+  let userWanted = "";
 
   function apiBase() {
     try {
@@ -25,85 +27,130 @@
     if (st) st.textContent = text || "-";
   }
 
-  function stopHosted() {
-    hostedOn = false;
-    if (hostedSock) {
-      try { hostedSock.close(); } catch (e) {}
-      hostedSock = null;
+  function clearRetry() {
+    if (retry) {
+      clearTimeout(retry);
+      retry = null;
     }
-    setStatus("", "cut");
   }
 
-  function startHosted(user) {
-    user = String(user || "").replace(/^@/, "").trim();
+  function stopTikTokFix(userStop) {
+    if (userStop !== false) wanted = false;
+    clearRetry();
+    if (sock) {
+      try { sock.close(); } catch (e) {}
+      sock = null;
+    }
+    if (!wanted) setStatus("", "cut");
+  }
+
+  function readFrame(ev, fn) {
+    if (typeof ev.data === "string") {
+      fn(ev.data);
+      return;
+    }
+    if (ev.data && typeof ev.data.text === "function") {
+      ev.data.text().then(fn).catch(function () {});
+      return;
+    }
+  }
+
+  function ingest(raw) {
+    if (!raw) return;
+    var obj = raw;
+    if (typeof raw === "string") {
+      try { obj = JSON.parse(raw); } catch (e) { return; }
+    }
+    if (obj && Array.isArray(obj.messages)) {
+      obj.messages.forEach(ingest);
+      return;
+    }
+    if (typeof window.ingestTikTok === "function") window.ingestTikTok(obj);
+  }
+
+  function eulerQuery(user, key) {
+    return "uniqueId=" + encodeURIComponent(user) +
+      "&schemaVersion=v1" +
+      "&features.bundleEvents=false" +
+      (key ? "&apiKey=" + encodeURIComponent(key) : "");
+  }
+
+  function connect(isRetry) {
+    var user = userWanted;
+    if (!wanted || user.length < 2) return;
+    setStatus("wait", isRetry ? "reconnecting" : "connecting");
+    var url;
+    if (isHosted()) {
+      url = apiBase().replace(/^http/, "ws") + "/v1/tiktok/relay?" + eulerQuery(user, "");
+    } else {
+      var key = (($("ttkey") && $("ttkey").value) || "").trim();
+      if (!key) {
+        setStatus("error", "missing key");
+        wanted = false;
+        return;
+      }
+      url = "wss://ws.eulerstream.com?" + eulerQuery(user, key);
+    }
+    var ws = new WebSocket(url);
+    sock = ws;
+    ws.onopen = function () {
+      if (sock !== ws) return;
+      setStatus("live", "on air");
+    };
+    ws.onmessage = function (ev) {
+      readFrame(ev, function (text) {
+        try {
+          var obj = JSON.parse(text);
+          if (obj.event === "error" || obj.type === "error" || obj.error || obj.status === "error") {
+            var blob = text.toLowerCase();
+            var kind = /not.?live|offline|ended/.test(blob) ? "not live" :
+              /invalid|unauthorized|401|403|api.?key/.test(blob) ? "invalid key" : "error";
+            setStatus("error", kind);
+            if (kind === "invalid key" || kind === "not live") wanted = false;
+            return;
+          }
+        } catch (e) {}
+        ingest(text);
+      });
+    };
+    ws.onerror = function () {};
+    ws.onclose = function () {
+      if (sock !== ws) return;
+      sock = null;
+      if (wanted) {
+        setStatus("wait", "reconnecting");
+        retry = setTimeout(function () { connect(true); }, 1600);
+      } else {
+        setStatus("", "cut");
+      }
+    };
+  }
+
+  function startFromUi() {
+    var user = String(($("tiktok") && $("tiktok").value) || "").replace(/^@/, "").trim();
     if (user.length < 2) {
       setStatus("error", "error");
       return;
     }
-    stopHosted();
-    if (typeof window.stopDemo === "function") window.stopDemo();
-    hostedOn = true;
-    setStatus("wait", "connecting");
-    const api = apiBase();
-    fetch(api + "/v1/tiktok/hosted", {
-      method: "POST",
-      credentials: "include",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ uniqueId: user })
-    }).then(function (res) {
-      return res.json().then(function (body) {
-        return { ok: res.ok, body: body || {} };
-      });
-    }).then(function (pack) {
-      if (!hostedOn) return;
-      if (!pack.ok || !pack.body.relay) {
-        const code = pack.body.code || "";
-        setStatus("error", code === "need_pro" ? "need Pro" : code === "euler_not_configured" ? "host key later" : "error");
-        hostedOn = false;
+    if (!isHosted()) {
+      var key = (($("ttkey") && $("ttkey").value) || "").trim();
+      if (!key) {
+        setStatus("error", "missing key");
         return;
       }
-      const wsUrl = api.replace(/^http/, "ws") + pack.body.relay;
-      const ws = new WebSocket(wsUrl);
-      hostedSock = ws;
-      ws.onopen = function () {
-        if (hostedSock !== ws) return;
-        setStatus("live", "on air");
-      };
-      ws.onmessage = function (ev) {
-        if (typeof ev.data !== "string") return;
-        try {
-          const obj = JSON.parse(ev.data);
-          if (typeof window.ingestTikTok === "function") window.ingestTikTok(obj);
-        } catch (e) {}
-      };
-      ws.onclose = function () {
-        if (hostedSock !== ws) return;
-        hostedSock = null;
-        hostedOn = false;
-        setStatus("", "cut");
-      };
-      ws.onerror = function () {
-        if (hostedSock !== ws) return;
-        setStatus("error", "error");
-      };
-    }).catch(function () {
-      hostedOn = false;
-      setStatus("error", "error");
-    });
+    }
+    stopTikTokFix(true);
+    if (typeof window.stopDemo === "function") window.stopDemo();
+    if (typeof window.unlockFromGesture === "function") window.unlockFromGesture();
+    userWanted = user;
+    wanted = true;
+    connect(false);
   }
 
-  const btn = $("tiktok-btn");
+  var btn = $("tiktok-btn");
   if (!btn) return;
-  const prev = btn.onclick;
-  btn.onclick = function (ev) {
-    if (!isHosted()) {
-      if (typeof prev === "function") return prev.call(this, ev);
-      return;
-    }
-    if (hostedOn) stopHosted();
-    else {
-      if (typeof window.unlockFromGesture === "function") window.unlockFromGesture();
-      startHosted(($("tiktok") && $("tiktok").value) || "");
-    }
+  btn.onclick = function () {
+    if (wanted || sock) stopTikTokFix(true);
+    else startFromUi();
   };
 })();
