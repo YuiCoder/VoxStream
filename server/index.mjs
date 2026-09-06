@@ -27,6 +27,13 @@ function okEmail(email) {
   return at > 0 && dot > at + 1 && dot < email.length - 1 && !email.includes(" ");
 }
 
+function eulerUrl(uniqueId) {
+  return "wss://ws.eulerstream.com?uniqueId=" +
+    encodeURIComponent(uniqueId) +
+    "&apiKey=" + encodeURIComponent(EULER) +
+    "&schemaVersion=v1&features.bundleEvents=false";
+}
+
 const app = express();
 app.post("/v1/stripe/webhook", express.raw({ type: "application/json" }), (req, res) => {
   handleStripeWebhook(req, res, STRIPE, STRIPE_WH);
@@ -151,16 +158,35 @@ wss.on("connection", (client, req) => {
     client.close(1008, "bad_user");
     return;
   }
-  const upstreamUrl = "wss://ws.eulerstream.com?uniqueId=" +
-    encodeURIComponent(uniqueId) + "&apiKey=" + encodeURIComponent(EULER);
-  const up = new WebSocket(upstreamUrl);
-  up.on("message", (data) => {
-    if (client.readyState === WebSocket.OPEN) client.send(data);
+  let up = null;
+  let dead = false;
+  let retry = null;
+  function openUp() {
+    if (dead || client.readyState !== WebSocket.OPEN) return;
+    up = new WebSocket(eulerUrl(uniqueId));
+    up.on("message", (data) => {
+      if (client.readyState !== WebSocket.OPEN) return;
+      const text = Buffer.isBuffer(data) ? data.toString("utf8") : String(data);
+      client.send(text);
+    });
+    up.on("close", () => {
+      if (dead || client.readyState !== WebSocket.OPEN) return;
+      retry = setTimeout(openUp, 1500);
+    });
+    up.on("error", () => {
+      try { up.close(); } catch (e) {}
+    });
+  }
+  openUp();
+  client.on("close", () => {
+    dead = true;
+    if (retry) clearTimeout(retry);
+    try { if (up) up.close(); } catch (e) {}
   });
-  up.on("close", () => client.close());
-  up.on("error", () => client.close(1011, "upstream"));
-  client.on("close", () => { try { up.close(); } catch (e) {} });
-  client.on("error", () => { try { up.close(); } catch (e) {} });
+  client.on("error", () => {
+    dead = true;
+    try { if (up) up.close(); } catch (e) {}
+  });
 });
 
 server.listen(PORT, () => {
