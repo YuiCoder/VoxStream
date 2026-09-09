@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>VoxStream Estudio</title>
   <meta name="theme-color" content="#09090b" />
-  <meta name="description" content="Estudio VoxStream: lee el chat de Twitch y TikTok en voz alta." />
+  <meta name="description" content="Estudio VoxStream: lee el chat de Twitch en voz alta." />
   <meta property="og:title" content="VoxStream Estudio" />
-  <meta property="og:description" content="Estudio VoxStream: lee el chat de Twitch y TikTok en voz alta." />
+  <meta property="og:description" content="Estudio VoxStream: lee el chat de Twitch en voz alta." />
   <meta property="og:url" content="https://yuicoder.github.io/VoxStream/studio.html" />
   <meta property="og:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <meta property="og:type" content="website" />
@@ -15,7 +15,7 @@
   <meta name="twitter:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <link rel="stylesheet" href="styles.css?v=17" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Syne:wght@600;700&amp;display=swap" rel="stylesheet" />
 </head>
 <body>
   <div class="wrap">
@@ -47,7 +47,7 @@
       <ol>
         <li id="ck1">Pulsa Probar voz</li>
         <li id="ck2">Conecta Twitch (canal en directo)</li>
-        <li id="ck3">TikTok: clave + usuario en LIVE</li>
+        <li id="ck3">Lista: Probar voz y Twitch</li>
       </ol>
     </div>
     <div class="layout">
@@ -61,19 +61,6 @@
           </div>
           <div class="status"><span class="dot" id="twitch-dot"></span><span id="twitch-st">-</span></div>
           <p class="hint" id="twitch-h">Twitch no pide contraseña.</p>
-          <hr />
-          <label for="tiktok">TikTok</label>
-          <div class="connect">
-            <input id="tiktok" type="text" placeholder="Usuario, sin @" autocomplete="off" spellcheck="false" />
-            <button class="btn" id="tiktok-btn" type="button">Conectar</button>
-          </div>
-          <label for="ttkey" id="ttkey-l" style="margin-top:10px">Clave TikTok (gratis)</label>
-          <div class="keyrow">
-            <input id="ttkey" type="password" placeholder="Pega aquí tu API key" autocomplete="off" spellcheck="false" />
-            <button class="btn ghost" id="ttkey-toggle" type="button">Mostrar</button>
-          </div>
-          <div class="status"><span class="dot" id="tiktok-dot"></span><span id="tiktok-st">-</span></div>
-          <p class="hint" id="tiktok-h">TikTok necesita LIVE abierto y una <a href="https://www.eulerstream.com/register" target="_blank" rel="noopener">clave gratis en eulerstream.com</a>.</p>
           <hr />
           <div class="line">
             <div>
@@ -152,7 +139,7 @@
           </div>
         </section>
         <section class="card feed" id="feed">
-          <div class="empty" id="feed-empty">Conecta Twitch o activa Ensayo para ver el chat. TikTok necesita LIVE abierto y una clave de eulerstream.com.</div>
+          <div class="empty" id="feed-empty">Conecta Twitch o activa Ensayo para ver el chat.</div>
         </section>
       </main>
     </div>
@@ -166,8 +153,7 @@
       <button class="btn ghost" id="pro-close" type="button" style="margin-top:8px">Cerrar</button>
     </div>
   </div>
-  <script src="app.js?v=14"></script>
-  <script src="me.js?v=17"></script>
-  <script src="hosted.js?v=2"></script>
+  <script src="app.js?v=15"></script>
+  <script src="me.js?v=18"></script>
 </body>
 </html>

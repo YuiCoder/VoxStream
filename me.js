@@ -51,27 +51,17 @@
     const plus = $("lock-plus");
     const pro = $("lock-pro");
     if (plus) plus.textContent = flags.extraFilters ? "Plus activo" : "Plus: filtros extra";
-    if (pro) pro.textContent = flags.tiktokHosted ? "Pro activo" : "Pro: TikTok hosted";
+    if (pro) pro.textContent = flags.elevenlabsByok ? "Pro activo" : "Pro: ElevenLabs BYOK";
     const box = $("eleven-byok");
     if (box) {
       if (flags.elevenlabsByok) box.removeAttribute("hidden");
       else box.setAttribute("hidden", "");
     }
-    const keyRow = document.querySelector(".keyrow");
-    const keyLab = $("ttkey-l");
-    const keyToggle = $("ttkey-toggle");
-    const keyHint = $("tiktok-h");
-    if (flags.tiktokHosted) {
-      if (keyRow) keyRow.setAttribute("hidden", "");
-      if (keyLab) keyLab.setAttribute("hidden", "");
-      if (keyToggle) keyToggle.setAttribute("hidden", "");
-      if (keyHint) keyHint.textContent = "Pro: TikTok hosted. Username + Connect. No Euler key.";
-    }
     const note = $("free-note");
     if (note) {
       note.textContent = plan === "free"
-        ? "Free: Twitch, Ensayo, tu clave Euler. Plus y Pro: entra y compra en Ko-fi shop."
-        : ("Plan " + plan + ". Hosted TikTok uses the server key when Pro is on.");
+        ? "Free: Twitch y Ensayo. Plus y Pro: entra y compra en Ko-fi shop."
+        : ("Plan " + plan + ".");
     }
     capQueue(flags);
     window.voxMe = me;

@@ -2,7 +2,6 @@ import "dotenv/config";
 import http from "node:http";
 import express from "express";
 import cors from "cors";
-import { WebSocketServer, WebSocket } from "ws";
 import { PLANS, publicPlans } from "./plans.mjs";
 import { readSession, createSession, sidCookie, clearSidCookie, mePayload } from "./session.mjs";
 import { startCheckout, syncCheckout } from "./checkout.mjs";
@@ -15,7 +14,6 @@ import { kofiReady, handleKofi } from "./kofi.mjs";
 const PORT = Number(process.env.PORT || 8787);
 const ORIGIN = process.env.PUBLIC_ORIGIN || "https://yuicoder.github.io";
 const APP_URL = String(process.env.APP_URL || "").replace(/\/$/, "");
-const EULER = (process.env.EULER_API_KEY || "").trim();
 const STRIPE = (process.env.STRIPE_SECRET_KEY || "").trim();
 const STRIPE_WH = (process.env.STRIPE_WEBHOOK_SECRET || "").trim();
 const ADMIN = (process.env.ADMIN_SECRET || "").trim();
@@ -25,13 +23,6 @@ function okEmail(email) {
   const at = email.indexOf("@");
   const dot = email.lastIndexOf(".");
   return at > 0 && dot > at + 1 && dot < email.length - 1 && !email.includes(" ");
-}
-
-function eulerUrl(uniqueId) {
-  return "wss://ws.eulerstream.com?uniqueId=" +
-    encodeURIComponent(uniqueId) +
-    "&apiKey=" + encodeURIComponent(EULER) +
-    "&schemaVersion=v1&features.bundleEvents=false";
 }
 
 const app = express();
@@ -63,7 +54,7 @@ app.get("/health", (_req, res) => {
     github: githubReady(),
     google: googleReady(),
     kofi: kofiReady(),
-    euler: Boolean(EULER),
+    euler: false,
     time: new Date().toISOString()
   });
 });
@@ -122,73 +113,11 @@ app.post("/v1/checkout", (req, res) => startCheckout(req, res, STRIPE));
 app.get("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 app.post("/v1/checkout/sync", (req, res) => syncCheckout(req, res, STRIPE));
 
-app.post("/v1/tiktok/hosted", (req, res) => {
-  const uniqueId = String((req.body && req.body.uniqueId) || "").replace(/^@/, "").trim();
-  if (uniqueId.length < 2) {
-    res.status(400).json({ ok: false, code: "bad_user" });
-    return;
-  }
-  const me = mePayload(readSession(req));
-  if (!me.flags.tiktokHosted) {
-    res.status(403).json({ ok: false, code: "need_pro" });
-    return;
-  }
-  if (!EULER) {
-    res.status(501).json({ ok: false, code: "euler_not_configured" });
-    return;
-  }
-  res.json({ ok: true, relay: "/v1/tiktok/relay?uniqueId=" + encodeURIComponent(uniqueId) });
-});
-
 app.use((req, res) => {
   res.status(404).json({ ok: false, code: "not_found", path: req.path });
 });
 
 const server = http.createServer(app);
-const wss = new WebSocketServer({ server, path: "/v1/tiktok/relay" });
-wss.on("connection", (client, req) => {
-  const me = mePayload(readSession(req));
-  if (!me.flags.tiktokHosted || !EULER) {
-    client.close(1008, me.flags.tiktokHosted ? "euler_not_configured" : "need_pro");
-    return;
-  }
-  const url = new URL(req.url, "http://localhost");
-  const uniqueId = String(url.searchParams.get("uniqueId") || "").replace(/^@/, "").trim();
-  if (uniqueId.length < 2) {
-    client.close(1008, "bad_user");
-    return;
-  }
-  let up = null;
-  let dead = false;
-  let retry = null;
-  function openUp() {
-    if (dead || client.readyState !== WebSocket.OPEN) return;
-    up = new WebSocket(eulerUrl(uniqueId));
-    up.on("message", (data) => {
-      if (client.readyState !== WebSocket.OPEN) return;
-      const text = Buffer.isBuffer(data) ? data.toString("utf8") : String(data);
-      client.send(text);
-    });
-    up.on("close", () => {
-      if (dead || client.readyState !== WebSocket.OPEN) return;
-      retry = setTimeout(openUp, 1500);
-    });
-    up.on("error", () => {
-      try { up.close(); } catch (e) {}
-    });
-  }
-  openUp();
-  client.on("close", () => {
-    dead = true;
-    if (retry) clearTimeout(retry);
-    try { if (up) up.close(); } catch (e) {}
-  });
-  client.on("error", () => {
-    dead = true;
-    try { if (up) up.close(); } catch (e) {}
-  });
-});
-
 server.listen(PORT, () => {
   console.log("VoxStream server on http://localhost:" + PORT);
   console.log("kofi    " + (kofiReady() ? "on" : "off"));
