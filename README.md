@@ -2,58 +2,32 @@
 
 ![VoxStream](README-header.svg)
 
-Lee el chat de Twitch en voz alta. Es una web. No hay exe.
+Twitch chat, read out loud. Browser studio. No exe. No TikTok.
 
-VoxStream reads Twitch chat out loud. It is a website. There is no exe.
-
-VoxStream Free. Uso gratuito. Paid plans come later.
-
-Sitio: https://yuicoder.github.io/VoxStream/
-
-Docs: [SERVER.md](SERVER.md) · [BACKLOG.md](BACKLOG.md)
+Site: https://yuicoder.github.io/VoxStream/
 
 License: proprietary. Copyright (c) 2026 YuiCoder. All rights reserved. See [LICENSE](LICENSE).
 
+## Use it
+
+1. Open the [studio](https://yuicoder.github.io/VoxStream/studio.html) in Chrome.
+2. Click **Test voice** once (Chrome blocks speech until a click).
+3. Type a live Twitch channel, no `#`, click **Connect**. No password.
+4. Not live? Turn on **Rehearsal**.
+
+Free needs no account. Plus / Pro: sign in with GitHub or Google, then buy the VoxStream product in the [Ko-fi shop](https://ko-fi.com/bloodybytes/shop) with the same email. Stream tips, bits, and subs do not grant a plan.
+
 ## Español
 
-Abre el estudio en https://yuicoder.github.io/VoxStream/ y pulsa **Abrir estudio**.
-Usa Chrome. No instales nada.
+1. Abre el [estudio](https://yuicoder.github.io/VoxStream/studio.html) en Chrome.
+2. Pulsa **Probar voz** una vez.
+3. Canal de Twitch en directo, sin `#`, **Conectar**. No pide contraseña.
+4. Si no hay directo, activa **Ensayo**.
 
-### Twitch
-Escribe un canal en directo, sin `#`.
-Pulsa **Conectar**. No pide contraseña.
+Free no necesita cuenta. Plus / Pro: entra con GitHub o Google y compra en la [shop Ko-fi](https://ko-fi.com/bloodybytes/shop) con el mismo email. Tips del stream no otorgan plan.
 
-### Voz
-Chrome bloquea el audio hasta un clic.
-Pulsa **Probar voz** una vez.
-La pestaña no puede estar muteada.
+## Docs
 
-### Ensayo
-Si no estás en directo, activa **Ensayo** para oír la voz.
-
-Es Free. No hay exe.
-El código es de YuiCoder. Todos los derechos reservados. [LICENSE](LICENSE).
-
-Issues: https://github.com/YuiCoder/VoxStream/issues
-
-## English
-
-Open the studio at https://yuicoder.github.io/VoxStream/ and click **Abrir estudio**.
-Use Chrome. Nothing to install.
-
-### Twitch
-Type a live channel, no `#`.
-Click **Conectar**. No password.
-
-### Voice
-Chrome blocks audio until a click.
-Press **Probar voz** once.
-The tab cannot be muted.
-
-### Rehearsal
-If you are not live, turn on **Ensayo** to hear the voice.
-
-It is Free. There is no exe.
-The source is YuiCoder's. All rights reserved. [LICENSE](LICENSE).
+[SERVER.md](SERVER.md) · [CHATS.md](CHATS.md) · [LICENSE](LICENSE)
 
 Issues: https://github.com/YuiCoder/VoxStream/issues
