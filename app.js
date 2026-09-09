@@ -197,7 +197,7 @@ function addMsg(m) {
   const wrap = document.createElement("article");
   wrap.className = "msg" + (m.kind !== "chat" ? " event" : "");
   const who = m.displayName || m.user || "?";
-  const tag = m.source === "demo" ? '<span class="tag">ENSAYO</span>' : "";
+  const tag = m.source === "demo" ? '<span class="tag">DEMO</span>' : "";
   wrap.innerHTML =
     '<div class="av">' + escapeHtml(initials(who)) + "</div>" +
     "<div><div class=\"name\">" + escapeHtml(who) + tag + "</div>" +
@@ -534,7 +534,6 @@ $("checklist-x").onclick = function () {
 };
 $("freebadge").onclick = openSoon;
 $("pro-close").onclick = function () { $("pro-modal").classList.add("hidden"); };
-["lock-plus", "lock-pro"].forEach(function (id) { if ($(id)) $(id).onclick = openSoon; });
 $("twitch").onchange = save;
 
 window.addEventListener("hashchange", syncStage);
@@ -558,5 +557,7 @@ setInterval(function () {
 
 speechSynthesis.onvoiceschanged = fillVoices;
 load(); fillVoices(); syncStage(); applyLang();
+setTimeout(fillVoices, 300);
+setTimeout(fillVoices, 1200);
 if (demoOn) startDemo();
 else { $("demo").checked = false; applyLang(); }

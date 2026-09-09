@@ -1,4 +1,4 @@
-# FIX.md — OPEN, three exact edits in app.js. Keep the file whole.
+# FIX.md — DONE
 
 1. Replace
 `const tag = m.source === "demo" ? '<span class="tag">ENSAYO</span>' : "";`
