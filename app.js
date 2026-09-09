@@ -8,8 +8,7 @@ const copy = {
     live: "AL AIRE", idle: "EN ESPERA", connect: "Conectar", cut: "Cortar",
     src: "Fuentes",
     twH: "Canal sin #. Twitch no pide contraseña. Si se cae, reconecta solo.",
-    ttH: 'TikTok necesita LIVE abierto y una <a href="https://www.eulerstream.com/register" target="_blank" rel="noopener">clave gratis en eulerstream.com</a>. Sin clave no hay chat real de TikTok.',
-    twPh: "canal, sin #", ttPh: "usuario, sin @",
+    twPh: "canal, sin #",
     demo: "Ensayo", demoH: "Simulado. Se apaga al conectar en vivo.",
     voice: "Voz", ttsOn: "Leer en voz alta", name: "Decir el nombre",
     test: "Probar voz", pause: "Pausa", resume: "Seguir", skip: "Saltar", clear: "Vaciar",
@@ -22,21 +21,17 @@ const copy = {
     soon: "Después", soonH: "Plus y Pro se abren en el mismo estudio. Hoy no hay cobro.",
     lockPlus: "Plus: filtros extra", lockPro: "Pro: YouTube + ElevenLabs",
     twWait: "conectando", twLive: "al aire", twErr: "error", twCut: "cortado", twRetry: "reconectando",
-    ttWait: "conectando", ttLive: "al aire", ttNeed: "falta clave", ttOff: "no está en vivo",
-    ttKey: "clave inválida", ttErr: "error", ttCut: "cortado",
-    ttKeyL: "Clave TikTok (gratis)", showKey: "Mostrar", hideKey: "Ocultar",
     free: "Uso gratuito. Planes después.", freeBadge: "VOXSTREAM FREE",
-    ck1: "Pulsa Probar voz", ck2: "Conecta Twitch (canal en directo)", ck3: "TikTok: clave + usuario en LIVE",
-    empty: "Conecta Twitch o activa Ensayo para ver el chat. TikTok necesita LIVE abierto y una clave de eulerstream.com.",
+    ck1: "Pulsa Probar voz", ck2: "Conecta Twitch (canal en directo)", ck3: "Twitch en directo, o Ensayo",
+    empty: "Conecta Twitch o activa Ensayo para ver el chat.",
     proTitle: "Próximamente", proBody: "Hoy VoxStream es Free. Plus y Pro se activan en este mismo estudio cuando haya cuenta.",
-    proClose: "Cerrar", ttPhKey: "Pega aquí tu API key"
+    proClose: "Cerrar"
   },
   en: {
     live: "ON AIR", idle: "IDLE", connect: "Connect", cut: "Cut",
     src: "Sources",
     twH: "Channel, no #. Twitch does not ask for a password. It reconnects if the socket drops.",
-    ttH: 'TikTok needs an open LIVE and a <a href="https://www.eulerstream.com/register" target="_blank" rel="noopener">free key at eulerstream.com</a>. No key means no real TikTok chat.',
-    twPh: "channel, no #", ttPh: "username, no @",
+    twPh: "channel, no #",
     demo: "Rehearsal", demoH: "Simulated. Turns off when a live source connects.",
     voice: "Voice", ttsOn: "Read aloud", name: "Say the name",
     test: "Test voice", pause: "Pause", resume: "Continue", skip: "Skip", clear: "Clear",
@@ -49,14 +44,11 @@ const copy = {
     soon: "Later", soonH: "Plus and Pro unlock in this same studio. No charges today.",
     lockPlus: "Plus: extra filters", lockPro: "Pro: YouTube + ElevenLabs",
     twWait: "connecting", twLive: "on air", twErr: "error", twCut: "cut", twRetry: "reconnecting",
-    ttWait: "connecting", ttLive: "on air", ttNeed: "missing key", ttOff: "not live",
-    ttKey: "invalid key", ttErr: "error", ttCut: "cut",
-    ttKeyL: "TikTok key (free)", showKey: "Show", hideKey: "Hide",
     free: "Free to use. Plans later.", freeBadge: "VOXSTREAM FREE",
-    ck1: "Click Test voice", ck2: "Connect Twitch (live channel)", ck3: "TikTok: key + user in LIVE",
-    empty: "Connect Twitch or turn on Rehearsal to see chat. TikTok needs an open LIVE and a key from eulerstream.com.",
+    ck1: "Click Test voice", ck2: "Connect Twitch (live channel)", ck3: "Connect Twitch, or use Rehearsal",
+    empty: "Connect Twitch or turn on Rehearsal to see chat.",
     proTitle: "Coming soon", proBody: "VoxStream is Free today. Plus and Pro will unlock in this same studio when accounts exist.",
-    proClose: "Close", ttPhKey: "Paste your API key"
+    proClose: "Close"
   }
 };
 
@@ -75,20 +67,17 @@ let pitch = 1;
 let maxQ = 8;
 const SPEAK_FRESH_MS = 5000;
 let twitchOn = false;
-let tiktokOn = false;
 let demoOn = true;
 let twitchWanted = false;
 let twitchChannel = "";
 let twitchRetry = null;
 let twitchSock = null;
-let tiktokSock = null;
 let demoTimer = null;
 let selectedVoice = "";
 let speaking = null;
 let msgN = 0;
 let unlocked = false;
 let speakStarted = 0;
-let keyVisible = false;
 let triedVoice = false;
 let checklistClosed = false;
 let lastSpeakKey = "";
@@ -99,13 +88,13 @@ const feed = $("feed");
 const t = () => copy[lang];
 
 const demoScript = [
-  { platform: "tiktok", kind: "chat", user: "valeria.r", display: "valeria.r", text: "hola, acabo de entrar" },
+  { platform: "twitch", kind: "chat", user: "valeria.r", display: "valeria.r", text: "hola, acabo de entrar" },
   { platform: "twitch", kind: "chat", user: "nexo_", display: "nexo_", text: "vamos con todo hoy" },
-  { platform: "tiktok", kind: "gift", user: "mar.ok", display: "mar.ok", text: "envió Rosa", giftName: "Rosa", giftCount: 5 },
+  { platform: "twitch", kind: "gift", user: "mar.ok", display: "mar.ok", text: "envió Rosa", giftName: "Rosa", giftCount: 5 },
   { platform: "twitch", kind: "chat", user: "SofiaPlays", display: "SofiaPlays", text: "ese clip estuvo brutal" },
-  { platform: "tiktok", kind: "follow", user: "luna.tt", display: "luna.tt", text: "empezó a seguir" },
+  { platform: "twitch", kind: "follow", user: "luna.tt", display: "luna.tt", text: "empezó a seguir" },
   { platform: "twitch", kind: "bits", user: "kai_live", display: "kai_live", text: "100 bits", bits: 100 },
-  { platform: "tiktok", kind: "sub", user: "mira", display: "mira", text: "se suscribió" },
+  { platform: "twitch", kind: "sub", user: "mira", display: "mira", text: "se suscribió" },
   { platform: "twitch", kind: "chat", user: "rojo", display: "rojo", text: "buena partida" }
 ];
 
@@ -134,8 +123,8 @@ function shouldSkipSpeak(m) {
   const raw = String(m.text || "").trim();
   const user = String(m.user || m.displayName || "");
   if (skipBots && BOTS.test(user.replace(/_$/, ""))) return true;
-  if (m.kind === "gift" && (!readGift || m.platform === "tiktok")) return true;
-  if (m.kind === "follow" && (!readFollow || m.platform === "tiktok")) return true;
+  if (m.kind === "gift" && !readGift) return true;
+  if (m.kind === "follow" && !readFollow) return true;
   if ((m.kind === "sub" || m.kind === "bits") && !readSub) return true;
   if (m.kind !== "chat" && m.kind !== "bits") return false;
   if (!raw) return true;
@@ -158,30 +147,25 @@ function applyLang() {
   const c = t();
   const set = (id, v, html) => { const el = $(id); if (!el) return; if (html) el.innerHTML = v; else el.textContent = v; };
   set("h-src", c.src); set("h-voice", c.voice); set("h-filter", c.filter); set("h-soon", c.soon);
-  set("twitch-h", c.twH); set("tiktok-h", c.ttH, true);
+  set("twitch-h", c.twH);
   set("demo-l", c.demo); set("demo-h", c.demoH);
   set("tts-l", c.ttsOn); set("name-l", c.name); set("test", c.test);
   set("skip", c.skip); set("clearq", c.clear);
   set("pause", paused ? c.resume : c.pause);
   if ($("twitch")) $("twitch").placeholder = c.twPh;
-  if ($("tiktok")) $("tiktok").placeholder = c.ttPh;
-  if ($("ttkey") && c.ttPhKey) $("ttkey").placeholder = c.ttPhKey;
   set("twitch-btn", twitchOn ? c.cut : c.connect);
-  set("tiktok-btn", tiktokOn ? c.cut : c.connect);
   set("now-k", speaking ? c.reading : c.waiting);
   set("stage", document.body.classList.contains("stage") ? c.studio : c.stage);
   set("rate-l", c.rate); set("vol-l", c.vol); set("pitch-l", c.pitch); set("voice-l", c.voiceL);
   set("gift-l", c.gift); set("follow-l", c.follow); set("sub-l", c.sub);
   set("bot-l", c.bots); set("emo-l", c.emo); set("qmax-l", c.qmax); set("keys-h", c.keys);
   set("soon-h", c.soonH); set("lock-plus", c.lockPlus); set("lock-pro", c.lockPro);
-  set("ttkey-l", c.ttKeyL);
-  set("ttkey-toggle", keyVisible ? c.hideKey : c.showKey);
   set("free-note", c.free); set("freebadge", c.freeBadge);
   set("ck1", c.ck1); set("ck2", c.ck2); set("ck3", c.ck3);
   set("feed-empty", c.empty);
   set("pro-title", c.proTitle); set("pro-body", c.proBody); set("pro-close", c.proClose);
   set("q", queue.length + " " + c.queue);
-  const onAir = twitchOn || tiktokOn || demoOn;
+  const onAir = twitchOn || demoOn;
   set("livepill", onAir ? c.live : c.idle);
   if ($("livepill")) $("livepill").className = "pill" + (onAir ? "" : " off");
 }
@@ -325,8 +309,7 @@ function kick() {
   $("now-k").textContent = t().reading;
   $("now-text").textContent = next.text || "";
   $("now-user").textContent = (next.displayName || next.user || "") + (next.platform ? " - " + next.platform : "");
-  const shortForm = next.platform === "tiktok" && queue.length >= 1;
-  const u = new SpeechSynthesisUtterance(speechText(next, shortForm));
+  const u = new SpeechSynthesisUtterance(speechText(next));
   u.lang = lang === "es" ? "es-ES" : "en-US";
   applyVoice(u);
   u.onend = function () { speaking = null; kick(); };
@@ -467,103 +450,10 @@ function stopTwitch(userStop) {
   $("twitch-st").textContent = t().twCut;
 }
 
-function ingestTikTok(obj) {
-  if (!obj) return;
-  const ev = (obj.event || obj.type || obj.method || obj.eventName || "").toString().toLowerCase();
-  const data = obj.data || obj.payload || obj;
-  const user = data.user || data.userInfo || {};
-  const name = user.nickname || user.uniqueId || user.nickName || data.uniqueId || data.nickname || "tiktok";
-  const uname = user.uniqueId || user.nickName || name;
-  if (ev.indexOf("chat") >= 0 || ev.indexOf("comment") >= 0 || data.comment) {
-    addMsg({ platform: "tiktok", kind: "chat", user: uname, displayName: name, text: data.comment || data.text || data.content || "", ts: Date.now(), source: "live" });
-    return;
-  }
-  if (ev.indexOf("gift") >= 0) {
-    const g = data.giftName || (data.gift && data.gift.name) || "regalo";
-    addMsg({ platform: "tiktok", kind: "gift", user: uname, displayName: name, text: "envió " + g, giftName: g, giftCount: data.repeatCount || 1, ts: Date.now(), source: "live" });
-    return;
-  }
-  if (ev.indexOf("follow") >= 0 || ev.indexOf("social") >= 0) {
-    addMsg({ platform: "tiktok", kind: "follow", user: uname, displayName: name, text: "empezó a seguir", ts: Date.now(), source: "live" });
-    return;
-  }
-  if (ev.indexOf("sub") >= 0 || ev.indexOf("subscribe") >= 0 || ev.indexOf("member") >= 0) {
-    addMsg({ platform: "tiktok", kind: "sub", user: uname, displayName: name, text: "se suscribió", ts: Date.now(), source: "live" });
-    return;
-  }
-  if (Array.isArray(obj.messages)) obj.messages.forEach(ingestTikTok);
-}
-
-function classifyTikTokError(obj) {
-  const blob = JSON.stringify(obj || {}).toLowerCase();
-  if (/invalid|unauthorized|unauthorised|forbidden|api.?key|401|403|clave/.test(blob)) return "ttKey";
-  if (/not.?live|offline|isn'?t live|is not live|not in live|no.?esta|ended/.test(blob)) return "ttOff";
-  return "ttErr";
-}
-
-function startTikTok(user) {
-  stopTikTok();
-  user = user.replace(/^@/, "").trim();
-  const key = ($("ttkey").value || "").trim();
-  if (user.length < 2) { setDot("tiktok-dot", "error"); $("tiktok-st").textContent = t().ttErr; return; }
-  if (!key) { setDot("tiktok-dot", "error"); $("tiktok-st").textContent = t().ttNeed; return; }
-  stopDemo();
-  tiktokOn = true;
-  setDot("tiktok-dot", "connecting");
-  $("tiktok-st").textContent = t().ttWait;
-  applyLang();
-  const urls = [
-    "wss://ws.eulerstream.com?uniqueId=" + encodeURIComponent(user) + "&apiKey=" + encodeURIComponent(key),
-    "wss://api.tik.tools/?uniqueId=" + encodeURIComponent(user) + "&apiKey=" + encodeURIComponent(key)
-  ];
-  let i = 0;
-  function tryNext() {
-    if (i >= urls.length) {
-      tiktokOn = false; setDot("tiktok-dot", "error"); $("tiktok-st").textContent = t().ttErr; applyLang(); return;
-    }
-    const url = urls[i++];
-    let opened = false;
-    const ws = new WebSocket(url);
-    tiktokSock = ws;
-    ws.onopen = function () {
-      opened = true; tiktokOn = true; setDot("tiktok-dot", "live"); $("tiktok-st").textContent = t().ttLive; applyLang();
-    };
-    ws.onmessage = function (ev) {
-      if (typeof ev.data !== "string") return;
-      try {
-        const obj = JSON.parse(ev.data);
-        if (obj.event === "error" || obj.type === "error" || obj.error || obj.status === "error") {
-          const kind = classifyTikTokError(obj);
-          setDot("tiktok-dot", "error");
-          $("tiktok-st").textContent = t()[kind];
-          tiktokOn = kind === "ttOff" || kind === "ttKey" ? false : tiktokOn;
-          applyLang();
-          return;
-        }
-        ingestTikTok(obj);
-      } catch (e) {}
-    };
-    ws.onerror = function () {};
-    ws.onclose = function () {
-      if (tiktokSock !== ws) return;
-      if (!opened) tryNext();
-      else { tiktokOn = false; setDot("tiktok-dot", ""); $("tiktok-st").textContent = t().ttCut; applyLang(); }
-    };
-  }
-  tryNext();
-}
-
-function stopTikTok() {
-  if (tiktokSock) { try { tiktokSock.close(); } catch (e) {} tiktokSock = null; }
-  tiktokOn = false;
-  setDot("tiktok-dot", "");
-  $("tiktok-st").textContent = t().ttCut;
-}
-
 function save() {
   try {
     localStorage.setItem("voxlive", JSON.stringify({
-      lang, twitch: $("twitch").value, tiktok: $("tiktok").value, ttkey: $("ttkey").value,
+      lang, twitch: $("twitch").value,
       ttsOn, readName, readGift, readFollow, readSub, skipBots, skipEmo,
       rate, volume, pitch, maxQ, selectedVoice, demoOn
     }));
@@ -584,8 +474,6 @@ function load() {
     const s = JSON.parse(localStorage.getItem("voxlive") || "{}");
     if (s.lang) lang = s.lang;
     if (s.twitch) $("twitch").value = s.twitch;
-    if (s.tiktok) $("tiktok").value = s.tiktok;
-    if (s.ttkey) $("ttkey").value = s.ttkey;
     const flags = [
       ["ttsOn", "tts", v => ttsOn = v],
       ["readName", "readname", v => readName = v],
@@ -670,16 +558,6 @@ $("twitch-btn").onclick = function () {
   }
   applyLang(); save();
 };
-$("tiktok-btn").onclick = function () {
-  if (tiktokOn) stopTikTok();
-  else { unlockFromGesture(); startTikTok($("tiktok").value); }
-  applyLang(); save();
-};
-$("ttkey-toggle").onclick = function () {
-  keyVisible = !keyVisible;
-  $("ttkey").type = keyVisible ? "text" : "password";
-  $("ttkey-toggle").textContent = keyVisible ? t().hideKey : t().showKey;
-};
 $("checklist-x").onclick = function () {
   checklistClosed = true;
   try { localStorage.setItem("voxlive-ck-closed", "1"); } catch (e) {}
@@ -688,7 +566,7 @@ $("checklist-x").onclick = function () {
 $("freebadge").onclick = openSoon;
 $("pro-close").onclick = function () { $("pro-modal").classList.add("hidden"); };
 ["lock-plus", "lock-pro"].forEach(function (id) { if ($(id)) $(id).onclick = openSoon; });
-$("twitch").onchange = save; $("tiktok").onchange = save; $("ttkey").onchange = save;
+$("twitch").onchange = save;
 
 window.addEventListener("hashchange", syncStage);
 window.addEventListener("keydown", function (e) {

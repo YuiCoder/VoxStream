@@ -1,4 +1,4 @@
-# DROP.md — OPEN for Son
+# DROP.md — DONE
 
 TikTok is cancelled. Twitch only.
 

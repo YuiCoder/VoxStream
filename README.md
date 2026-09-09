@@ -2,9 +2,9 @@
 
 ![VoxStream](README-header.svg)
 
-Lee el chat de Twitch y TikTok en voz alta. Es una web. No hay exe.
+Lee el chat de Twitch en voz alta. Es una web. No hay exe.
 
-VoxStream reads Twitch and TikTok chat out loud. It is a website. There is no exe.
+VoxStream reads Twitch chat out loud. It is a website. There is no exe.
 
 VoxStream Free. Uso gratuito. Paid plans come later.
 
@@ -28,11 +28,8 @@ Chrome bloquea el audio hasta un clic.
 Pulsa **Probar voz** una vez.
 La pestaña no puede estar muteada.
 
-### TikTok
-El LIVE tiene que estar abierto.
-Crea una clave gratis en https://www.eulerstream.com/register
-Pégala, pon el usuario sin `@`, pulsa **Conectar**.
-Sin clave no hay chat real. **Ensayo** es la demo.
+### Ensayo
+Si no estás en directo, activa **Ensayo** para oír la voz.
 
 Es Free. No hay exe.
 El código es de YuiCoder. Todos los derechos reservados. [LICENSE](LICENSE).
@@ -53,11 +50,8 @@ Chrome blocks audio until a click.
 Press **Probar voz** once.
 The tab cannot be muted.
 
-### TikTok
-The LIVE must be open.
-Get a free key at https://www.eulerstream.com/register
-Paste it, type the username without `@`, click **Conectar**.
-No key means no real TikTok chat. **Ensayo** is the demo.
+### Rehearsal
+If you are not live, turn on **Ensayo** to hear the voice.
 
 It is Free. There is no exe.
 The source is YuiCoder's. All rights reserved. [LICENSE](LICENSE).
