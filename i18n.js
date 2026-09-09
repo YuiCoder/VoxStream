@@ -1,3 +1,4 @@
+/* voxstream-i18n 3 */
 (function () {
   var KEY = "voxstream-lang";
   var dict = {
