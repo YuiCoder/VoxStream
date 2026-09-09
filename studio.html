@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>VoxStream Estudio</title>
+  <title>VoxStream Studio</title>
   <meta name="theme-color" content="#09090b" />
-  <meta name="description" content="Estudio VoxStream: lee el chat de Twitch en voz alta." />
-  <meta property="og:title" content="VoxStream Estudio" />
+  <meta name="description" content="VoxStream studio: Twitch chat, read out loud." />
+  <meta property="og:title" content="VoxStream Studio" />
   <meta property="og:description" content="Estudio VoxStream: lee el chat de Twitch en voz alta." />
   <meta property="og:url" content="https://yuicoder.github.io/VoxStream/studio.html" />
   <meta property="og:image" content="https://yuicoder.github.io/VoxStream/og.svg" />
@@ -24,7 +24,7 @@
         <div class="word">VOX<span>·</span>STREAM</div>
         <a class="btn outline hide-stage" href="index.html">Home</a>
         <a class="btn outline hide-stage" href="account.html">Account</a>
-        <div id="livepill" class="pill off">EN ESPERA</div>
+        <div id="livepill" class="pill off">IDLE</div>
         <button class="freebadge" id="freebadge" type="button">VOXSTREAM FREE</button>
         <a class="btn outline hide-stage" href="https://github.com/YuiCoder/VoxStream">Repo</a>
         <a class="btn outline hide-stage" href="https://voxstream-production.up.railway.app/v1/auth/github">GitHub</a>
@@ -32,128 +32,125 @@
       </div>
       <div class="row">
         <span class="hide-stage" id="msgcount" style="font-variant-numeric:tabular-nums;font-size:12px;color:var(--subtle)"></span>
-        <div class="lang">
-          <button id="es" class="on" type="button">ES</button>
-          <button id="en" type="button">EN</button>
-        </div>
-        <button class="btn outline hide-stage" id="stage" type="button">Escenario</button>
+        <button class="btn outline hide-stage" id="stage" type="button">Stage</button>
       </div>
     </header>
     <div id="checklist" class="card checklist hide-stage">
       <div class="checklist-head">
-        <span class="fineprint">Primera visita</span>
-        <button class="ck-x" id="checklist-x" type="button" aria-label="Cerrar">×</button>
+        <span class="fineprint">First visit</span>
+        <button class="ck-x" id="checklist-x" type="button" aria-label="Close">×</button>
       </div>
       <ol>
-        <li id="ck1">Pulsa Probar voz</li>
-        <li id="ck2">Conecta Twitch (canal en directo)</li>
-        <li id="ck3">Lista: Probar voz y Twitch</li>
+        <li id="ck1">Click Test voice</li>
+        <li id="ck2">Connect Twitch (live channel)</li>
+        <li id="ck3">Connect Twitch, or use Rehearsal</li>
       </ol>
     </div>
     <div class="layout">
       <aside>
         <section class="card">
-          <h2 id="h-src">Fuentes</h2>
+          <h2 id="h-src">Sources</h2>
           <label for="twitch">Twitch</label>
           <div class="connect">
-            <input id="twitch" type="text" placeholder="Canal, sin #" autocomplete="off" spellcheck="false" />
-            <button class="btn" id="twitch-btn" type="button">Conectar</button>
+            <input id="twitch" type="text" placeholder="channel, no #" autocomplete="off" spellcheck="false" />
+            <button class="btn" id="twitch-btn" type="button">Connect</button>
           </div>
           <div class="status"><span class="dot" id="twitch-dot"></span><span id="twitch-st">-</span></div>
-          <p class="hint" id="twitch-h">Twitch no pide contraseña.</p>
+          <p class="hint" id="twitch-h">Channel, no #. Twitch does not ask for a password.</p>
           <hr />
           <div class="line">
             <div>
-              <div id="demo-l">Ensayo</div>
+              <div id="demo-l">Rehearsal</div>
               <p class="hint" id="demo-h"></p>
             </div>
             <label class="switch"><input id="demo" type="checkbox" checked /><span class="knob"></span></label>
           </div>
-          <p class="hint" id="free-note">Uso gratuito. Planes después.</p>
+          <p class="hint" id="free-note">Free to use. Plans later.</p>
         </section>
         <section class="card">
-          <h2 id="h-voice">Voz</h2>
+          <h2 id="h-voice">Voice</h2>
           <div class="line">
-            <span id="tts-l">Leer en voz alta</span>
+            <span id="tts-l">Read aloud</span>
             <label class="switch"><input id="tts" type="checkbox" checked /><span class="knob"></span></label>
           </div>
           <div class="line">
-            <span id="name-l">Decir el nombre</span>
+            <span id="name-l">Say the name</span>
             <label class="switch"><input id="readname" type="checkbox" checked /><span class="knob"></span></label>
           </div>
-          <label for="voice" id="voice-l">Voz</label>
+          <label for="voice" id="voice-l">Voice</label>
           <select id="voice"></select>
+          <p class="hint" id="voice-hint">Voices come from your browser. Chrome on Linux often lists only a few.</p>
           <div class="line" style="margin-top:14px">
-            <span id="rate-l">Velocidad</span>
+            <span id="rate-l">Rate</span>
             <span id="rate-v">1.0x</span>
           </div>
           <input id="rate" type="range" min="0.7" max="1.4" step="0.05" value="1" aria-labelledby="rate-l" aria-valuetext="1.0x" />
           <div class="line" style="margin-top:14px">
-            <span id="vol-l">Volumen</span>
+            <span id="vol-l">Volume</span>
             <span id="vol-v">1.0</span>
           </div>
           <input id="vol" type="range" min="0.2" max="1" step="0.05" value="1" aria-labelledby="vol-l" aria-valuetext="1.0" />
           <div class="line" style="margin-top:14px">
-            <span id="pitch-l">Tono</span>
+            <span id="pitch-l">Pitch</span>
             <span id="pitch-v">1.0</span>
           </div>
           <input id="pitch" type="range" min="0.5" max="1.5" step="0.05" value="1" aria-labelledby="pitch-l" aria-valuetext="1.0" />
-          <button class="btn outline wide" id="test" type="button" style="margin-top:12px">Probar voz</button>
+          <button class="btn outline wide" id="test" type="button" style="margin-top:12px">Test voice</button>
         </section>
         <section class="card hide-stage">
-          <h2 id="h-filter">Filtros</h2>
-          <div class="line"><span id="gift-l">Leer regalos</span><label class="switch"><input id="readgift" type="checkbox" checked /><span class="knob"></span></label></div>
-          <div class="line"><span id="follow-l">Leer follows</span><label class="switch"><input id="readfollow" type="checkbox" checked /><span class="knob"></span></label></div>
-          <div class="line"><span id="sub-l">Leer subs</span><label class="switch"><input id="readsub" type="checkbox" checked /><span class="knob"></span></label></div>
-          <div class="line"><span id="bot-l">Saltar bots</span><label class="switch"><input id="skipbots" type="checkbox" checked /><span class="knob"></span></label></div>
-          <div class="line"><span id="emo-l">Saltar solo emotes</span><label class="switch"><input id="skipemo" type="checkbox" checked /><span class="knob"></span></label></div>
-          <div class="line" style="margin-top:14px"><span id="qmax-l">Cola máx</span><span id="qmax-v">12</span></div>
+          <h2 id="h-filter">Filters</h2>
+          <div class="line"><span id="gift-l">Read gifts</span><label class="switch"><input id="readgift" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="follow-l">Read follows</span><label class="switch"><input id="readfollow" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="sub-l">Read subs</span><label class="switch"><input id="readsub" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="bot-l">Skip bots</span><label class="switch"><input id="skipbots" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line"><span id="emo-l">Skip emote-only</span><label class="switch"><input id="skipemo" type="checkbox" checked /><span class="knob"></span></label></div>
+          <div class="line" style="margin-top:14px"><span id="qmax-l">Max queue</span><span id="qmax-v">12</span></div>
           <input id="qmax" type="range" min="4" max="24" step="1" value="12" aria-labelledby="qmax-l" aria-valuetext="12" />
-          <p class="hint" id="keys-h">Atajos: S saltar, P pausa (fuera de un campo).</p>
+          <p class="hint" id="keys-h">Shortcuts: S skip, P pause (when not typing).</p>
         </section>
         <section class="card hide-stage" id="locked-card">
-          <h2 id="h-soon">Plus / Pro</h2>
-          <p class="hint" id="soon-h">Entra con GitHub o Google. Luego compra en la shop Ko-fi con el mismo email. Tips del stream no otorgan.</p>
-          <button class="btn outline wide" id="lock-plus" type="button" style="margin-top:10px">Comprar Plus</button>
-          <button class="btn wide" id="lock-pro" type="button" style="margin-top:8px">Comprar Pro</button>
+          <h2 id="h-soon">Later</h2>
+          <p class="hint" id="soon-h">Plus and Pro unlock in this same studio. Sign in, then buy in the Ko-fi shop with the same email.</p>
+          <button class="btn outline wide" id="lock-plus" type="button" style="margin-top:10px">Plus: extra filters</button>
+          <button class="btn wide" id="lock-pro" type="button" style="margin-top:8px">Pro: YouTube + ElevenLabs</button>
           <div hidden id="eleven-byok">
-            <label for="elkey" id="elkey-l">ElevenLabs (Pro, tu clave)</label>
+            <label for="elkey" id="elkey-l">ElevenLabs (Pro, your key)</label>
             <div class="keyrow">
-              <input id="elkey" type="password" placeholder="Pega tu clave de ElevenLabs" autocomplete="off" spellcheck="false" />
+              <input id="elkey" type="password" placeholder="Paste your ElevenLabs key" autocomplete="off" spellcheck="false" />
             </div>
-            <p class="hint" id="elkey-h">Pro. BYOK en el navegador. No se llama a ElevenLabs todavía.</p>
+            <p class="hint" id="elkey-h">Pro. BYOK in the browser. ElevenLabs is not called yet.</p>
           </div>
         </section>
       </aside>
       <main>
         <section class="card now">
-          <div class="kicker"><span id="now-k">En silencio</span><span id="q">0 en cola</span></div>
+          <div class="kicker"><span id="now-k">Silent</span><span id="q">0 queued</span></div>
           <p class="big" id="now-text">-</p>
           <div class="meta">
             <span id="now-user"></span>
             <div class="row">
-              <button class="btn ghost" id="clearq" type="button">Vaciar</button>
-              <button class="btn ghost" id="skip" type="button">Saltar</button>
-              <button class="btn ghost" id="pause" type="button">Pausa</button>
+              <button class="btn ghost" id="clearq" type="button">Clear</button>
+              <button class="btn ghost" id="skip" type="button">Skip</button>
+              <button class="btn ghost" id="pause" type="button">Pause</button>
             </div>
           </div>
         </section>
         <section class="card feed" id="feed">
-          <div class="empty" id="feed-empty">Conecta Twitch o activa Ensayo para ver el chat.</div>
+          <div class="empty" id="feed-empty">Connect Twitch or turn on Rehearsal to see chat.</div>
         </section>
       </main>
     </div>
   </div>
   <div class="modal-back hidden" id="pro-modal">
     <div class="modal">
-      <h3 id="pro-title">Antes de Ko-fi</h3>
-      <p id="pro-body">Entra con GitHub o Google. Luego compra el producto VoxStream en la shop con el mismo email.</p>
-      <a class="btn" href="https://voxstream-production.up.railway.app/v1/auth/github">Entrar · GitHub</a>
-      <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google" style="margin-top:8px">Entrar · Google</a>
-      <button class="btn ghost" id="pro-close" type="button" style="margin-top:8px">Cerrar</button>
+      <h3 id="pro-title">Coming soon</h3>
+      <p id="pro-body">Sign in with GitHub or Google. Then buy the VoxStream product in the shop with the same email.</p>
+      <a class="btn" href="https://voxstream-production.up.railway.app/v1/auth/github">Sign in · GitHub</a>
+      <a class="btn outline" href="https://voxstream-production.up.railway.app/v1/auth/google" style="margin-top:8px">Sign in · Google</a>
+      <button class="btn ghost" id="pro-close" type="button" style="margin-top:8px">Close</button>
     </div>
   </div>
-  <script src="app.js?v=15"></script>
-  <script src="me.js?v=18"></script>
+  <script src="app.js?v=16"></script>
+  <script src="me.js?v=19"></script>
 </body>
 </html>

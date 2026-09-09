@@ -4,29 +4,6 @@ const BOTS = /^(nightbot|streamelements|streamlabs|moobot|fossabot|wizebot|sound
 const EMOTE_ONLY = /^(?:[\s\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}<\w\d]+)+$/u;
 
 const copy = {
-  es: {
-    live: "AL AIRE", idle: "EN ESPERA", connect: "Conectar", cut: "Cortar",
-    src: "Fuentes",
-    twH: "Canal sin #. Twitch no pide contraseña. Si se cae, reconecta solo.",
-    twPh: "canal, sin #",
-    demo: "Ensayo", demoH: "Simulado. Se apaga al conectar en vivo.",
-    voice: "Voz", ttsOn: "Leer en voz alta", name: "Decir el nombre",
-    test: "Probar voz", pause: "Pausa", resume: "Seguir", skip: "Saltar", clear: "Vaciar",
-    waiting: "En silencio", reading: "Leyendo", queue: "en cola",
-    speak: "VoxStream listo", stage: "Escenario", studio: "Estudio",
-    rate: "Velocidad", vol: "Volumen", pitch: "Tono", voiceL: "Voz",
-    filter: "Filtros", gift: "Leer regalos", follow: "Leer follows", sub: "Leer subs",
-    bots: "Saltar bots", emo: "Saltar solo emotes", qmax: "Cola máx",
-    keys: "Atajos: S saltar, P pausa (fuera de un campo).",
-    soon: "Después", soonH: "Plus y Pro se abren en el mismo estudio. Hoy no hay cobro.",
-    lockPlus: "Plus: filtros extra", lockPro: "Pro: YouTube + ElevenLabs",
-    twWait: "conectando", twLive: "al aire", twErr: "error", twCut: "cortado", twRetry: "reconectando",
-    free: "Uso gratuito. Planes después.", freeBadge: "VOXSTREAM FREE",
-    ck1: "Pulsa Probar voz", ck2: "Conecta Twitch (canal en directo)", ck3: "Twitch en directo, o Ensayo",
-    empty: "Conecta Twitch o activa Ensayo para ver el chat.",
-    proTitle: "Próximamente", proBody: "Hoy VoxStream es Free. Plus y Pro se activan en este mismo estudio cuando haya cuenta.",
-    proClose: "Cerrar"
-  },
   en: {
     live: "ON AIR", idle: "IDLE", connect: "Connect", cut: "Cut",
     src: "Sources",
@@ -52,7 +29,7 @@ const copy = {
   }
 };
 
-let lang = "es";
+let lang = "en";
 let ttsOn = true;
 let readName = true;
 let readGift = true;
@@ -88,14 +65,14 @@ const feed = $("feed");
 const t = () => copy[lang];
 
 const demoScript = [
-  { platform: "twitch", kind: "chat", user: "valeria.r", display: "valeria.r", text: "hola, acabo de entrar" },
-  { platform: "twitch", kind: "chat", user: "nexo_", display: "nexo_", text: "vamos con todo hoy" },
-  { platform: "twitch", kind: "gift", user: "mar.ok", display: "mar.ok", text: "envió Rosa", giftName: "Rosa", giftCount: 5 },
-  { platform: "twitch", kind: "chat", user: "SofiaPlays", display: "SofiaPlays", text: "ese clip estuvo brutal" },
-  { platform: "twitch", kind: "follow", user: "luna.tt", display: "luna.tt", text: "empezó a seguir" },
+  { platform: "twitch", kind: "chat", user: "valeria.r", display: "valeria.r", text: "just hopped in, hello" },
+  { platform: "twitch", kind: "chat", user: "nexo_", display: "nexo_", text: "let's go today" },
+  { platform: "twitch", kind: "gift", user: "mar.ok", display: "mar.ok", text: "sent Rose", giftName: "Rose", giftCount: 5 },
+  { platform: "twitch", kind: "chat", user: "SofiaPlays", display: "SofiaPlays", text: "that clip was brutal" },
+  { platform: "twitch", kind: "follow", user: "luna.tt", display: "luna.tt", text: "followed" },
   { platform: "twitch", kind: "bits", user: "kai_live", display: "kai_live", text: "100 bits", bits: 100 },
-  { platform: "twitch", kind: "sub", user: "mira", display: "mira", text: "se suscribió" },
-  { platform: "twitch", kind: "chat", user: "rojo", display: "rojo", text: "buena partida" }
+  { platform: "twitch", kind: "sub", user: "mira", display: "mira", text: "subscribed" },
+  { platform: "twitch", kind: "chat", user: "rojo", display: "rojo", text: "good game" }
 ];
 
 function escapeHtml(s) {
@@ -183,7 +160,7 @@ function speakReady() {
   speaking = { ready: true };
   speakStarted = Date.now();
   const u = new SpeechSynthesisUtterance(t().speak);
-  u.lang = lang === "es" ? "es-ES" : "en-US";
+  u.lang = "en-US";
   applyVoice(u);
   u.onend = function () { speaking = null; kick(); };
   u.onerror = function () { speaking = null; setTimeout(kick, 120); };
@@ -233,7 +210,7 @@ function addMsg(m) {
     const firstMsg = feed.querySelector(".msg");
     if (firstMsg) feed.removeChild(firstMsg); else break;
   }
-  if ($("msgcount")) $("msgcount").textContent = msgN + (lang === "es" ? " mensajes" : " messages");
+  if ($("msgcount")) $("msgcount").textContent = msgN + " messages";
   if (shouldSkipSpeak(m)) return;
   if (ttsOn && unlocked) {
     lastSpeakKey = String(m.user || "").toLowerCase() + "|" + String(m.text || "").toLowerCase();
@@ -248,11 +225,11 @@ function addMsg(m) {
 
 function speechText(m, short) {
   const name = (!short && readName) ? (m.displayName || m.user) : "";
-  if (m.kind === "gift") return (name ? name + " " : "") + "envió " + (m.giftName || "un regalo");
-  if (m.kind === "follow") return (name || "alguien") + " empezó a seguir";
-  if (m.kind === "sub") return (name || "alguien") + " se suscribió";
-  if (m.kind === "bits") return (name || "alguien") + " mandó " + (m.bits || "") + " bits";
-  return name ? name + " dice " + (m.text || "") : (m.text || "");
+  if (m.kind === "gift") return (name ? name + " sent " : "sent ") + (m.giftName || "a gift");
+  if (m.kind === "follow") return (name || "someone") + " followed";
+  if (m.kind === "sub") return (name || "someone") + " subscribed";
+  if (m.kind === "bits") return (name || "someone") + " sent " + (m.bits || "") + " bits";
+  return name ? name + " says " + (m.text || "") : (m.text || "");
 }
 
 function pickVoice() {
@@ -261,13 +238,9 @@ function pickVoice() {
     const exact = voices.find(v => v.name === selectedVoice);
     if (exact) return exact;
   }
-  if (lang === "es") {
-    return voices.find(v => /^es-ES/i.test(v.lang || ""))
-      || voices.find(v => /^es-US/i.test(v.lang || ""))
-      || voices.find(v => /^es/i.test(v.lang || ""))
-      || voices[0] || null;
-  }
-  return voices.find(v => /^en/i.test(v.lang || "")) || voices[0] || null;
+  return voices.find(v => /^en-US/i.test(v.lang || ""))
+    || voices.find(v => /^en/i.test(v.lang || ""))
+    || voices[0] || null;
 }
 
 function fillVoices() {
@@ -310,7 +283,7 @@ function kick() {
   $("now-text").textContent = next.text || "";
   $("now-user").textContent = (next.displayName || next.user || "") + (next.platform ? " - " + next.platform : "");
   const u = new SpeechSynthesisUtterance(speechText(next));
-  u.lang = lang === "es" ? "es-ES" : "en-US";
+  u.lang = "en-US";
   applyVoice(u);
   u.onend = function () { speaking = null; kick(); };
   u.onerror = function () { speaking = null; setTimeout(kick, 120); };
@@ -415,7 +388,7 @@ function startTwitch(channel, isRetry) {
         const id = (m.tags["msg-id"] || "").toLowerCase();
         const who = m.tags["display-name"] || m.nick;
         if (/sub|resub|subgift|gift/.test(id)) {
-          addMsg({ platform: "twitch", kind: "sub", user: m.nick, displayName: who, text: m.text || "se suscribió", ts: Date.now(), source: "live" });
+          addMsg({ platform: "twitch", kind: "sub", user: m.nick, displayName: who, text: m.text || "subscribed", ts: Date.now(), source: "live" });
         }
       }
     });
@@ -472,7 +445,7 @@ function load() {
     checklistClosed = localStorage.getItem("voxlive-ck-closed") === "1";
     if (checklistClosed) hideChecklist();
     const s = JSON.parse(localStorage.getItem("voxlive") || "{}");
-    if (s.lang) lang = s.lang;
+    lang = "en";
     if (s.twitch) $("twitch").value = s.twitch;
     const flags = [
       ["ttsOn", "tts", v => ttsOn = v],
@@ -495,8 +468,6 @@ function load() {
     if (s.maxQ && $("qmax")) { maxQ = Number(s.maxQ); $("qmax").value = maxQ; $("qmax-v").textContent = String(maxQ); }
     if (s.selectedVoice) selectedVoice = s.selectedVoice;
     if (typeof s.demoOn === "boolean") demoOn = s.demoOn;
-    $("es").classList.toggle("on", lang === "es");
-    $("en").classList.toggle("on", lang === "en");
   } catch (e) {}
 }
 
@@ -505,8 +476,6 @@ function syncStage() {
   applyLang();
 }
 
-$("es").onclick = function () { lang = "es"; $("es").classList.add("on"); $("en").classList.remove("on"); applyLang(); save(); };
-$("en").onclick = function () { lang = "en"; $("en").classList.add("on"); $("es").classList.remove("on"); applyLang(); save(); };
 $("tts").onchange = function (e) {
   ttsOn = e.target.checked;
   if (!ttsOn) { try { speechSynthesis.cancel(); } catch (err) {} queue.length = 0; speaking = null; }

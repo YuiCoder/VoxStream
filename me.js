@@ -50,8 +50,8 @@
     if (badge) badge.textContent = "VOXSTREAM " + String(plan).toUpperCase();
     const plus = $("lock-plus");
     const pro = $("lock-pro");
-    if (plus) plus.textContent = flags.extraFilters ? "Plus activo" : "Plus: filtros extra";
-    if (pro) pro.textContent = flags.elevenlabsByok ? "Pro activo" : "Pro: ElevenLabs BYOK";
+    if (plus) plus.textContent = flags.extraFilters ? "Plus on" : "Plus: extra filters";
+    if (pro) pro.textContent = flags.elevenlabsByok ? "Pro on" : "Pro: longer queue";
     const box = $("eleven-byok");
     if (box) {
       if (flags.elevenlabsByok) box.removeAttribute("hidden");
@@ -60,7 +60,7 @@
     const note = $("free-note");
     if (note) {
       note.textContent = plan === "free"
-        ? "Free: Twitch y Ensayo. Plus y Pro: entra y compra en Ko-fi shop."
+        ? "Free: Twitch and Rehearsal. Plus and Pro: sign in, then buy in the Ko-fi shop."
         : ("Plan " + plan + ".");
     }
     capQueue(flags);
